@@ -5,11 +5,11 @@
 | Capa | Tecnologías | Versión mínima |
 |---|---|---|
 | Lenguaje | Java | 17 (LTS) |
-| Framework | Spring Boot (Web, Validation, Data JPA, Security, Thymeleaf) | 3.x |
+| Framework | Spring Boot (WebMVC, Validation, Data JPA, Security, Thymeleaf) | 4.2.0 |
 | Build | Maven, con Maven Wrapper (`mvnw`) versionado en el repo | 3.9 (vía wrapper) |
 | Persistencia | Spring Data JPA + **H2 en memoria** (perfil por defecto); PostgreSQL como destino futuro, con solo un cambio de configuración | H2 2.x |
-| Vistas | Thymeleaf (renderizado en el servidor) | la de Spring Boot 3 |
-| Seguridad | Spring Security con autenticación por usuario y contraseña; JWT (ver IN-01) | 6.x |
+| Vistas | Thymeleaf (renderizado en el servidor) | la de Spring Boot 4 |
+| Seguridad | Spring Security con autenticación por usuario y contraseña; JWT (ver IN-01) | 7.x |
 | Tests | JUnit 5, AssertJ, Mockito, Spring Boot Test (`@WebMvcTest`, `@DataJpaTest`) | JUnit 5.10 |
 | Tiempo | `java.time` con `Clock` inyectable; zona `America/Argentina/Buenos_Aires` | — |
 

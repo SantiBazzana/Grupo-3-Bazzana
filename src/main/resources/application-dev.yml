@@ -1,0 +1,22 @@
+# Perfil de desarrollo: consola H2 y datos de ejemplo ficticios (DatosDeEjemploDev).
+# Usuarios de ejemplo: solo si están definidas SEED_ADMIN_PASSWORD, SEED_SECRETARIA_PASSWORD y SEED_ODONTOLOGO_PASSWORD.
+spring:
+  datasource:
+    url: jdbc:h2:mem:turnos;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+turnos:
+  seed:
+    admin-password: ${SEED_ADMIN_PASSWORD:}
+    secretaria-password: ${SEED_SECRETARIA_PASSWORD:}
+    odontologo-password: ${SEED_ODONTOLOGO_PASSWORD:}

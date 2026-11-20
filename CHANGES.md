@@ -5,7 +5,7 @@
 > **Leer este archivo antes de invocar la skill de propuesta instalada.**
 
 - Fecha de generación: 2026-11-20. Fecha de entrega: **2026-11-25**.
-- Stack: Java 17, Spring Boot 3, Maven Wrapper, Spring Data JPA, H2, Thymeleaf, Spring Security, JUnit 5. Paquete base `ar.odonto.turnos` (`knowledge-base/02` y `08`).
+- Stack: Java 17, Spring Boot 4.2 (decidido en el apply de C-01; ver su design.md D1), Maven Wrapper, Spring Data JPA, H2, Thymeleaf, Spring Security, JUnit 5. Paquete base `ar.odonto.turnos` (`knowledge-base/02` y `08`).
 - Equipo: 6 programadores. Líder y dueño del repo: **Santiago**. Integrantes: Joaquin, Romero, Castillo, Adriano, Valentin.
 - Consigna académica: **un** change tiene que pasar por el ciclo OPSX completo (explore → propose → apply → verify → archive), con al menos 3 escenarios verificables (feliz, error de negocio, borde) y un test por escenario. El change evaluado es **C-02 `crear-turno-sin-solapamientos`** y lo lleva el líder.
 - Política de diseño visual: `deferred`. El primer change que agrega pantallas (C-09) tiene que invocar antes la skill `design-system` (una sola vez para todo el proyecto).
@@ -171,11 +171,11 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
 > Un solo change, bloqueante. Es dueño de todos los archivos compartidos para que la ola 1 no colisione.
 
 ### [C-01] `scaffold-proyecto`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado y archivado el 2026-11-20 (`openspec/changes/archive/2026-11-20-scaffold-proyecto`, spec `base-del-sistema`). Spring Boot 4.2, ver su design D1.
 - **Owner / rama**: Santiago / `feat/scaffold-proyecto`
 - **Capability**: `base-del-sistema`
 - **Scope**:
-  - `pom.xml` Spring Boot 3 / Java 17 con **todas** las dependencias: web, validation, data-jpa, security, thymeleaf, actuator, h2, test, spring-security-test, thymeleaf-extras-springsecurity6. Maven Wrapper (`mvnw`, `mvnw.cmd`, `.mvn/`), `mvnw` con bit ejecutable.
+  - `pom.xml` Spring Boot 4.2 / Java 17 con **todas** las dependencias: web, validation, data-jpa, security, thymeleaf, actuator, h2, test, spring-security-test, thymeleaf-extras-springsecurity6. Maven Wrapper (`mvnw`, `mvnw.cmd`, `.mvn/`), `mvnw` con bit ejecutable.
   - `TurnosApplication` en `ar.odonto.turnos`. Estructura de capas `domain` / `application` / `infrastructure` / `web` según `08_arquitectura_propuesta.md`.
   - Entidades JPA y sus repositorios (puertos en `domain/port`, adaptadores Spring Data en `infrastructure/persistence`): `Consultorio`, `HorarioAtencion`, `Profesional`, `Sillon`, `Prestacion`, `Paciente`, `Turno` (con `TurnoEstado` `RESERVADO`/`CANCELADO`, índices `(profesionalId, inicio)`, `(sillonId, inicio)`, `(pacienteId, inicio)`), `Usuario` (con `Rol` `ADMIN`/`SECRETARIA`/`ODONTOLOGO`). Constraints de `04_modelo_de_datos.md` (únicos, `apertura < cierre`, `fin > inicio`).
   - Queries de repositorio que usa la ola 1: choques con margen por profesional, por sillón y por paciente (superposición simple) sobre turnos `RESERVADO`; turnos activos por profesional y rango de fechas; `existsByMatricula`, `existsByNombre`, `existsByDni`; horario por consultorio y día de la semana.

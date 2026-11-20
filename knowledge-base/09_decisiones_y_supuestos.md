@@ -9,8 +9,9 @@
 **Justificación**: es un vacío verificado, cabe en el plazo y se puede especificar y testear.
 **Trade-offs aceptados**: sin IA, sin recordatorios automáticos ni cobros en la v1, que son estándar del mercado.
 
-### DD-02: Stack Java 17 + Spring Boot 3 + Maven
-**Decisión**: backend en Java 17 con Spring Boot 3 y Maven Wrapper.
+### DD-02: Stack Java 17 + Spring Boot 4.2 + Maven
+**Decisión**: backend en Java 17 con Spring Boot 4.2 y Maven Wrapper.
+**Revisión (2026-11-20, apply de C-01)**: la ronda técnica eligió Spring Boot 3, pero Spring Initializr ya solo ofrece 4.x y la última 3.x (3.5.16) no recibe más parches. El líder aprobó pasar a **4.2.0**. Detalle de las diferencias para el equipo en `openspec/changes/scaffold-proyecto/design.md` (D1).
 **Contexto**: elección del equipo en la ronda técnica de la KB (2026-11-20).
 **Alternativas consideradas**: Node + TypeScript + Fastify (ya instalado en la máquina del líder); Python + FastAPI.
 **Justificación**: preferencia del equipo; ecosistema maduro para web + seguridad + JPA.

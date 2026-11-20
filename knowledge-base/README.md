@@ -7,7 +7,7 @@ Base de conocimiento generada a partir del Discovery (`docs/discovery/`) y de la
 | Archivo | Contenido |
 |---------|-----------|
 | [01_vision_y_objetivos.md](01_vision_y_objetivos.md) | Propósito, objetivos por actor, alcance del MVP y fuera de alcance |
-| [02_descripcion_general.md](02_descripcion_general.md) | Stack (Java 17, Spring Boot 3, H2, Thymeleaf), arquitectura, integraciones, API REST |
+| [02_descripcion_general.md](02_descripcion_general.md) | Stack (Java 17, Spring Boot 4, H2, Thymeleaf), arquitectura, integraciones, API REST |
 | [03_actores_y_roles.md](03_actores_y_roles.md) | Secretaria, odontólogo y admin; matriz RBAC; rutas públicas |
 | [04_modelo_de_datos.md](04_modelo_de_datos.md) | Entidades (Turno, Profesional, Sillón, Prestación, Paciente…), ERD, seed ficticio |
 | [05_reglas_de_negocio.md](05_reglas_de_negocio.md) | RN-TU (choques, margen, sobreturno), RN-CA (cancelación 6 h), RN-AG, RN-WA, RN-AU, RN-DP |
@@ -28,4 +28,4 @@ Base de conocimiento generada a partir del Discovery (`docs/discovery/`) y de la
 
 ## Resumen Ejecutivo
 
-Agenda de turnos para consultorios odontológicos argentinos de 1 a 5 profesionales que **rechaza los choques por profesional y por sillón a la vez**, con margen de 5 minutos, sobreturno controlado y cancelación con 6 horas de anticipación. Es un vacío que ninguno de los 19 competidores relevados documenta. Monolito Java 17 + Spring Boot 3 con H2 y Thymeleaf; las reglas viven en un dominio Java puro y se testean una por escenario. El primer change es "crear turno sin solapamientos"; la entrega es el 2026-11-25.
+Agenda de turnos para consultorios odontológicos argentinos de 1 a 5 profesionales que **rechaza los choques por profesional y por sillón a la vez**, con margen de 5 minutos, sobreturno controlado y cancelación con 6 horas de anticipación. Es un vacío que ninguno de los 19 competidores relevados documenta. Monolito Java 17 + Spring Boot 4 con H2 y Thymeleaf; las reglas viven en un dominio Java puro y se testean una por escenario. El primer change es "crear turno sin solapamientos"; la entrega es el 2026-11-25.

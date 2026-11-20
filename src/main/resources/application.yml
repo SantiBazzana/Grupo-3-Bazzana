@@ -1,0 +1,34 @@
+# Configuración por defecto (también la usan los tests): H2 en memoria y base vacía.
+spring:
+  application:
+    name: turnos-odontologia
+  # Sin URL: Spring Boot crea una H2 en memoria con nombre único por contexto (aísla los tests entre sí).
+  # El perfil dev fija jdbc:h2:mem:turnos para poder abrirla desde la consola H2.
+  datasource:
+    generate-unique-name: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: false
+  thymeleaf:
+    # Las plantillas llegan con C-09; hasta entonces no hay carpeta templates/.
+    check-template-location: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+# Parámetros de negocio (RN-TU-02/03, RN-CA-01, RN-GL-01).
+# Se sobrescriben con TURNOS_MARGEN_MINUTOS, TURNOS_CANCELACION_HORAS_MINIMAS y TURNOS_ZONA_HORARIA.
+turnos:
+  margen-minutos: 5
+  cancelacion-horas-minimas: 6
+  zona-horaria: America/Argentina/Buenos_Aires
