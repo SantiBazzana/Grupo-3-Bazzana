@@ -23,12 +23,7 @@
 
 | ID | Prioridad | Pregunta | Bloquea | Decisor |
 |---|---|---|---|---|
-| PA-01 | **Alta** | Instalar el JDK 17 en la máquina del líder y en la de cada integrante (hoy no hay `java`, `mvn` ni `gradle`). ¿Qué distribución (Temurin, por ejemplo)? | Apply del primer change | Equipo técnico |
-| PA-03 | **Alta** | ¿El margen de 5 minutos se aplica también entre un turno y su sobreturno con el mismo profesional? Supuesto actual: no (SU-04) | Spec del primer change | Product Owner (líder) |
-| PA-06 | **Alta** | Concurrencia: ¿alcanza con la transacción y la revalidación, o se requiere un lock pesimista o aislamiento serializable para que dos secretarias no creen el mismo choque a la vez? | Diseño del primer change | Equipo técnico |
-| PA-04 | Media | ¿Quién puede marcar un sobreturno: solo la secretaria y el admin, o también el odontólogo? Supuesto actual: secretaria y admin | Spec del primer change | Product Owner |
 | PA-02 | Media | ¿El horario de atención es único o varía por día? Supuesto: una franja por día (SU-03) | Change de configuración | Product Owner |
-| PA-07 | Media | ¿Los turnos se crean en múltiplos de 5 minutos o en cualquier minuto? Supuesto: cualquiera (SU-05) | Spec del primer change | Product Owner |
 | PA-05 | Baja | ¿Los feriados bloquean la agenda? Supuesto: no en la v1 (SU-06) | Etapas posteriores | Product Owner |
 | PA-08 | Baja | Si Argentina volviera a aplicar horario de verano, ¿cómo se tratan los turnos en el cambio de hora? | — | Equipo técnico |
 | PA-09 | Baja | IN-01: ¿sesión o JWT para las vistas? | Change de autenticación | Equipo técnico |
@@ -48,3 +43,13 @@ Datos que la investigación de mercado (2026-11-20) no pudo respaldar con fuente
 | Backup | Bilog, Dentia, Órbita, Odonto.ar | Referencia de seguridad |
 | Sitios sin evidencia legible | Doctoralia AR (sitio caído), Reservo (solo JavaScript) | Quedaron fuera de la comparación |
 | Adopción real | Cifras como "+15.000 clientes" (Dentalink) o "+30.000 clínicas" (AgendaPro) son afirmaciones comerciales | No usarlas como dato de mercado sin verificar |
+
+## Preguntas resueltas
+
+| ID | Resolución | Cuándo / dónde |
+|---|---|---|
+| PA-01 | JDK 17 (Oracle 17.0.12) instalado en la máquina del líder; cada integrante instala el suyo (README). | 2026-11-20, apply de C-01 |
+| PA-03 | El sobreturno saltea todo el chequeo del profesional, **margen incluido**; con el sillón y el paciente las reglas se aplican igual (SU-04 confirmado). | 2026-11-20, explore de C-02 |
+| PA-04 | Puede marcar sobreturno cualquier rol que pueda crear turnos (SECRETARIA, ADMIN). La regla no chequea el rol; lo hace la autorización por ruta de C-05. | 2026-11-20, explore de C-02 |
+| PA-06 | **Bloqueo pesimista** de sillón, profesional y paciente (en ese orden) dentro de la transacción de creación, antes de consultar choques (RN-TU-10). Se prueba con dos creaciones concurrentes. | 2026-11-20, explore de C-02 |
+| PA-07 | El inicio va en **múltiplos de 5 minutos** y segundos en 0 (nueva RN-TU-11, `ENTRADA_INVALIDA`). SU-05 descartado. | 2026-11-20, explore de C-02 |

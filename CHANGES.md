@@ -205,7 +205,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
 > Los 6 changes dependen solo de C-01. Cada uno en su capability y su paquete. El líder lleva C-02 (el evaluado).
 
 ### [C-02] `crear-turno-sin-solapamientos`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado y archivado el 2026-11-20 (`openspec/changes/archive/2026-11-20-crear-turno-sin-solapamientos`, spec `turnos`). Abre el GATE 1 (C-08).
 - **Owner / rama**: Santiago / `feat/crear-turno-sin-solapamientos`
 - **Capability**: `turnos`
 - **Scope**:

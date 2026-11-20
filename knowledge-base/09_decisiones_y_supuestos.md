@@ -70,15 +70,14 @@
 **Origen**: el Discovery dejó la pregunta abierta; el horario por profesional se marcó como posterior.
 **Riesgo si es falso**: el modelo `HorarioAtencion` habría que extenderlo.
 
-### SU-04: Un sobreturno ignora el margen con el profesional
+### SU-04: Un sobreturno ignora el margen con el profesional — **CONFIRMADO**
 **Supuesto**: como el sobreturno se exime de RN-TU-02 completo, el margen de 5 minutos con el profesional tampoco aplica. Con el sillón, el margen sí aplica.
 **Origen**: interpretación de R4 (pregunta abierta del Discovery).
-**Cómo validar**: confirmación del equipo antes del spec del primer change (PA-03).
+**Validación**: confirmado por el líder el 2026-11-20 en el explore de C-02 (PA-03).
 
-### SU-05: Turnos en cualquier minuto
-**Supuesto**: el inicio de un turno puede ser cualquier minuto (no se exige que sea múltiplo de 5).
-**Origen**: pregunta abierta del Discovery.
-**Riesgo si es falso**: hace falta una validación extra; es barata de agregar.
+### SU-05: Turnos en cualquier minuto — **DESCARTADO**
+**Supuesto original**: el inicio de un turno puede ser cualquier minuto.
+**Resolución**: el 2026-11-20, en el explore de C-02, el líder decidió lo contrario (PA-07): el inicio va en múltiplos de 5 minutos. Ahora es la regla **RN-TU-11** de `05_reglas_de_negocio.md`.
 
 ### SU-06: Sin feriados en el MVP
 **Supuesto**: los feriados no bloquean la agenda en la v1 (Dentidesk sí los bloquea).

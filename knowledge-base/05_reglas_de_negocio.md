@@ -23,8 +23,11 @@ Cada regla tiene un código único `RN-{DOMINIO}-{NN}`. Los errores de la API de
 - **RN-TU-06, No en el pasado**: `inicio` tiene que ser posterior al "ahora". Error `TURNO_EN_PASADO` (422). *(R6)*
 - **RN-TU-07, Dentro del horario de atención**: el intervalo `[inicio, fin)` completo tiene que caer dentro de la franja de atención del consultorio para ese día de la semana (`apertura <= inicio` y `fin <= cierre`). Un turno que termina después del cierre se rechaza. Error `FUERA_DE_HORARIO` (422). *(R6)*
 - **RN-TU-08, Recursos activos**: el profesional, el sillón y la prestación tienen que existir y estar activos, y el paciente tiene que existir. Error `RECURSO_INEXISTENTE` (404) o `RECURSO_INACTIVO` (422).
-- **RN-TU-09, Orden de validación**: si un turno viola varias reglas, se informa la primera en este orden: RN-TU-08 → RN-TU-06 → RN-TU-07 → RN-TU-03 → RN-TU-02 → RN-TU-05. Así los tests son deterministas.
-- **RN-TU-10, Atomicidad**: la validación de choques y la persistencia del turno ocurren en la misma transacción. Dos creaciones concurrentes no pueden dejar un choque persistido (ver PA-06).
+- **RN-TU-09, Orden de validación**: si un turno viola varias reglas, se informa la primera en este orden: RN-TU-08 → RN-TU-11 → RN-TU-06 → RN-TU-07 → RN-TU-03 → RN-TU-02 → RN-TU-05. Así los tests son deterministas.
+- **RN-TU-10, Atomicidad**: la validación de choques y la persistencia del turno ocurren en la misma transacción. Antes de consultar choques se **bloquean** (bloqueo pesimista) las filas del sillón, del profesional y del paciente, siempre en ese orden, para que dos creaciones concurrentes no dejen un choque persistido. *(PA-06, resuelta el 2026-11-20 en el explore de C-02.)*
+- **RN-TU-11, Inicio en múltiplos de 5 minutos**: el `inicio` de un turno tiene minutos múltiplos de 5 y segundos en 0 (09:00, 09:05… se aceptan; 09:03 o 09:05:30 se rechazan). Error `ENTRADA_INVALIDA` (400). *(PA-07, resuelta el 2026-11-20 en el explore de C-02.)*
+- **Aclaraciones del sobreturno** *(PA-03 y PA-04, resueltas el 2026-11-20)*: el sobreturno se exime de RN-TU-02 **completa, margen incluido**; con el sillón y el paciente las reglas se aplican igual. Puede marcarlo cualquier rol que pueda crear turnos (SECRETARIA y ADMIN); la regla de turnos no chequea el rol, eso lo hace la autorización por ruta (C-05).
+- **Consultorio cerrado**: si el día no tiene franja de atención, o no hay consultorio configurado, el turno se rechaza con `FUERA_DE_HORARIO` (RN-TU-07).
 
 ## Dominio: Cancelación (RN-CA)
 

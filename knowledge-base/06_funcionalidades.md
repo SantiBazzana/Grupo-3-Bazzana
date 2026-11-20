@@ -51,7 +51,7 @@ Organizadas por **épica** y luego por **historia de usuario** (US-NNN). La colu
 - [ ] Un turno en el pasado se rechaza con `TURNO_EN_PASADO`.
 - [ ] Un turno que empieza antes de la apertura o termina después del cierre se rechaza con `FUERA_DE_HORARIO`.
 - [ ] Un turno cancelado no bloquea un turno nuevo en ese horario.
-**Reglas relacionadas**: RN-TU-01 a RN-TU-10, RN-GL-01, RN-GL-02
+**Reglas relacionadas**: RN-TU-01 a RN-TU-11, RN-GL-01, RN-GL-02
 
 ### US-011: Cancelar turno
 **Como** secretaria **quiero** cancelar un turno **para** liberar el horario.
