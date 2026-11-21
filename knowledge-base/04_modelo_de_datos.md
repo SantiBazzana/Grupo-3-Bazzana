@@ -33,7 +33,7 @@ Un `Turno` referencia exactamente un `Profesional`, un `Sillon`, un `Paciente` y
 ### HorarioAtencion
 - `id` (Long, PK), `consultorioId` (FK), `diaSemana` (`DayOfWeek`), `apertura` (`LocalTime`), `cierre` (`LocalTime`).
 - Constraint: `apertura < cierre`. Único por (`consultorioId`, `diaSemana`).
-- **Suposición** (SU-03): una franja por día; los días sin registro están cerrados. Si el consultorio usa un único horario para toda la semana, se cargan los mismos valores en cada día (ver PA-02).
+- **Decisión** (SU-03, confirmada el 2026-11-21, PA-02): una franja por día; los días sin registro están cerrados. Si el consultorio usa un único horario para toda la semana, se cargan los mismos valores en cada día. La administración del horario está en la spec `configuracion-consultorio` (C-03).
 
 ### Profesional
 - `id` (Long, PK), `nombre` (String), `apellido` (String), `matricula` (String, única), `telefono` (String, opcional), `activo` (boolean, default true).

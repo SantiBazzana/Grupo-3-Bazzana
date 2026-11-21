@@ -65,10 +65,11 @@
 **Origen**: lectura de sitios oficiales; buena parte es afirmación comercial o maqueta.
 **Cómo validar**: verificación de fuentes del equipo (informe, sección "Verificación de fuentes") y demos.
 
-### SU-03: Un único horario de atención por día para todo el consultorio
+### SU-03: Un único horario de atención por día para todo el consultorio — **CONFIRMADO**
 **Supuesto**: hay una franja por día de la semana, sin horarios por profesional (que quedan para etapas posteriores).
 **Origen**: el Discovery dejó la pregunta abierta; el horario por profesional se marcó como posterior.
 **Riesgo si es falso**: el modelo `HorarioAtencion` habría que extenderlo.
+**Validación**: adoptado en C-03 (spec `configuracion-consultorio`) y confirmado por el líder como Product Owner el 2026-11-21 (PA-02).
 
 ### SU-04: Un sobreturno ignora el margen con el profesional — **CONFIRMADO**
 **Supuesto**: como el sobreturno se exime de RN-TU-02 completo, el margen de 5 minutos con el profesional tampoco aplica. Con el sillón, el margen sí aplica.

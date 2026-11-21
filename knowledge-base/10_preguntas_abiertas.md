@@ -23,7 +23,6 @@
 
 | ID | Prioridad | Pregunta | Bloquea | Decisor |
 |---|---|---|---|---|
-| PA-02 | Media | ¿El horario de atención es único o varía por día? Supuesto: una franja por día (SU-03) | Change de configuración | Product Owner |
 | PA-05 | Baja | ¿Los feriados bloquean la agenda? Supuesto: no en la v1 (SU-06) | Etapas posteriores | Product Owner |
 | PA-08 | Baja | Si Argentina volviera a aplicar horario de verano, ¿cómo se tratan los turnos en el cambio de hora? | — | Equipo técnico |
 | PA-09 | Baja | IN-01: ¿sesión o JWT para las vistas? | Change de autenticación | Equipo técnico |
@@ -49,6 +48,7 @@ Datos que la investigación de mercado (2026-11-20) no pudo respaldar con fuente
 | ID | Resolución | Cuándo / dónde |
 |---|---|---|
 | PA-01 | JDK 17 (Oracle 17.0.12) instalado en la máquina del líder; cada integrante instala el suyo (README). | 2026-11-20, apply de C-01 |
+| PA-02 | **Una franja por consultorio y día de la semana**; un día sin franja está cerrado (SU-03 confirmado). Adoptada en C-03 (`configuracion-consultorio`, decisión a de su design) y confirmada por el Product Owner. Horarios por profesional siguen siendo una etapa posterior. | 2026-11-21, C-03 (Joaquín) + confirmación del líder |
 | PA-03 | El sobreturno saltea todo el chequeo del profesional, **margen incluido**; con el sillón y el paciente las reglas se aplican igual (SU-04 confirmado). | 2026-11-20, explore de C-02 |
 | PA-04 | Puede marcar sobreturno cualquier rol que pueda crear turnos (SECRETARIA, ADMIN). La regla no chequea el rol; lo hace la autorización por ruta de C-05. | 2026-11-20, explore de C-02 |
 | PA-06 | **Bloqueo pesimista** de sillón, profesional y paciente (en ese orden) dentro de la transacción de creación, antes de consultar choques (RN-TU-10). Se prueba con dos creaciones concurrentes. | 2026-11-20, explore de C-02 |
