@@ -53,4 +53,11 @@ abstract class ConfiguracionApiTestBase {
     ResultActions getJson(String ruta) throws Exception {
         return mvc.perform(get(ruta));
     }
+
+    /** Envía un nombre en blanco en el PUT de edición y verifica el 400 de entrada inválida. */
+    void nombreEnBlancoRechazado(String ruta, Long id, String nombre) throws Exception {
+        codigo(putJson(ruta + "/" + id, """
+                {"nombre":"%s"}
+                """.formatted(nombre)), 400, "ENTRADA_INVALIDA");
+    }
 }

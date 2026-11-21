@@ -3,6 +3,8 @@ package ar.odonto.turnos.web.api.configuracion;
 import ar.odonto.turnos.domain.model.Prestacion;
 import ar.odonto.turnos.support.DatosDePrueba;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -63,6 +65,39 @@ class EditarPrestacionTest extends ConfiguracionApiTestBase {
                 """), 422, "DURACION_INVALIDA");
 
         assertThat(prestaciones.findById(control.getId()).orElseThrow().getDuracionMinutos()).isEqualTo(30);
+    }
+
+    @ParameterizedTest(name = "nombre en blanco rechazado: [{0}]")
+    @ValueSource(strings = {"   ", ""})
+    void editarConNombreEnBlanco(String nombre) throws Exception {
+        Prestacion control = prestaciones.save(DatosDePrueba.prestacion("Control", 30));
+
+        nombreEnBlancoRechazado("/api/prestaciones", control.getId(), nombre);
+
+        assertThat(prestaciones.findById(control.getId()).orElseThrow().getNombre()).isEqualTo("Control");
+    }
+
+    @Test
+    void editarConNombreNullEsEdicionParcial() throws Exception {
+        Prestacion control = prestaciones.save(DatosDePrueba.prestacion("Control", 30));
+
+        putJson("/api/prestaciones/" + control.getId(), """
+                {"nombre":null,"duracionMinutos":45}
+                """)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("Control"))
+                .andExpect(jsonPath("$.duracionMinutos").value(45));
+    }
+
+    @Test
+    void editarConNombreValidoConEspaciosInternos() throws Exception {
+        Prestacion control = prestaciones.save(DatosDePrueba.prestacion("Control", 30));
+
+        putJson("/api/prestaciones/" + control.getId(), """
+                {"nombre":"Control 30 min"}
+                """)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("Control 30 min"));
     }
 
     @Test

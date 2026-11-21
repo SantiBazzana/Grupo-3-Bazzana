@@ -45,7 +45,7 @@ class SillonController {
     }
 
     @PutMapping("/{id}")
-    SillonResponse editar(@PathVariable Long id, @RequestBody EditarSillonRequest request) {
+    SillonResponse editar(@PathVariable Long id, @Valid @RequestBody EditarSillonRequest request) {
         return SillonResponse.de(editarSillon.ejecutar(
                 new EditarSillon.Comando(id, request.nombre(), request.activo())));
     }

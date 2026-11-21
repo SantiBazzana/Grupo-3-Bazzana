@@ -221,3 +221,8 @@ Los campos obligatorios y formatos de las solicitudes de configuración SHALL va
 
 - **WHEN** se envía `PUT /api/consultorio/horario` con `diaSemana` "FUNDAY"
 - **THEN** la respuesta es 400 con `codigo` igual a `ENTRADA_INVALIDA`
+
+#### Scenario: Texto en blanco en la edición de recursos
+
+- **WHEN** se envía `PUT /api/sillones/{id}`, `PUT /api/prestaciones/{id}` o `PUT /api/profesionales/{id}` con `nombre` vacío o formado solo por espacios
+- **THEN** la respuesta es 400 con `codigo` igual a `ENTRADA_INVALIDA` y el recurso conserva su nombre anterior

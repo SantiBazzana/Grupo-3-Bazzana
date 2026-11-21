@@ -231,7 +231,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
   - `knowledge-base/10_preguntas_abiertas.md` §PA-03, PA-04, PA-06, PA-07
 
 ### [C-03] `configurar-recursos`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado y archivado el 2026-11-21 (`openspec/changes/archive/2026-11-21-configurar-recursos`, spec `configuracion-consultorio`)
 - **Owner / rama**: Joaquin / `feat/configurar-recursos`
 - **Capability**: `configuracion-consultorio`
 - **Scope**:

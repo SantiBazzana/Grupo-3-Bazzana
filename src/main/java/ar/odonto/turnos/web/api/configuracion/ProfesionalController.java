@@ -47,7 +47,7 @@ class ProfesionalController {
     }
 
     @PutMapping("/{id}")
-    ProfesionalResponse editar(@PathVariable Long id, @RequestBody EditarProfesionalRequest request) {
+    ProfesionalResponse editar(@PathVariable Long id, @Valid @RequestBody EditarProfesionalRequest request) {
         return ProfesionalResponse.de(editarProfesional.ejecutar(new EditarProfesional.Comando(id, request.nombre(),
                 request.apellido(), request.matricula(), request.telefono(), request.activo())));
     }

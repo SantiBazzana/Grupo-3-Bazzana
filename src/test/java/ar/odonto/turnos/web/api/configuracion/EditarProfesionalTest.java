@@ -3,6 +3,8 @@ package ar.odonto.turnos.web.api.configuracion;
 import ar.odonto.turnos.domain.model.Profesional;
 import ar.odonto.turnos.support.DatosDePrueba;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -59,6 +61,40 @@ class EditarProfesionalTest extends ConfiguracionApiTestBase {
                 .andExpect(jsonPath("$.matricula").value("M-0004"))
                 .andExpect(jsonPath("$.telefono").value("5491100000009"))
                 .andExpect(jsonPath("$.activo").value(true));
+    }
+
+    @ParameterizedTest(name = "nombre en blanco rechazado: [{0}]")
+    @ValueSource(strings = {"   ", ""})
+    void editarConNombreEnBlanco(String nombre) throws Exception {
+        Profesional profesional = profesionales.save(DatosDePrueba.profesional("M-0002"));
+
+        nombreEnBlancoRechazado("/api/profesionales", profesional.getId(), nombre);
+
+        assertThat(profesionales.findById(profesional.getId()).orElseThrow().getNombre()).isEqualTo("Ana");
+    }
+
+    @Test
+    void editarConNombreNullEsEdicionParcial() throws Exception {
+        Profesional profesional = profesionales.save(DatosDePrueba.profesional("M-0006"));
+
+        putJson("/api/profesionales/" + profesional.getId(), """
+                {"nombre":null,"telefono":"5491100000011"}
+                """)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("Ana"))
+                .andExpect(jsonPath("$.telefono").value("5491100000011"));
+    }
+
+    @Test
+    void editarConNombreValidoConEspaciosInternos() throws Exception {
+        Profesional profesional = profesionales.save(DatosDePrueba.profesional("M-0007"));
+
+        putJson("/api/profesionales/" + profesional.getId(), """
+                {"nombre":"Ana Maria","apellido":"Ejemplo Perez"}
+                """)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("Ana Maria"))
+                .andExpect(jsonPath("$.apellido").value("Ejemplo Perez"));
     }
 
     @Test

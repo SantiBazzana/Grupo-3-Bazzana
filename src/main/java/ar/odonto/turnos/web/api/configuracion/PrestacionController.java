@@ -47,7 +47,7 @@ class PrestacionController {
     }
 
     @PutMapping("/{id}")
-    PrestacionResponse editar(@PathVariable Long id, @RequestBody EditarPrestacionRequest request) {
+    PrestacionResponse editar(@PathVariable Long id, @Valid @RequestBody EditarPrestacionRequest request) {
         return PrestacionResponse.de(editarPrestacion.ejecutar(new EditarPrestacion.Comando(id, request.nombre(),
                 request.duracionMinutos(), request.activa())));
     }
