@@ -3,7 +3,7 @@
 > Este archivo (y su copia `CLAUDE.md`) es lo PRIMERO que todo agente lee al entrar al repo.
 > Generado a partir de `knowledge-base/`, `CHANGES.md` y `.atl/skill-registry.md` (2026-11-20). Si se edita, hay que mantener **ambos archivos idénticos**.
 
-Agenda de turnos para consultorios odontológicos argentinos de 1 a 5 profesionales que **rechaza choques por profesional y por sillón a la vez**, con margen de 5 minutos, sobreturno controlado y cancelación con 6 h de anticipación. Equipo: Santiago (líder y dueño del repo), Joaquin, Romero, Castillo, Adriano y Valentin. Entrega: **2026-11-25**.
+Agenda de turnos para consultorios odontológicos argentinos de 1 a 5 profesionales que **rechaza choques por profesional y por sillón a la vez**, con margen de 5 minutos, sobreturno controlado y cancelación con 6 h de anticipación. Equipo: Santiago (líder y dueño del repo), Joaquin, Romero, Castillo, Adriano y Guiretti. Entrega: **2026-11-25**.
 
 ---
 
@@ -79,7 +79,7 @@ El plan completo está en [CHANGES.md](CHANGES.md). Resumen:
 | Romero | C-04 `gestionar-pacientes`, C-08 `cancelar-turno` |
 | Castillo | C-05 `autenticacion-y-roles` |
 | Adriano | C-06 `link-whatsapp-turno` |
-| Valentin | C-07 `agenda-del-dia`, C-09 `ui-base-y-gestion` |
+| Guiretti | C-07 `agenda-del-dia`, C-09 `ui-base-y-gestion` |
 
 **Antes de cualquier propuesta** (`openspec-propose`): leé [CHANGES.md](CHANGES.md), revisá las dependencias de tu change, sus archivos de "Leer antes" y las **reglas anti-colisión**.
 

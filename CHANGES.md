@@ -6,7 +6,7 @@
 
 - Fecha de generación: 2026-11-20. Fecha de entrega: **2026-11-25**.
 - Stack: Java 17, Spring Boot 4.2 (decidido en el apply de C-01; ver su design.md D1), Maven Wrapper, Spring Data JPA, H2, Thymeleaf, Spring Security, JUnit 5. Paquete base `ar.odonto.turnos` (`knowledge-base/02` y `08`).
-- Equipo: 6 programadores. Líder y dueño del repo: **Santiago**. Integrantes: Joaquin, Romero, Castillo, Adriano, Valentin.
+- Equipo: 6 programadores. Líder y dueño del repo: **Santiago**. Integrantes: Joaquin, Romero, Castillo, Adriano, Guiretti.
 - Consigna académica: **un** change tiene que pasar por el ciclo OPSX completo (explore → propose → apply → verify → archive), con al menos 3 escenarios verificables (feliz, error de negocio, borde) y un test por escenario. El change evaluado es **C-02 `crear-turno-sin-solapamientos`** y lo lleva el líder.
 - Política de diseño visual: `deferred`. El primer change que agrega pantallas (C-09) tiene que invocar antes la skill `design-system` (una sola vez para todo el proyecto).
 
@@ -34,10 +34,10 @@ C-01 scaffold-proyecto                                   (Santiago, OLA 0, bloqu
  ├── C-04 gestionar-pacientes                            (Romero, OLA 1)
  ├── C-05 autenticacion-y-roles                          (Castillo, OLA 1)
  ├── C-06 link-whatsapp-turno                            (Adriano, OLA 1)
- └── C-07 agenda-del-dia                                 (Valentin, OLA 1)
+ └── C-07 agenda-del-dia                                 (Guiretti, OLA 1)
 
  C-03 + C-04 + C-05 (+ gate de design-system)
- └── C-09 ui-base-y-gestion                              (Valentin, OLA 2)
+ └── C-09 ui-base-y-gestion                              (Guiretti, OLA 2)
        └── C-10 ui-turnos-y-agenda                       (Joaquin, OLA 2; además depende de C-02, C-06, C-07, C-08)
 
  C-01 ... C-10 (los que se hayan completado)
@@ -64,13 +64,13 @@ GATE 0: C-01 scaffold-proyecto ✓ (mergeado a main)                  ← FORK (
   → C-04 gestionar-pacientes               [Romero]
   → C-05 autenticacion-y-roles             [Castillo]
   → C-06 link-whatsapp-turno               [Adriano]
-  → C-07 agenda-del-dia                    [Valentin]
+  → C-07 agenda-del-dia                    [Guiretti]
 
 GATE 1: C-02 ✓ (mergeado)
   → C-08 cancelar-turno                    [Romero — si C-04 ✓; reasignable]
 
 GATE 2: C-03 ✓ + C-04 ✓ + C-05 ✓ (mergeados)
-  → C-09 ui-base-y-gestion                 [Valentin — si C-07 ✓; reasignable]
+  → C-09 ui-base-y-gestion                 [Guiretti — si C-07 ✓; reasignable]
      (antes, una sola vez: invocar la skill `design-system` y obtener aprobación del líder.
       La fundación puede prepararse desde el GATE 0 porque no depende de código.)
 
@@ -95,7 +95,7 @@ Reglas de paralelismo:
 
 ### Plan óptimo con 6 integrantes (reemplaza el plan de 3 agentes)
 
-| Paso (día) | Santiago (líder) | Joaquin | Romero | Castillo | Adriano | Valentin |
+| Paso (día) | Santiago (líder) | Joaquin | Romero | Castillo | Adriano | Guiretti |
 |---|---|---|---|---|---|---|
 | 0 (vie 20) | C-01 explore+propose+apply, PR | Instalar JDK 17; explore+propose C-03 | Instalar JDK 17; explore+propose C-04 | Instalar JDK 17; explore+propose C-05 (decidir IN-01) | Instalar JDK 17; explore+propose C-06 | Instalar JDK 17; explore+propose C-07 |
 | 1 (sáb 21) | Merge C-01 (GATE 0); explore+propose C-02, decidir PA-03/04/06/07; arrancar apply | apply C-03 | apply C-04 | apply C-05 | apply C-06 | apply C-07 |
@@ -104,9 +104,9 @@ Reglas de paralelismo:
 | 4 (mar 24) | C-11 integración; video; consolidar reflexión | C-10 (GATE 3) | reflexión; apoyo a C-10 | reflexión; chequeo final de RBAC | guion del video; reflexión | PR C-09 / apoyo a C-10 |
 | 5 (mié 25) | Entrega | — | — | — | — | — |
 
-Los changes de ola 2 están repartidos para que **nadie tenga más de 2 changes**: C-08 → Romero, C-09 → Valentin, C-10 → Joaquin. Adriano (C-06) y Castillo (C-05) quedan como revisores cruzados de PRs y apoyo en tests. **La asignación es re-asignable**: si otro integrante queda libre antes, el líder la cambia en la tabla de asignación.
+Los changes de ola 2 están repartidos para que **nadie tenga más de 2 changes**: C-08 → Romero, C-09 → Guiretti, C-10 → Joaquin. Adriano (C-06) y Castillo (C-05) quedan como revisores cruzados de PRs y apoyo en tests. **La asignación es re-asignable**: si otro integrante queda libre antes, el líder la cambia en la tabla de asignación.
 
-Carga por integrante: Santiago C-01, C-02, C-11 (líder) · Joaquin C-03, C-10 · Romero C-04, C-08 · Castillo C-05 · Adriano C-06 · Valentin C-07, C-09.
+Carga por integrante: Santiago C-01, C-02, C-11 (líder) · Joaquin C-03, C-10 · Romero C-04, C-08 · Castillo C-05 · Adriano C-06 · Guiretti C-07, C-09.
 
 ---
 
@@ -120,9 +120,9 @@ Carga por integrante: Santiago C-01, C-02, C-11 (líder) · Joaquin C-03, C-10 �
 | C-04 `gestionar-pacientes` | Romero | 1 | `feat/gestionar-pacientes` | `pacientes` | `application/pacientes/**`, `web/api/pacientes/**`; tests espejo |
 | C-05 `autenticacion-y-roles` | Castillo | 1 | `feat/autenticacion-y-roles` | `acceso` | `infrastructure/security/**`, `application/acceso/**`, `web/api/auth/**`; tests espejo |
 | C-06 `link-whatsapp-turno` | Adriano | 1 | `feat/link-whatsapp-turno` | `aviso-whatsapp` | `infrastructure/whatsapp/**`, `application/aviso/**`, `web/api/aviso/**`; tests espejo |
-| C-07 `agenda-del-dia` | Valentin | 1 | `feat/agenda-del-dia` | `agenda` | `application/agenda/**`, `web/api/agenda/**`; tests espejo |
+| C-07 `agenda-del-dia` | Guiretti | 1 | `feat/agenda-del-dia` | `agenda` | `application/agenda/**`, `web/api/agenda/**`; tests espejo |
 | C-08 `cancelar-turno` | Romero | 2 | `feat/cancelar-turno` | `turnos` (delta sobre la spec archivada de C-02) | `domain/rules/cancelacion/**`, `application/cancelacion/**`, `web/api/cancelacion/**`; tests espejo |
-| C-09 `ui-base-y-gestion` | Valentin | 2 | `feat/ui-base-y-gestion` | `interfaz-gestion` | `design-system/**`, `web/view/gestion/**`, `src/main/resources/templates/layout/**`, `templates/login.html`, `templates/gestion/**`, `static/**` |
+| C-09 `ui-base-y-gestion` | Guiretti | 2 | `feat/ui-base-y-gestion` | `interfaz-gestion` | `design-system/**`, `web/view/gestion/**`, `src/main/resources/templates/layout/**`, `templates/login.html`, `templates/gestion/**`, `static/**` |
 | C-10 `ui-turnos-y-agenda` | Joaquin | 2 | `feat/ui-turnos-y-agenda` | `interfaz-turnos` | `web/view/turnos/**`, `templates/turnos/**`, `templates/agenda/**` |
 | C-11 `integracion-y-verificacion-final` | Santiago | 3 | `feat/integracion-final` | ninguna (checklist, sin propose OPSX) | `README.md` (ajustes finales), `CHANGES.md` (checkboxes), `docs/**` |
 
@@ -311,8 +311,8 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
   - `knowledge-base/08_arquitectura_propuesta.md` §Patrones (puerto de notificación)
 
 ### [C-07] `agenda-del-dia`
-- **Estado**: `[ ]` pendiente
-- **Owner / rama**: Valentin / `feat/agenda-del-dia`
+- **Estado**: `[x]` completado y archivado el 2026-11-22 (`openspec/changes/archive/2026-11-22-agenda-del-dia`, spec `agenda`)
+- **Owner / rama**: Guiretti / `feat/agenda-del-dia`
 - **Capability**: `agenda`
 - **Scope**:
   - Historia US-020; reglas RN-AG-01 y RN-AG-02; flujo 3.
@@ -357,7 +357,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
 
 ### [C-09] `ui-base-y-gestion`
 - **Estado**: `[ ]` pendiente
-- **Owner / rama**: Valentin / `feat/ui-base-y-gestion`
+- **Owner / rama**: Guiretti / `feat/ui-base-y-gestion`
 - **Capability**: `interfaz-gestion`
 - **Scope**:
   - **Paso previo obligatorio**: política visual `deferred`; antes de crear pantallas, invocar **una sola vez** la skill `design-system` (fundación en `design-system/`: `README.md`, `brand.md`, `brand.js`, `tokens.css`, `components.html`, `assets/`, `previews/`), con aprobación explícita del líder (`Approval: approved`). Leer `visual_design.mode` en `.active-orchestrator-state.json`. La fundación puede prepararse apenas esté C-01 mergeado.
@@ -425,14 +425,14 @@ Hoy es viernes 2026-11-20. La entrega es el miércoles 25. Hay 5 días hábiles 
 |---|---|---|---|
 | **Vie 20** | Instalar JDK 17 (PA-01). C-01: explore, propose y apply, PR a `main`. | Instalar JDK 17 y clonar. Leer KB y su ficha. `explore` + `propose` de su change en su rama (sin apply). | PR de C-01 abierto. Propuestas de C-03 a C-07 listas. |
 | **Sáb 21** | Mergear C-01 (GATE 0) por la mañana y avisar. `explore` + `propose` de C-02 (cerrar PA-03, PA-04, PA-06, PA-07); empezar apply. | Rebasear sobre `main`. `apply` de su change (C-03 a C-07). | C-01 en `main`. Ola 1 en apply. |
-| **Dom 22** | `apply` de C-02 con todos los escenarios; revisar los PRs que lleguen. | Terminar `verify` y abrir PR (C-03, C-04, C-06, C-07). Verificación de fuentes (ver abajo). Valentin prepara la fundación de `design-system`. | PRs de C-03, C-04, C-06, C-07 abiertos o mergeados. C-02 con tests en verde. |
-| **Lun 23** | `verify` y `archive` de C-02 (GATE 1). Mergear PRs pendientes. Aprobar fundación `design-system`. | Romero arranca C-08 al mergearse C-02. Castillo cierra C-05. Valentin arranca C-09 (GATE 2) con primer PR del layout. Joaquin prepara `explore` + `propose` de C-10. Adriano: revisión cruzada de PRs y apoyo en tests. | **C-02 archivado.** C-05 mergeado. |
+| **Dom 22** | `apply` de C-02 con todos los escenarios; revisar los PRs que lleguen. | Terminar `verify` y abrir PR (C-03, C-04, C-06, C-07). Verificación de fuentes (ver abajo). Guiretti prepara la fundación de `design-system`. | PRs de C-03, C-04, C-06, C-07 abiertos o mergeados. C-02 con tests en verde. |
+| **Lun 23** | `verify` y `archive` de C-02 (GATE 1). Mergear PRs pendientes. Aprobar fundación `design-system`. | Romero arranca C-08 al mergearse C-02. Castillo cierra C-05. Guiretti arranca C-09 (GATE 2) con primer PR del layout. Joaquin prepara `explore` + `propose` de C-10. Adriano: revisión cruzada de PRs y apoyo en tests. | **C-02 archivado.** C-05 mergeado. |
 | **Mar 24** | C-11: `./mvnw test` completo, health check, README en máquina limpia. Grabar el video. Consolidar la reflexión. Si C-09/C-10 no llegan, **cortar la UI** y entregar la API. | Joaquin: C-10 (GATE 3) si C-09 y C-08 están en `main`. Resto: guion del video, reflexión individual, últimos arreglos. | Todo mergeado. Video grabado. Reflexión redactada. |
 | **Mié 25** | Revisión final y entrega. Colchón para imprevistos. | Colchón. | **Entrega.** |
 
 **Reservas explícitas dentro del plan**
 - **Archive del change evaluado**: lunes 23 (tarde). Si C-02 se atrasa, el martes a la mañana es el límite duro, porque archive, verify y el video del ciclo completo dependen de eso.
-- **Verificación manual de fuentes** (la consigna exige que una persona abra y compruebe al menos 5 fuentes; ver tabla en `docs/discovery/informe-discovery.md` §Verificación de fuentes): se reparte entre domingo y lunes, una fuente por integrante (fuente 1: Joaquin; 2: Romero; 3: Castillo; 4: Adriano; 5: Valentin), anotando qué encontraron y la corrección aplicada. Santiago consolida el informe el martes.
+- **Verificación manual de fuentes** (la consigna exige que una persona abra y compruebe al menos 5 fuentes; ver tabla en `docs/discovery/informe-discovery.md` §Verificación de fuentes): se reparte entre domingo y lunes, una fuente por integrante (fuente 1: Joaquin; 2: Romero; 3: Castillo; 4: Adriano; 5: Guiretti), anotando qué encontraron y la corrección aplicada. Santiago consolida el informe el martes.
 - **Video**: se graba el martes 24 con C-02 ya archivado y la app corriendo; guion el mismo martes por Joaquin.
 - **Reflexión escrita**: aportes individuales martes 24; Santiago consolida el mismo día. El miércoles queda como colchón.
 - **Pregunta pendiente con la cátedra (IN-02)**: la consigna admite hasta 3 integrantes y el equipo es de 6. Confirmarla esta semana, antes de la entrega.
@@ -469,9 +469,9 @@ Ideas registradas para después de la entrega. No tienen número C-NN y no se im
 | C-04 | `gestionar-pacientes` | Romero | 1 | C-01 | MEDIO | No |
 | C-05 | `autenticacion-y-roles` | Castillo | 1 | C-01 | CRITICO | No |
 | C-06 | `link-whatsapp-turno` | Adriano | 1 | C-01 | BAJO | No |
-| C-07 | `agenda-del-dia` | Valentin | 1 | C-01 | MEDIO | No |
+| C-07 | `agenda-del-dia` | Guiretti | 1 | C-01 | MEDIO | No |
 | C-08 | `cancelar-turno` | Romero | 2 | C-02 | MEDIO | Sí |
-| C-09 | `ui-base-y-gestion` | Valentin | 2 | C-03, C-04, C-05 | MEDIO | No (recortable)* |
+| C-09 | `ui-base-y-gestion` | Guiretti | 2 | C-03, C-04, C-05 | MEDIO | No (recortable)* |
 | C-10 | `ui-turnos-y-agenda` | Joaquin | 2 | C-09, C-02, C-06, C-07, C-08 | MEDIO | No (recortable)* |
 | C-11 | `integracion-y-verificacion-final` | Santiago | 3 | todos los planificados | BAJO | Sí |
 
