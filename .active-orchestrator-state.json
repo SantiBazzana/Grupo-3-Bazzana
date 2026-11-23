@@ -4,8 +4,8 @@
   "owner": "active-orchestrator",
   "visual_design": {
     "created_by": "design-system",
-    "mode": "deferred",
-    "status": "deferred",
+    "mode": "system-and-mockups",
+    "status": "pending",
     "path": "design-system/README.md"
   },
   "kb": {

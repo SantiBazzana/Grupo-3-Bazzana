@@ -1,8 +1,8 @@
 # Design System
 
-Mode: deferred
-Approval: deferred
-Decision source: elección del usuario en la fase `visual-design` de la fundación (`/active-orchestrator`), 2026-11-20.
+Mode: system-and-mockups
+Approval: pending
+Decision source: elección del usuario en la fase `visual-design` de la fundación (`/active-orchestrator`), 2026-11-20; resuelta como `system-and-mockups` en el change C-09 (2026-11-23).
 
 ## Por qué está diferido
 
@@ -18,6 +18,6 @@ Decision source: elección del usuario en la fase `visual-design` de la fundaci�
 - `system-only`: sistema de diseño, sin mockups por cambio.
 - `off`: sin sistema ni mockups.
 
-La respuesta reemplaza `deferred` en este archivo y en `.active-orchestrator-state.json` (`visual_design`).
+La decisión `system-and-mockups` reemplaza el `deferred` en este archivo y en `.active-orchestrator-state.json` (`visual_design`).
 
 No se creó identidad visual, logo ni tokens provisionales.
