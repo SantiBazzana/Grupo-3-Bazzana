@@ -27,6 +27,8 @@ class PacientesVistaTest extends BaseDeVistasDeGestion {
         assertThat(html)
                 .contains("00000001")
                 .contains("Paciente")
+                .contains("class=\"buscador\"")
+                .contains("class=\"tabla-scroll\"")
                 .contains("id=\"form-alta-paciente\"");
     }
 

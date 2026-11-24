@@ -36,7 +36,7 @@ class SeguridadConfigTest {
 
     @Test
     void rutaProtegidaSinSesionResponde401() throws Exception {
-        mvc.perform(get("/test/errores/regla/TURNO_EN_PASADO"))
+        mvc.perform(get("/api/pacientes"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.codigo").value("NO_AUTENTICADO"));
     }

@@ -14,26 +14,28 @@
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-prestaciones">
             <h2 id="lista-prestaciones">Listado</h2>
-            <table>
-                <caption>Prestaciones cargadas</caption>
-                <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Duración</th>
-                    <th scope="col">Estado</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="prestacion : ${prestaciones}">
-                    <td th:text="${prestacion.nombre}">Control</td>
-                    <td th:text="${prestacion.duracionMinutos} + ' min'">30 min</td>
-                    <td>
-                        <span class="chip" th:classappend="${prestacion.activa} ? 'chip--activo' : 'chip--inactivo'"
-                              th:text="${prestacion.activa} ? 'Activa' : 'Inactiva'">Activa</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="tabla-scroll">
+                <table>
+                    <caption>Prestaciones cargadas</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Duración</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prestacion : ${prestaciones}">
+                        <td th:text="${prestacion.nombre}">Control</td>
+                        <td th:text="${prestacion.duracionMinutos} + ' min'">30 min</td>
+                        <td>
+                            <span class="chip" th:classappend="${prestacion.activa} ? 'chip--activo' : 'chip--inactivo'"
+                                  th:text="${prestacion.activa} ? 'Activa' : 'Inactiva'">Activa</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <p class="vacio" th:if="${#lists.isEmpty(prestaciones)}">Todavía no hay prestaciones cargadas.</p>
         </section>
 

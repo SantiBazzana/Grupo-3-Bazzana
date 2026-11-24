@@ -14,24 +14,26 @@
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-sillones">
             <h2 id="lista-sillones">Listado</h2>
-            <table>
-                <caption>Sillones cargados</caption>
-                <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Estado</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="sillon : ${sillones}">
-                    <td th:text="${sillon.nombre}">Sillón 1</td>
-                    <td>
-                        <span class="chip" th:classappend="${sillon.activo} ? 'chip--activo' : 'chip--inactivo'"
-                              th:text="${sillon.activo} ? 'Activo' : 'Inactivo'">Activo</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="tabla-scroll">
+                <table>
+                    <caption>Sillones cargados</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sillon : ${sillones}">
+                        <td th:text="${sillon.nombre}">Sillón 1</td>
+                        <td>
+                            <span class="chip" th:classappend="${sillon.activo} ? 'chip--activo' : 'chip--inactivo'"
+                                  th:text="${sillon.activo} ? 'Activo' : 'Inactivo'">Activo</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <p class="vacio" th:if="${#lists.isEmpty(sillones)}">Todavía no hay sillones cargados.</p>
         </section>
 

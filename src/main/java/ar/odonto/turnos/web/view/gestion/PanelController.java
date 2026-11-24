@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 class PanelController {
 
+    @GetMapping("/")
+    String raiz() {
+        return "redirect:/panel";
+    }
+
     @GetMapping("/panel")
     String panel() {
         return "gestion/panel";

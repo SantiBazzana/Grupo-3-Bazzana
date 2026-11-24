@@ -1,8 +1,11 @@
 # Design
 
+Approval: approved (2026-11-23, by user)
+Revision: 1
+
 ## Context
 
-C-01 dejó una seguridad permisiva reemplazable y C-05 reemplazó la cadena de seguridad por una propia (`SeguridadConfig`) con CSRF desactivado y con nota de que el primer change con vistas (C-09) reactivaría el CSRF para los forms Thymeleaf. Los casos de uso de C-03 (profesionales, sillones, prestaciones, horario) y C-04 (pacientes) ya existen en `application/`, junto con la entidad y el puerto necesarios. Todavía no existen `templates/` ni `static/` ni vistas Thymeleaf. La política visual fue resuelta como `system-and-mockups` y aprobada por el líder (2026-11-23); los mockups del change se ubican en `openspec/changes/ui-base-y-gestion/mockups/`.
+C-01 dejó una seguridad permisiva reemplazable y C-05 reemplazó la cadena de seguridad por una propia (`SeguridadConfig`) con CSRF desactivado y con nota de que el primer change con vistas (C-09) reactivaría el CSRF para los forms Thymeleaf. Los casos de uso de C-03 (profesionales, sillones, prestaciones, horario) y C-04 (pacientes) ya existen en `application/`, junto con la entidad y el puerto necesarios. Todavía no existen `templates/` ni `static/` ni vistas Thymeleaf. La política visual fue resuelta como `system-and-mockups` y aprobada por el líder (2026-11-23); los mockups del change se ubican en `openspec/changes/archive/2026-11-23-ui-base-y-gestion/mockups/`.
 
 ## Goals / Non-Goals
 
@@ -21,7 +24,7 @@ C-01 dejó una seguridad permisiva reemplazable y C-05 reemplazó la cadena de s
 
 ### D1. Política visual `system-and-mockups` aprobada
 
-**Decisión**: el diseño de las pantallas se valida contra los mockups del change ubicados en `openspec/changes/ui-base-y-gestion/mockups/`, en línea con la política `system-and-mockups` aprobada por el líder antes del apply.
+**Decisión**: el diseño de las pantallas se valida contra los mockups del change ubicados en `openspec/changes/archive/2026-11-23-ui-base-y-gestion/mockups/`, en línea con la política `system-and-mockups` aprobada por el líder antes del apply.
 
 **Razonamiento**: la fundación `design-system/` fue preparada en el change previo (C-09 en su rama) y la aprobación habilitó la creación de mockups por change.
 
@@ -34,7 +37,7 @@ C-01 dejó una seguridad permisiva reemplazable y C-05 reemplazó la cadena de s
 
 **Decisión**: en el `SecurityFilterChain` de C-05 se retira `.csrf(AbstractHttpConfigurer::disable)` y se habilita CSRF para los formularios Thymeleaf, eximiendo solo la API REST stateless (`csrf.ignoringRequestMatchers("/api/**", "/h2-console/**")`).
 
-**Razonamiento**: C-05 desactivó CSRF con nota de que C-09 lo reactivaría para las vistas. Con Thymeleaf + `thymeleaf-extras-springsecurity6`, el procesador de CSRF agrega el token a los forms con `th:action`; los formularios de login y gestión quedan protegidos. La exención de `/api/**` se agrega en el apply porque las vistas consumen los casos de uso directamente (D3) y no usan fetch: la API es consumida por clientes JSON que no envían `_csrf` y sus tests previos (C-02 a C-08) no deben modificarse desde C-09 (anti-colisión). Sin la exención, la suite completa de la API pasaba de 314 tests verdes a 130 fallos 403.
+**Razonamiento**: C-05 desactivó CSRF con nota de que C-09 lo reactivaría para las vistas. Con Thymeleaf + `thymeleaf-extras-springsecurity6`, el procesador de CSRF agrega el token a los forms con `th:action`; los formularios de login y gestión quedan protegidos. La exención de `/api/**` se agrega en el apply porque las vistas consumen los casos de uso directamente (D3) y no usan fetch: la API es consumida por clientes JSON que no envían `_csrf` y sus tests previos (C-02 a C-08) no deben modificarse desde C-09 (anti-colisión). Sin la exención, la suite completa de la API pasaba de 314 tests verdes a 130 fallos 403. Los errores de seguridad respetan la misma separación: `/api/**` sin sesión devuelve 401 `application/problem+json` con el campo `codigo`, mientras que las vistas (y cualquier ruta que no sea de la API) redirigen a `/login` conservando el pedido original; `/` redirige a `/panel` cuando hay sesión.
 
 **Alternativas consideradas:**
 

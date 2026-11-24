@@ -23,6 +23,7 @@ class ProfesionalesVistaTest extends BaseDeVistasDeGestion {
         assertThat(html)
                 .contains("MP-0001")
                 .contains("Ana")
+                .contains("class=\"tabla-scroll\"")
                 .doesNotContain("id=\"form-alta-profesional\"");
     }
 

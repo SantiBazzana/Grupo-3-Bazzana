@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -34,6 +35,7 @@ class LayoutYPanelTest {
         String html = resultado.getResponse().getContentAsString();
         assertThat(html)
                 .contains("Turnos Odontología")
+                .contains("class=\"contenedor\"")
                 .contains("/css/estilos.css")
                 .contains("href=\"/gestion/pacientes\"")
                 .contains("href=\"/gestion/profesionales\"")
@@ -65,8 +67,24 @@ class LayoutYPanelTest {
     }
 
     @Test
-    void panelSinSesionRespondeNoAutenticado() throws Exception {
+    void panelSinSesionRedirigeAlLogin() throws Exception {
         mvc.perform(get("/panel"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void raizConSesionRedirigeAlPanel() throws Exception {
+        mvc.perform(get("/"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/panel"));
+    }
+
+    @Test
+    void raizSinSesionRedirigeAlLogin() throws Exception {
+        mvc.perform(get("/"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
     }
 }

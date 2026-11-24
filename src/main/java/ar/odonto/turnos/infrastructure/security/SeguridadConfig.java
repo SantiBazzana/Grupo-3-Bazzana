@@ -6,7 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 /**
  * Cadena de seguridad propia de C-05. Reemplaza a la permisiva de C-01
@@ -107,10 +110,17 @@ public class SeguridadConfig {
                 // stateless y recibe JSON sin token (sus clientes/tests no envian _csrf), asi que
                 // queda exenta; las vistas consumen los casos de uso (D3), no endpoints /api/**.
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**", "/h2-console/**"))
-                // Errores de seguridad como Problem Details con campo `codigo` (sin nuevos códigos).
+                // Errores de seguridad: la API responde Problem Detail con `codigo`; las vistas
+                // (y cualquier otra ruta) redirigen a /login, preservando el pedido original.
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                        .accessDeniedHandler(new RestAccessDeniedHandler())
+                        .defaultAuthenticationEntryPointFor(new RestAuthenticationEntryPoint(),
+                                PathPatternRequestMatcher.withDefaults().matcher("/api/**"))
+                        .defaultAuthenticationEntryPointFor(new LoginUrlAuthenticationEntryPoint("/login"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/**"))
+                        .defaultAccessDeniedHandlerFor(new RestAccessDeniedHandler(),
+                                PathPatternRequestMatcher.withDefaults().matcher("/api/**"))
+                        .defaultAccessDeniedHandlerFor(new AccessDeniedHandlerImpl(),
+                                PathPatternRequestMatcher.withDefaults().matcher("/**"))
                 );
         return http.build();
     }

@@ -14,30 +14,32 @@
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-profesionales">
             <h2 id="lista-profesionales">Listado</h2>
-            <table>
-                <caption>Profesionales del consultorio</caption>
-                <thead>
-                <tr>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Matrícula</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Estado</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="profesional : ${profesionales}">
-                    <td th:text="${profesional.apellido}">Ejemplo</td>
-                    <td th:text="${profesional.nombre}">Ana</td>
-                    <td th:text="${profesional.matricula}">MP-0001</td>
-                    <td th:text="${profesional.telefono}">5491100000101</td>
-                    <td>
-                        <span class="chip" th:classappend="${profesional.activo} ? 'chip--activo' : 'chip--inactivo'"
-                              th:text="${profesional.activo} ? 'Activo' : 'Inactivo'">Activo</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="tabla-scroll">
+                <table>
+                    <caption>Profesionales del consultorio</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Matrícula</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="profesional : ${profesionales}">
+                        <td th:text="${profesional.apellido}">Ejemplo</td>
+                        <td th:text="${profesional.nombre}">Ana</td>
+                        <td th:text="${profesional.matricula}">MP-0001</td>
+                        <td th:text="${profesional.telefono}">5491100000101</td>
+                        <td>
+                            <span class="chip" th:classappend="${profesional.activo} ? 'chip--activo' : 'chip--inactivo'"
+                                  th:text="${profesional.activo} ? 'Activo' : 'Inactivo'">Activo</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <p class="vacio" th:if="${#lists.isEmpty(profesionales)}">Todavía no hay profesionales cargados.</p>
         </section>
 

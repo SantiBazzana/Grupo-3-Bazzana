@@ -21,25 +21,27 @@
                 </div>
                 <button class="boton boton--sec" type="submit">Buscar</button>
             </form>
-            <table>
-                <caption>Pacientes cargados</caption>
-                <thead>
-                <tr>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Teléfono</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="paciente : ${pacientes}">
-                    <td th:text="${paciente.apellido}">Uno</td>
-                    <td th:text="${paciente.nombre}">Paciente</td>
-                    <td th:text="${paciente.dni}">00000001</td>
-                    <td th:text="${paciente.telefono}">5491100000001</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="tabla-scroll">
+                <table>
+                    <caption>Pacientes cargados</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Teléfono</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="paciente : ${pacientes}">
+                        <td th:text="${paciente.apellido}">Uno</td>
+                        <td th:text="${paciente.nombre}">Paciente</td>
+                        <td th:text="${paciente.dni}">00000001</td>
+                        <td th:text="${paciente.telefono}">5491100000001</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <p class="vacio" th:if="${#lists.isEmpty(pacientes)}">No hay pacientes para mostrar.</p>
         </section>
 

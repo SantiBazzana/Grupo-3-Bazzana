@@ -14,22 +14,24 @@
     <section class="tarjeta" aria-labelledby="franjas">
         <h2 id="franjas">Franjas semanales</h2>
 
-        <div th:each="franja : ${franjas}">
-            <form class="fila-horario" sec:authorize="hasRole('ADMIN')"
-                  th:action="@{/gestion/horario}" method="post">
-                <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
-                <input type="hidden" name="diaSemana" th:value="${franja.diaSemana}">
-                <input type="time" name="apertura" th:value="${franja.apertura != null ? franja.apertura : ''}"
-                       th:attr="aria-label='Apertura ' + ${nombresDia[franja.diaSemana]}">
-                <input type="time" name="cierre" th:value="${franja.cierre != null ? franja.cierre : ''}"
-                       th:attr="aria-label='Cierre ' + ${nombresDia[franja.diaSemana]}">
-                <button class="boton boton--sec" type="submit">Guardar</button>
-            </form>
+        <div class="tabla-scroll">
+            <div th:each="franja : ${franjas}">
+                <form class="fila-horario" sec:authorize="hasRole('ADMIN')"
+                      th:action="@{/gestion/horario}" method="post">
+                    <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
+                    <input type="hidden" name="diaSemana" th:value="${franja.diaSemana}">
+                    <input type="time" name="apertura" th:value="${franja.apertura != null ? franja.apertura : ''}"
+                           th:attr="aria-label='Apertura ' + ${nombresDia[franja.diaSemana]}">
+                    <input type="time" name="cierre" th:value="${franja.cierre != null ? franja.cierre : ''}"
+                           th:attr="aria-label='Cierre ' + ${nombresDia[franja.diaSemana]}">
+                    <button class="boton boton--sec" type="submit">Guardar</button>
+                </form>
 
-            <div class="fila-horario" sec:authorize="!hasRole('ADMIN')">
-                <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
-                <span th:if="${franja.apertura != null}" th:text="${franja.apertura} + ' a ' + ${franja.cierre}">08:00 a 20:00</span>
-                <span class="cerrado" th:if="${franja.apertura == null}">Cerrado</span>
+                <div class="fila-horario" sec:authorize="!hasRole('ADMIN')">
+                    <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
+                    <span th:if="${franja.apertura != null}" th:text="${franja.apertura} + ' a ' + ${franja.cierre}">08:00 a 20:00</span>
+                    <span class="cerrado" th:if="${franja.apertura == null}">Cerrado</span>
+                </div>
             </div>
         </div>
 
