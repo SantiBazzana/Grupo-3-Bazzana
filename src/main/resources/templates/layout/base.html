@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(titulo, contenido)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' · Turnos Odontología'">Turnos Odontología</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="barra">
+    <a class="marca" th:href="@{/panel}">
+        <span class="marca__icono" aria-hidden="true">+</span>
+        Turnos Odontología
+    </a>
+    <nav class="navegacion" aria-label="Secciones de gestión">
+        <a th:href="@{/panel}">Panel</a>
+        <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/gestion/pacientes}">Pacientes</a>
+        <span class="navegacion__grupo">Configuración</span>
+        <a th:href="@{/gestion/profesionales}">Profesionales</a>
+        <a th:href="@{/gestion/sillones}">Sillones</a>
+        <a th:href="@{/gestion/prestaciones}">Prestaciones</a>
+        <a th:href="@{/gestion/horario}">Horario</a>
+    </nav>
+    <div class="sesion">
+        <span class="chip chip--rol" sec:authorize="hasRole('ADMIN')">ADMIN</span>
+        <span class="chip chip--rol" sec:authorize="hasRole('SECRETARIA')">SECRETARIA</span>
+        <span class="chip chip--rol" sec:authorize="hasRole('ODONTOLOGO')">ODONTOLOGO</span>
+        <span sec:authentication="name">usuario</span>
+        <form th:action="@{/logout}" method="post" class="sesion__salir">
+            <button type="submit" class="boton boton--sec">Salir</button>
+        </form>
+    </div>
+</header>
+<main th:replace="${contenido}">
+    <p>Contenido de la pantalla.</p>
+</main>
+<footer class="pie">
+    <p>Datos de ejemplo ficticios. No se registran datos personales de pacientes en logs.</p>
+</footer>
+</body>
+</html>

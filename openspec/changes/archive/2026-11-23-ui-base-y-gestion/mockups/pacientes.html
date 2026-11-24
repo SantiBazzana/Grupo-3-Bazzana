@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pacientes · Turnos Odontología</title>
+  <link rel="stylesheet" href="mockups.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="panel.html"><span class="icono">+</span> Turnos Odontología</a>
+  <nav class="nav" aria-label="Secciones de gestión">
+    <a href="panel.html">Panel</a>
+    <a href="pacientes.html" aria-current="page">Pacientes</a>
+    <a href="profesionales.html">Profesionales</a>
+    <a href="sillones.html">Sillones</a>
+    <a href="prestaciones.html">Prestaciones</a>
+    <a href="horario.html">Horario</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">SECRETARIA</span> secretaria <a href="login.html">Salir</a></div>
+</header>
+<div class="contenedor">
+  <h1>Pacientes</h1>
+  <p class="sub">Buscá por apellido, nombre o DNI. Todos los datos de ejemplo son ficticios.</p>
+
+  <!-- Estado de error de regla (DNI duplicado) -->
+  <div class="alerta" role="alert"><strong>DATO_DUPLICADO</strong> · Ya existe un paciente con ese DNI.</div>
+
+  <div class="layout-gestion">
+    <section class="tarjeta" aria-labelledby="lista-pacientes">
+      <h2 id="lista-pacientes">Listado</h2>
+      <form method="get" action="/gestion/pacientes" role="search" style="margin-bottom:12px;display:flex;gap:8px">
+        <div class="campo" style="flex:1;margin:0">
+          <label for="q" class="sr-only">Buscar paciente</label>
+          <input id="q" name="q" placeholder="Buscar por apellido, nombre o DNI" value="">
+        </div>
+        <button class="boton boton--sec" type="submit">Buscar</button>
+      </form>
+      <table>
+        <caption>Pacientes cargados</caption>
+        <thead>
+          <tr><th scope="col">Apellido</th><th scope="col">Nombre</th><th scope="col">DNI</th><th scope="col">Teléfono</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uno</td><td>Paciente</td><td>00000001</td><td>5491100000001</td></tr>
+          <tr><td>Dos</td><td>Paciente</td><td>00000002</td><td>5491100000002</td></tr>
+          <tr><td>Tres</td><td>Paciente</td><td>00000003</td><td>5491100000003</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="tarjeta" aria-labelledby="alta-paciente">
+      <h2 id="alta-paciente">Nuevo paciente</h2>
+      <p>El DNI es único; el teléfono va en formato internacional sin “+”.</p>
+      <form action="/gestion/pacientes" method="post">
+        <div class="campo"><label for="apellido">Apellido</label><input id="apellido" name="apellido" required></div>
+        <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required></div>
+        <div class="campo"><label for="dni">DNI</label><input id="dni" name="dni" inputmode="numeric" required></div>
+        <div class="campo"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" placeholder="5491100000000"></div>
+        <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email"></div>
+        <input type="hidden" name="_csrf" value="token-csrf-de-la-vista">
+        <button class="boton boton--bloque" type="submit">Dar de alta</button>
+      </form>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

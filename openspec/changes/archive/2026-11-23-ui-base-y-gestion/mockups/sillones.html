@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sillones · Turnos Odontología</title>
+  <link rel="stylesheet" href="mockups.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="panel.html"><span class="icono">+</span> Turnos Odontología</a>
+  <nav class="nav" aria-label="Secciones de gestión">
+    <a href="panel.html">Panel</a>
+    <a href="pacientes.html">Pacientes</a>
+    <a href="profesionales.html">Profesionales</a>
+    <a href="sillones.html" aria-current="page">Sillones</a>
+    <a href="prestaciones.html">Prestaciones</a>
+    <a href="horario.html">Horario</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">ADMIN</span> admin <a href="login.html">Salir</a></div>
+</header>
+<div class="contenedor">
+  <h1>Sillones</h1>
+  <p class="sub">Boxes del consultorio. Un turno siempre ocupa un sillón.</p>
+
+  <div class="alerta" role="alert"><strong>DATO_DUPLICADO</strong> · Ya existe ese sillón.</div>
+
+  <div class="layout-gestion">
+    <section class="tarjeta" aria-labelledby="lista-sillones">
+      <h2 id="lista-sillones">Listado</h2>
+      <table>
+        <caption>Sillones cargados</caption>
+        <thead><tr><th scope="col">Nombre</th><th scope="col">Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Sillón 1</td><td><span class="chip chip--activo">Activo</span></td></tr>
+          <tr><td>Sillón 2</td><td><span class="chip chip--activo">Activo</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="tarjeta" aria-labelledby="alta-sillon">
+      <h2 id="alta-sillon">Nuevo sillón</h2>
+      <form action="/gestion/sillones" method="post">
+        <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required></div>
+        <input type="hidden" name="_csrf" value="token-csrf-de-la-vista">
+        <button class="boton boton--bloque" type="submit">Dar de alta</button>
+      </form>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

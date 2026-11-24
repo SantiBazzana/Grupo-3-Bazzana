@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Panel', ~{::main})}">
+<body>
+<main class="contenedor">
+    <h1>Panel de gestión</h1>
+    <p class="sub">Todo lo del consultorio en un solo lugar. Elegí una sección para empezar.</p>
+
+    <div class="grilla">
+        <a class="tarjeta tarjeta--enlace" sec:authorize="hasAnyRole('ADMIN','SECRETARIA')"
+           th:href="@{/gestion/pacientes}">
+            <h2>Pacientes</h2>
+            <p>Alta, búsqueda y datos de contacto.</p>
+            <span class="chip chip--rol">ADMIN · SECRETARIA</span>
+        </a>
+        <a class="tarjeta tarjeta--enlace" th:href="@{/gestion/profesionales}">
+            <h2>Profesionales</h2>
+            <p>Matrículas y estado. Solo ADMIN da de alta; el resto consulta.</p>
+            <span class="chip chip--rol">TODOS (lectura)</span>
+        </a>
+        <a class="tarjeta tarjeta--enlace" th:href="@{/gestion/sillones}">
+            <h2>Sillones</h2>
+            <p>Boxes del consultorio y su disponibilidad.</p>
+            <span class="chip chip--rol">TODOS (lectura)</span>
+        </a>
+        <a class="tarjeta tarjeta--enlace" th:href="@{/gestion/prestaciones}">
+            <h2>Prestaciones</h2>
+            <p>Nombre y duración en minutos de cada práctica.</p>
+            <span class="chip chip--rol">TODOS (lectura)</span>
+        </a>
+        <a class="tarjeta tarjeta--enlace" th:href="@{/gestion/horario}">
+            <h2>Horario de atención</h2>
+            <p>Franja por día de la semana; los días sin franja quedan cerrados.</p>
+            <span class="chip chip--rol">TODOS (lectura)</span>
+        </a>
+    </div>
+
+    <div class="aviso">
+        Los turnos y la agenda del día llegan en la siguiente entrega de interfaz (C-10).
+    </div>
+</main>
+</body>
+</html>

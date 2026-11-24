@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel · Turnos Odontología</title>
+  <link rel="stylesheet" href="mockups.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="panel.html"><span class="icono">+</span> Turnos Odontología</a>
+  <nav class="nav" aria-label="Secciones de gestión">
+    <a href="panel.html" aria-current="page">Panel</a>
+    <a href="pacientes.html">Pacientes</a>
+    <a href="profesionales.html">Profesionales</a>
+    <a href="sillones.html">Sillones</a>
+    <a href="prestaciones.html">Prestaciones</a>
+    <a href="horario.html">Horario</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">ADMIN</span> admin <a href="login.html">Salir</a></div>
+</header>
+<div class="contenedor">
+  <h1>Panel de gestión</h1>
+  <p class="sub">Todo lo del consultorio en un solo lugar. Elegí una sección para empezar.</p>
+
+  <div class="grilla">
+    <a class="tarjeta" href="pacientes.html" style="text-decoration:none;color:inherit">
+      <h2>Pacientes</h2>
+      <p>Alta, búsqueda y datos de contacto. Visible para ADMIN y SECRETARIA.</p>
+      <span class="chip chip--rol">ADMIN · SECRETARIA</span>
+    </a>
+    <a class="tarjeta" href="profesionales.html" style="text-decoration:none;color:inherit">
+      <h2>Profesionales</h2>
+      <p>Matrículas y estado. Solo ADMIN da de alta; el resto consulta.</p>
+      <span class="chip chip--rol">TODOS (lectura)</span>
+    </a>
+    <a class="tarjeta" href="sillones.html" style="text-decoration:none;color:inherit">
+      <h2>Sillones</h2>
+      <p>Boxes del consultorio y su disponibilidad.</p>
+      <span class="chip chip--rol">TODOS (lectura)</span>
+    </a>
+    <a class="tarjeta" href="prestaciones.html" style="text-decoration:none;color:inherit">
+      <h2>Prestaciones</h2>
+      <p>Nombre y duración en minutos de cada práctica.</p>
+      <span class="chip chip--rol">TODOS (lectura)</span>
+    </a>
+    <a class="tarjeta" href="horario.html" style="text-decoration:none;color:inherit">
+      <h2>Horario de atención</h2>
+      <p>Franja por día de la semana; los días sin franja quedan cerrados.</p>
+      <span class="chip chip--rol">TODOS (lectura)</span>
+    </a>
+  </div>
+
+  <div class="aviso" style="margin-top:24px">Los turnos y la agenda del día llegan en la siguiente entrega de interfaz (C-10).</div>
+</div>
+</body>
+</html>

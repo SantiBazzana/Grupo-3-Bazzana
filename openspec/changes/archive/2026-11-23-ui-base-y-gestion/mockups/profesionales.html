@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profesionales · Turnos Odontología</title>
+  <link rel="stylesheet" href="mockups.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="panel.html"><span class="icono">+</span> Turnos Odontología</a>
+  <nav class="nav" aria-label="Secciones de gestión">
+    <a href="panel.html">Panel</a>
+    <a href="pacientes.html">Pacientes</a>
+    <a href="profesionales.html" aria-current="page">Profesionales</a>
+    <a href="sillones.html">Sillones</a>
+    <a href="prestaciones.html">Prestaciones</a>
+    <a href="horario.html">Horario</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">ADMIN</span> admin <a href="login.html">Salir</a></div>
+</header>
+<div class="contenedor">
+  <h1>Profesionales</h1>
+  <p class="sub">Solo ADMIN da de alta; SECRETARIA y ODONTOLOGO ven el listado en modo lectura.</p>
+
+  <div class="layout-gestion">
+    <section class="tarjeta" aria-labelledby="lista-profesionales">
+      <h2 id="lista-profesionales">Listado</h2>
+      <table>
+        <caption>Profesionales del consultorio</caption>
+        <thead>
+          <tr><th scope="col">Apellido</th><th scope="col">Nombre</th><th scope="col">Matrícula</th><th scope="col">Teléfono</th><th scope="col">Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ejemplo</td><td>Ana</td><td>MP-0001</td><td>5491100000101</td><td><span class="chip chip--activo">Activo</span></td></tr>
+          <tr><td>Prueba</td><td>Bruno</td><td>MP-0002</td><td>5491100000102</td><td><span class="chip chip--activo">Activo</span></td></tr>
+        </tbody>
+      </table>
+      <p class="nota">Vista de SECRETARIA/ODONTOLOGO: sin formulario de alta ni acciones de edición.</p>
+    </section>
+
+    <!-- Visible solo con hasRole('ADMIN') -->
+    <aside class="tarjeta" aria-labelledby="alta-profesional">
+      <h2 id="alta-profesional">Nuevo profesional</h2>
+      <form action="/gestion/profesionales" method="post">
+        <div class="campo"><label for="apellido">Apellido</label><input id="apellido" name="apellido" required></div>
+        <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required></div>
+        <div class="campo"><label for="matricula">Matrícula</label><input id="matricula" name="matricula" required></div>
+        <div class="campo"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" placeholder="5491100000000"></div>
+        <input type="hidden" name="_csrf" value="token-csrf-de-la-vista">
+        <button class="boton boton--bloque" type="submit">Dar de alta</button>
+      </form>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

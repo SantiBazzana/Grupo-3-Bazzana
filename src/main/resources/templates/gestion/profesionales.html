@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Profesionales', ~{::main})}">
+<body>
+<main class="contenedor">
+    <h1>Profesionales</h1>
+    <p class="sub">Solo ADMIN da de alta; SECRETARIA y ODONTOLOGO ven el listado en modo lectura.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <div class="layout-gestion">
+        <section class="tarjeta" aria-labelledby="lista-profesionales">
+            <h2 id="lista-profesionales">Listado</h2>
+            <table>
+                <caption>Profesionales del consultorio</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="profesional : ${profesionales}">
+                    <td th:text="${profesional.apellido}">Ejemplo</td>
+                    <td th:text="${profesional.nombre}">Ana</td>
+                    <td th:text="${profesional.matricula}">MP-0001</td>
+                    <td th:text="${profesional.telefono}">5491100000101</td>
+                    <td>
+                        <span class="chip" th:classappend="${profesional.activo} ? 'chip--activo' : 'chip--inactivo'"
+                              th:text="${profesional.activo} ? 'Activo' : 'Inactivo'">Activo</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="vacio" th:if="${#lists.isEmpty(profesionales)}">Todavía no hay profesionales cargados.</p>
+        </section>
+
+        <aside class="tarjeta" id="form-alta-profesional" sec:authorize="hasRole('ADMIN')"
+               aria-labelledby="alta-profesional">
+            <h2 id="alta-profesional">Nuevo profesional</h2>
+            <form th:action="@{/gestion/profesionales}" method="post">
+                <div class="campo">
+                    <label for="apellido">Apellido</label>
+                    <input id="apellido" name="apellido" required>
+                </div>
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" required>
+                </div>
+                <div class="campo">
+                    <label for="matricula">Matrícula</label>
+                    <input id="matricula" name="matricula" required>
+                </div>
+                <div class="campo">
+                    <label for="telefono">Teléfono</label>
+                    <input id="telefono" name="telefono" placeholder="5491100000000">
+                </div>
+                <button class="boton boton--bloque" type="submit">Dar de alta</button>
+            </form>
+        </aside>
+    </div>
+</main>
+</body>
+</html>

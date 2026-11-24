@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Horario', ~{::main})}">
+<body>
+<main class="contenedor">
+    <h1>Horario de atención</h1>
+    <p class="sub">Una franja por día. Si dejás apertura y cierre vacíos, el día queda cerrado.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <section class="tarjeta" aria-labelledby="franjas">
+        <h2 id="franjas">Franjas semanales</h2>
+
+        <div th:each="franja : ${franjas}">
+            <form class="fila-horario" sec:authorize="hasRole('ADMIN')"
+                  th:action="@{/gestion/horario}" method="post">
+                <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
+                <input type="hidden" name="diaSemana" th:value="${franja.diaSemana}">
+                <input type="time" name="apertura" th:value="${franja.apertura != null ? franja.apertura : ''}"
+                       th:attr="aria-label='Apertura ' + ${nombresDia[franja.diaSemana]}">
+                <input type="time" name="cierre" th:value="${franja.cierre != null ? franja.cierre : ''}"
+                       th:attr="aria-label='Cierre ' + ${nombresDia[franja.diaSemana]}">
+                <button class="boton boton--sec" type="submit">Guardar</button>
+            </form>
+
+            <div class="fila-horario" sec:authorize="!hasRole('ADMIN')">
+                <span class="dia" th:text="${nombresDia[franja.diaSemana]}">Lunes</span>
+                <span th:if="${franja.apertura != null}" th:text="${franja.apertura} + ' a ' + ${franja.cierre}">08:00 a 20:00</span>
+                <span class="cerrado" th:if="${franja.apertura == null}">Cerrado</span>
+            </div>
+        </div>
+
+        <p class="nota">SECRETARIA y ODONTOLOGO ven las franjas sin botones de edición.</p>
+    </section>
+</main>
+</body>
+</html>

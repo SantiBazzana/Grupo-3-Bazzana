@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Pacientes', ~{::main})}">
+<body>
+<main class="contenedor">
+    <h1>Pacientes</h1>
+    <p class="sub">Buscá por apellido, nombre o DNI. Todos los datos de ejemplo son ficticios.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <div class="layout-gestion">
+        <section class="tarjeta" aria-labelledby="lista-pacientes">
+            <h2 id="lista-pacientes">Listado</h2>
+            <form class="buscador" th:action="@{/gestion/pacientes}" method="get" role="search">
+                <div class="campo">
+                    <label for="q" class="sr-only">Buscar paciente</label>
+                    <input id="q" name="q" th:value="${q}" placeholder="Buscar por apellido, nombre o DNI">
+                </div>
+                <button class="boton boton--sec" type="submit">Buscar</button>
+            </form>
+            <table>
+                <caption>Pacientes cargados</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Teléfono</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="paciente : ${pacientes}">
+                    <td th:text="${paciente.apellido}">Uno</td>
+                    <td th:text="${paciente.nombre}">Paciente</td>
+                    <td th:text="${paciente.dni}">00000001</td>
+                    <td th:text="${paciente.telefono}">5491100000001</td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="vacio" th:if="${#lists.isEmpty(pacientes)}">No hay pacientes para mostrar.</p>
+        </section>
+
+        <aside class="tarjeta" id="form-alta-paciente" sec:authorize="hasAnyRole('ADMIN','SECRETARIA')"
+               aria-labelledby="alta-paciente">
+            <h2 id="alta-paciente">Nuevo paciente</h2>
+            <p>El DNI es único; el teléfono va en formato internacional sin “+”.</p>
+            <form th:action="@{/gestion/pacientes}" method="post">
+                <div class="campo">
+                    <label for="apellido">Apellido</label>
+                    <input id="apellido" name="apellido" required>
+                </div>
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" required>
+                </div>
+                <div class="campo">
+                    <label for="dni">DNI</label>
+                    <input id="dni" name="dni" inputmode="numeric" required>
+                </div>
+                <div class="campo">
+                    <label for="telefono">Teléfono</label>
+                    <input id="telefono" name="telefono" placeholder="5491100000000">
+                </div>
+                <div class="campo">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email">
+                </div>
+                <button class="boton boton--bloque" type="submit">Dar de alta</button>
+            </form>
+        </aside>
+    </div>
+</main>
+</body>
+</html>

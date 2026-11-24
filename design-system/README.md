@@ -1,7 +1,7 @@
 # Design System
 
 Mode: system-and-mockups
-Approval: pending
+Approval: approved
 Decision source: elección del usuario en la fase `visual-design` de la fundación (`/active-orchestrator`), 2026-11-20; resuelta como `system-and-mockups` en el change C-09 (2026-11-23).
 
 ## Por qué está diferido
@@ -20,4 +20,18 @@ Decision source: elección del usuario en la fase `visual-design` de la fundaci�
 
 La decisión `system-and-mockups` reemplaza el `deferred` en este archivo y en `.active-orchestrator-state.json` (`visual_design`).
 
-No se creó identidad visual, logo ni tokens provisionales.
+## Fundación (C-09, 2026-11-23)
+
+Con la política `system-and-mockups` aprobada, C-09 creó la fundación mínima reutilizable por C-10:
+
+- `brand.md`: identidad, voz, paleta, tipografía, componentes y accesibilidad.
+- `brand.js`: export de la paleta y la forma para herramientas.
+- `tokens.css`: variables de color, tipografía, espaciado y forma.
+- `components.html`: catálogo de componentes con datos ficticios.
+- `assets/logo.svg`: marca tipográfica simple.
+- `previews/README.md`: ubicación de capturas (sin Playwright MCP en este apply).
+- `openspec/changes/ui-base-y-gestion/mockups/`: mockups HTML de login, panel y las cinco
+  pantallas de gestión, aprobados por la política vigente.
+
+Los tokens se replican en `src/main/resources/static/css/estilos.css` para la aplicación Thymeleaf.
+Un cambio de token requiere revisión del líder (política `system-and-mockups`).

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prestaciones · Turnos Odontología</title>
+  <link rel="stylesheet" href="mockups.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="panel.html"><span class="icono">+</span> Turnos Odontología</a>
+  <nav class="nav" aria-label="Secciones de gestión">
+    <a href="panel.html">Panel</a>
+    <a href="pacientes.html">Pacientes</a>
+    <a href="profesionales.html">Profesionales</a>
+    <a href="sillones.html">Sillones</a>
+    <a href="prestaciones.html" aria-current="page">Prestaciones</a>
+    <a href="horario.html">Horario</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">ADMIN</span> admin <a href="login.html">Salir</a></div>
+</header>
+<div class="contenedor">
+  <h1>Prestaciones</h1>
+  <p class="sub">La duración define el fin del turno y debe ser múltiplo de 5 minutos.</p>
+
+  <div class="alerta" role="alert"><strong>DURACION_INVALIDA</strong> · Duración inválida: 7 minutos (debe ser mayor que 0 y múltiplo de 5).</div>
+
+  <div class="layout-gestion">
+    <section class="tarjeta" aria-labelledby="lista-prestaciones">
+      <h2 id="lista-prestaciones">Listado</h2>
+      <table>
+        <caption>Prestaciones cargadas</caption>
+        <thead><tr><th scope="col">Nombre</th><th scope="col">Duración</th><th scope="col">Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Control</td><td>30 min</td><td><span class="chip chip--activo">Activa</span></td></tr>
+          <tr><td>Limpieza</td><td>45 min</td><td><span class="chip chip--activo">Activa</span></td></tr>
+          <tr><td>Conducto</td><td>60 min</td><td><span class="chip chip--activo">Activa</span></td></tr>
+          <tr><td>Extracción</td><td>40 min</td><td><span class="chip chip--activo">Activa</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="tarjeta" aria-labelledby="alta-prestacion">
+      <h2 id="alta-prestacion">Nueva prestación</h2>
+      <form action="/gestion/prestaciones" method="post">
+        <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required></div>
+        <div class="campo"><label for="duracion">Duración (minutos)</label><input id="duracion" name="duracionMinutos" type="number" min="5" step="5" required></div>
+        <input type="hidden" name="_csrf" value="token-csrf-de-la-vista">
+        <button class="boton boton--bloque" type="submit">Dar de alta</button>
+      </form>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

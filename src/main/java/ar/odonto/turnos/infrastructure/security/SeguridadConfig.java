@@ -4,9 +4,7 @@ import ar.odonto.turnos.domain.model.Rol;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
@@ -20,10 +18,12 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
  * {@code knowledge-base/03_actores_y_roles.md}. Rutas públicas sin autenticación;
  * todo lo demás requiere usuario autenticado (RN-AU-01, RN-AU-03).
  * <p>
- * CSRF desactivado: la ola 1 no tiene vistas Thymeleaf con forms (llega en C-09) y los
- * tests de los cambios previos no envían token CSRF; C-09 podrá volver a activarlo para
- * las vistas. No se emite JWT (IN-01): la autenticación se maneja con sesión de Spring
- * Security para las vistas y para el endpoint {@code POST /api/auth/login}.
+ * CSRF habilitado para los forms Thymeleaf de login y gestión (C-09): Thymeleaf + el
+ * procesador de Spring Security agrega el token a los forms con {@code th:action}. La API
+ * REST stateless ({@code /api/**}) queda exenta porque sus clientes envían JSON sin token;
+ * las vistas no consumen esos endpoints, consumen los casos de uso directamente (D3).
+ * No se emite JWT (IN-01): la autenticación se maneja con sesión de Spring Security para las
+ * vistas y para el endpoint {@code POST /api/auth/login}.
  */
 @Configuration(proxyBeanMethods = false)
 public class SeguridadConfig {
@@ -82,13 +82,31 @@ public class SeguridadConfig {
                                 .hasAnyRole(Rol.ADMIN.name(), Rol.SECRETARIA.name(), Rol.ODONTOLOGO.name())
                         .requestMatchers(HttpMethod.POST, "/api/turnos/**")
                                 .hasAnyRole(Rol.ADMIN.name(), Rol.SECRETARIA.name())
-                        // Todo lo demás requiere autenticación
+                        // Vistas de gestion (C-09): lectura segun la matriz RBAC por ruta. La
+                        // secretaria y el odontologo solo leen configuracion; los pacientes quedan
+                        // reservados a ADMIN y SECRETARIA (knowledge-base/03_actores_y_roles.md).
+                        .requestMatchers(HttpMethod.GET, "/gestion/pacientes/**")
+                                .hasAnyRole(Rol.ADMIN.name(), Rol.SECRETARIA.name())
+                        .requestMatchers(HttpMethod.POST, "/gestion/pacientes/**")
+                                .hasAnyRole(Rol.ADMIN.name(), Rol.SECRETARIA.name())
+                        .requestMatchers(HttpMethod.GET, "/gestion/profesionales/**", "/gestion/sillones/**",
+                                "/gestion/prestaciones/**", "/gestion/horario/**")
+                                .hasAnyRole(Rol.ADMIN.name(), Rol.SECRETARIA.name(), Rol.ODONTOLOGO.name())
+                        // Solo ADMIN da de alta o modifica la configuracion del consultorio (C en la matriz).
+                        .requestMatchers(HttpMethod.POST, "/gestion/profesionales/**", "/gestion/sillones/**",
+                                "/gestion/prestaciones/**", "/gestion/horario/**")
+                                .hasRole(Rol.ADMIN.name())
+                        // Todo lo demas requiere autenticacion (incluye /panel).
                         .anyRequest().authenticated()
                 )
-                // /login es la página por defecto de Spring Security (vista Thymeleaf en C-09).
-                .formLogin(Customizer.withDefaults())
-                // CSRF desactivado en esta fase (ver notas de la clase).
-                .csrf(AbstractHttpConfigurer::disable)
+                // /login es la vista Thymeleaf de login (C-09); el procesamiento del form vive en POST /login.
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/panel"))
+                // CSRF habilitado para los forms Thymeleaf de login y gestion. La API REST es
+                // stateless y recibe JSON sin token (sus clientes/tests no envian _csrf), asi que
+                // queda exenta; las vistas consumen los casos de uso (D3), no endpoints /api/**.
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**", "/h2-console/**"))
                 // Errores de seguridad como Problem Details con campo `codigo` (sin nuevos códigos).
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new RestAuthenticationEntryPoint())

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ingresar · Turnos Odontología</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<main class="login-pantalla">
+    <div class="login-caja">
+        <a class="marca" th:href="@{/login}">
+            <span class="marca__icono" aria-hidden="true">+</span>
+            Turnos Odontología
+        </a>
+        <h1>Ingresar al consultorio</h1>
+        <p class="sub">Usá tu usuario y contraseña de gestión.</p>
+
+        <div class="alerta" role="alert" th:if="${param.error}">
+            Usuario o contraseña incorrectos.
+        </div>
+        <div class="aviso" role="status" th:if="${param.logout}">
+            Cerraste la sesión.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="campo">
+                <label for="username">Usuario</label>
+                <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+            </div>
+            <div class="campo">
+                <label for="password">Contraseña</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+            <button class="boton boton--bloque" type="submit">Ingresar</button>
+        </form>
+
+        <p class="leyenda">Los usuarios de ejemplo se habilitan con variables de entorno. Sin datos reales de pacientes.</p>
+    </div>
+</main>
+</body>
+</html>

@@ -356,7 +356,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
   - `openspec/specs/turnos/spec.md` (disponible cuando C-02 esté archivado)
 
 ### [C-09] `ui-base-y-gestion`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado y archivado el 2026-11-23 (`openspec/changes/archive/2026-11-23-ui-base-y-gestion`, delta aplicado a la nueva spec `interfaz-gestion`, 3 requisitos)
 - **Owner / rama**: Guiretti / `feat/ui-base-y-gestion`
 - **Capability**: `interfaz-gestion`
 - **Scope**:
