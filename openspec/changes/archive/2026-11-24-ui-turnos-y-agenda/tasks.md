@@ -2,7 +2,7 @@
 
 ## 1. Gate de diseño (bloqueante)
 
-- [x] 1.1 Verificar que `design-system/README.md` siga en `system-and-mockups`, revisión 1 aprobada, y que los mockups de `openspec/changes/ui-turnos-y-agenda/mockups/` (7 pantallas/estados) estén listos.
+- [x] 1.1 Verificar que `design-system/README.md` siga en `system-and-mockups`, revisión 1 aprobada, y que los mockups de `openspec/changes/archive/2026-11-24-ui-turnos-y-agenda/mockups/` (7 pantallas/estados) estén listos.
 - [x] 1.2 Presentar al usuario las capturas `mockups/previews/*-390x844.png` y `*-1440x900.png` junto con los HTML clicables y obtener aprobación explícita; registrar `Approval: approved (<fecha>, by user)` en `design.md`. Sin este paso NO iniciar el apply.
 - [x] 1.3 Confirmar con el líder los matchers RBAC compartidos de `SeguridadConfig.java` y los enlaces en `layout/base.html` / `templates/gestion/panel.html`. No editarlos desde C-10.
 

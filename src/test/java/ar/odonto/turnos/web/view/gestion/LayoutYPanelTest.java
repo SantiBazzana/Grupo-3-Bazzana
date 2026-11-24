@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,6 +65,30 @@ class LayoutYPanelTest {
         assertThat(html)
                 .doesNotContain("href=\"/gestion/pacientes\"")
                 .contains("href=\"/gestion/profesionales\"");
+    }
+
+    @Test
+    void navegacionDeTurnosRespetaElRolAutenticado() throws Exception {
+        String admin = htmlDePanel("admin", "ADMIN");
+        String secretaria = htmlDePanel("secretaria", "SECRETARIA");
+        String odontologo = htmlDePanel("ana", "ODONTOLOGO");
+
+        assertThat(admin)
+                .contains("href=\"/agenda\"").contains(">Agenda</a>")
+                .contains("href=\"/turnos/nuevo\"").contains(">Nuevo turno</a>");
+        assertThat(secretaria)
+                .contains("href=\"/agenda\"").contains(">Agenda</a>")
+                .contains("href=\"/turnos/nuevo\"").contains(">Nuevo turno</a>");
+        assertThat(odontologo)
+                .contains("href=\"/agenda\"").contains(">Agenda</a>")
+                .doesNotContain("href=\"/turnos/nuevo\"")
+                .doesNotContain(">Nuevo turno</a>");
+    }
+
+    private String htmlDePanel(String usuario, String rol) throws Exception {
+        return mvc.perform(get("/panel").with(user(usuario).roles(rol)))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
     }
 
     @Test

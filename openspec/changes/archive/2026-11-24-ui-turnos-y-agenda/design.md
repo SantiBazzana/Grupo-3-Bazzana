@@ -4,7 +4,7 @@
 
 C-01 a C-08 entregaron el núcleo de turnos, cancelación, agenda del día y aviso por WhatsApp; C-09 entregó la base Thymeleaf (layout, login, pantallas de gestión, CSS y política visual `system-and-mockups`, revisión 1 aprobada el 2026-11-23). `openspec/specs/` ya consolida `turnos`, `agenda`, `aviso-whatsapp`, `acceso` e `interfaz-gestion`. No existe todavía interfaz web para crear/cancelar turnos ni para consultar la agenda; C-10 es el último change funcional antes del cierre.
 
-La política visual está resuelta en `design-system/README.md` y `.active-orchestrator-state.json` como `system-and-mockups`, `Approval: approved (2026-11-23, by user)`, `Revision: 1`. Este change reutiliza esa fundación y agrega mockups propios bajo `openspec/changes/ui-turnos-y-agenda/mockups/`.
+La política visual está resuelta en `design-system/README.md` y `.active-orchestrator-state.json` como `system-and-mockups`, `Approval: approved (2026-11-23, by user)`, `Revision: 1`. Este change reutiliza esa fundación y agrega mockups propios bajo `openspec/changes/archive/2026-11-24-ui-turnos-y-agenda/mockups/`.
 
 ## Goals / Non-Goals
 
@@ -25,9 +25,9 @@ La política visual está resuelta en `design-system/README.md` y `.active-orche
 
 - `Design system revision: 1` (`design-system/README.md`, `Approval: approved (2026-11-23, by user)`).
 - `Decision: yes` (2026-11-24). Change visual en modo `system-and-mockups`; se crean mockups antes del apply. No se usa `provided` ni `no`.
-- `Mockups: openspec/changes/ui-turnos-y-agenda/mockups/` (HTML/CSS local, datos ficticios, `brand-name.js` para el nombre mostrado).
+- `Mockups: openspec/changes/archive/2026-11-24-ui-turnos-y-agenda/mockups/` (HTML/CSS local, datos ficticios, `brand-name.js` para el nombre mostrado).
 - `Approval: approved (2026-11-24, by user)`. El usuario aprobó los mockups de la revisión 1; se habilita el apply.
-- `Preview: rendered (2026-11-24, openspec/changes/ui-turnos-y-agenda/mockups/previews/)`. Capturas generadas por navegador en 390x844 y 1440x900 para las 7 pantallas/estados; se verificaron marcadores DOM y consola sin errores. El modelo de este agente no inspecciona píxeles de imagen: el usuario debe revisar las capturas/HTML antes de aprobar.
+- `Preview: rendered (2026-11-24, openspec/changes/archive/2026-11-24-ui-turnos-y-agenda/mockups/previews/)`. Capturas generadas por navegador en 390x844 y 1440x900 para las 7 pantallas/estados; se verificaron marcadores DOM y consola sin errores. El modelo de este agente no inspecciona píxeles de imagen: el usuario debe revisar las capturas/HTML antes de aprobar.
 - `Visual verify: manual (2026-11-24)`. Con navegador Chromium se levantó la app con perfil `dev`, se recorrieron los 7 estados + acceso denegado y se guardaron 16 capturas (390x844 y 1440x900) en `mockups/verify/`. Revisión automática: consola sin errores de aplicación, 0 peticiones fallidas, único 403 esperado (ODONTOLOGO consultando agenda ajena), 12 comprobaciones DOM/layout en ambos viewports sin desbordamiento horizontal, columnas responsive y marcadores de estado presentes (`auditoria-dom.json`, `reporte.json`). Limitación: este modelo no puede inspeccionar píxeles, por lo que la comparación visual fina de las capturas contra los mockups aprobados queda para revisión humana; no se declaró `passed` sin esa inspección.
 
 ## Decisions
@@ -78,7 +78,7 @@ La política visual está resuelta en `design-system/README.md` y `.active-orche
 
 ### D5. Mockups locales, datos ficticios, sin cambio de fundación
 
-**Decisión**: los mockups viven en `mockups/` del change, importan `../../../../design-system/tokens.css`, usan `brand-name.js` local para el nombre mostrado y `mockups.css` solo para layout/composición del mockup. No se copian valores de tokens. Las capturas 390x844 y 1440x900 se guardan en `mockups/previews/`.
+**Decisión**: los mockups viven en `mockups/` del change, importan `../../../../../design-system/tokens.css`, usan `brand-name.js` local para el nombre mostrado y `mockups.css` solo para layout/composición del mockup. No se copian valores de tokens. Las capturas 390x844 y 1440x900 se guardan en `mockups/previews/`.
 
 **Razonamiento**: cumple la política `system-and-mockups`, la regla D1 de datos ficticios y la restricción de no modificar la fundación aprobada. Un nombre de marca local evita tocar `design-system/brand.js` (revisión 1 aprobada).
 

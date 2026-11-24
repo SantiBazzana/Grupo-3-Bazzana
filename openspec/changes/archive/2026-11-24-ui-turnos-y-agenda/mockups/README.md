@@ -38,7 +38,7 @@ Capturas ya generadas: `previews/<pantalla>-390x844.png` y `previews/<pantalla>-
 - `verify/auditoria-dom.json`: 12 comprobaciones en ambos viewports (título, ancho sin desbordamiento, columnas responsive, tabla con scroll, chip de sobreturno, botón/selector deshabilitados y aviso de RN-AG-02).
 - La comparación fina de píxeles contra estos mockups aprobados es manual: ver `Visual verify` en `../design.md`.
 
-Opcionalmente, servir el repo con Node: `npx serve .` desde la raíz y abrir `http://localhost:3000/openspec/changes/ui-turnos-y-agenda/mockups/agenda.html`.
+Opcionalmente, servir el repo con Node: `npx serve .` desde la raíz y abrir `http://localhost:3000/openspec/changes/archive/2026-11-24-ui-turnos-y-agenda/mockups/agenda.html`.
 
 ## Reemplazo de valores
 

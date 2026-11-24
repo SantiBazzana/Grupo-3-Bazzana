@@ -315,6 +315,25 @@ class VistasDeTurnosTest {
     }
 
     @Test
+    void agendaMuestraLaFechaDelTituloEnFormatoDiaMesAnio() throws Exception {
+        assertThat(agendaDeAna())
+                .contains("23/11/2026 · Ana Ejemplo")
+                .doesNotContain("2026-11-23 · Ana Ejemplo");
+    }
+
+    @Test
+    void enlaceVerTurnoQuedaEnLaPrimeraColumnaDeLaAgenda() throws Exception {
+        guardarTurno(ana, sillon1, paciente1, "2026-11-23T09:00", "2026-11-23T09:30", false);
+        String html = agendaDeAna();
+        int inicioCuerpo = html.indexOf("<tbody>");
+        int enlace = html.indexOf("Ver turno #", inicioCuerpo);
+        int paciente = html.indexOf("Paciente Numero 1", inicioCuerpo);
+
+        assertThat(html).doesNotContain("<th scope=\"col\">Detalle</th>");
+        assertThat(enlace).isGreaterThan(inicioCuerpo).isLessThan(paciente);
+    }
+
+    @Test
     void agendaEstaDisponibleParaLosTresRoles() throws Exception {
         como(new Solicitante("admin", Rol.ADMIN, null));
         mvc.perform(get("/agenda").with(user("admin").roles("ADMIN"))).andExpect(status().isOk());

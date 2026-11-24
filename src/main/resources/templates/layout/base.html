@@ -16,6 +16,8 @@
     </a>
     <nav class="navegacion" aria-label="Secciones de gestión">
         <a th:href="@{/panel}">Panel</a>
+        <a th:href="@{/agenda}">Agenda</a>
+        <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/turnos/nuevo}">Nuevo turno</a>
         <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/gestion/pacientes}">Pacientes</a>
         <span class="navegacion__grupo">Configuración</span>
         <a th:href="@{/gestion/profesionales}">Profesionales</a>

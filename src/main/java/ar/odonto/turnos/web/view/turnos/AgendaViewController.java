@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ import java.util.List;
 class AgendaViewController {
 
     private static final String VISTA = "agenda/dia";
+    private static final DateTimeFormatter FECHA_TITULO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final ConsultarAgenda consultarAgenda;
     private final ListarProfesionales listarProfesionales;
@@ -65,6 +67,7 @@ class AgendaViewController {
 
         model.addAttribute("filas", filas);
         model.addAttribute("fecha", dia.toString());
+        model.addAttribute("fechaTitulo", FECHA_TITULO.format(dia));
         model.addAttribute("profesionales", profesionalesActivos());
         model.addAttribute("profesionalId", profesional);
         model.addAttribute("profesionalNombre", nombreProfesional(profesional));
