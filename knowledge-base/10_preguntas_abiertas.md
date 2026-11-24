@@ -7,12 +7,14 @@
 **Decisión B dice**: autenticación con login de usuario y contraseña y JWT (ronda técnica, 4b).
 **Impacto**: JWT es natural para APIs consumidas por otro cliente (SPA o móvil). Con Thymeleaf, el navegador no envía un header `Authorization` en cada navegación sin JavaScript adicional, y guardar el token en una cookie obliga a resolver CSRF de todos modos.
 **Resolución propuesta**: form login con **sesión** de Spring Security para las vistas Thymeleaf. JWT **solo** para `/api/**`, si se decide exponer la API a otro cliente. Decidirlo en el change de autenticación, que no es el primero (DD-06).
+**Resuelta** (C-05, 2026-11-23): sesión de Spring Security para todo. Las vistas usan form login en `/login` y la API usa `POST /api/auth/login`, que deja la misma cookie de sesión. No se usa JWT (ver PA-09 en "Preguntas resueltas").
 
 ### IN-02: Tamaño del equipo vs. la consigna
 **La consigna dice**: "Individual o en grupo de hasta 3 integrantes".
 **El equipo informó**: 6 personas.
 **Impacto**: puede afectar la evaluación de "trazabilidad y participación".
 **Resolución propuesta**: confirmar con la cátedra antes de la entrega.
+**Resuelta** (2026-11-23): la cátedra confirmó que el grupo puede ser de 6 integrantes. Cada uno firma sus commits con su identidad de git, y la participación se ve en los PRs de cada change.
 
 ### IN-03: Estructura de carpetas sugerida vs. Maven
 **La consigna sugiere**: `src/` y `tests/` en la raíz.
@@ -25,7 +27,6 @@
 |---|---|---|---|---|
 | PA-05 | Baja | ¿Los feriados bloquean la agenda? Supuesto: no en la v1 (SU-06) | Etapas posteriores | Product Owner |
 | PA-08 | Baja | Si Argentina volviera a aplicar horario de verano, ¿cómo se tratan los turnos en el cambio de hora? | — | Equipo técnico |
-| PA-09 | Baja | IN-01: ¿sesión o JWT para las vistas? | Change de autenticación | Equipo técnico |
 
 ## Datos "No evidenciado" del Discovery
 
@@ -53,3 +54,4 @@ Datos que la investigación de mercado (2026-11-20) no pudo respaldar con fuente
 | PA-04 | Puede marcar sobreturno cualquier rol que pueda crear turnos (SECRETARIA, ADMIN). La regla no chequea el rol; lo hace la autorización por ruta de C-05. | 2026-11-20, explore de C-02 |
 | PA-06 | **Bloqueo pesimista** de sillón, profesional y paciente (en ese orden) dentro de la transacción de creación, antes de consultar choques (RN-TU-10). Se prueba con dos creaciones concurrentes. | 2026-11-20, explore de C-02 |
 | PA-07 | El inicio va en **múltiplos de 5 minutos** y segundos en 0 (nueva RN-TU-11, `ENTRADA_INVALIDA`). SU-05 descartado. | 2026-11-20, explore de C-02 |
+| PA-09 | **Sesión** de Spring Security para las vistas y para la API (IN-01). Sin JWT en la v1. | 2026-11-23, C-05 (Castillo) |

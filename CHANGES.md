@@ -8,7 +8,7 @@
 - Stack: Java 17, Spring Boot 4.2 (decidido en el apply de C-01; ver su design.md D1), Maven Wrapper, Spring Data JPA, H2, Thymeleaf, Spring Security, JUnit 5. Paquete base `ar.odonto.turnos` (`knowledge-base/02` y `08`).
 - Equipo: 6 programadores. Líder y dueño del repo: **Santiago**. Integrantes: Joaquin, Romero, Castillo, Adriano, Guiretti.
 - Consigna académica: **un** change tiene que pasar por el ciclo OPSX completo (explore → propose → apply → verify → archive), con al menos 3 escenarios verificables (feliz, error de negocio, borde) y un test por escenario. El change evaluado es **C-02 `crear-turno-sin-solapamientos`** y lo lleva el líder.
-- Política de diseño visual: `deferred`. El primer change que agrega pantallas (C-09) tiene que invocar antes la skill `design-system` (una sola vez para todo el proyecto).
+- Política de diseño visual: `system-and-mockups`, resuelta en C-09 y aprobada por el líder el 2026-11-23 (`design-system/README.md`, revisión 1). Al generarse este archivo estaba en `deferred`.
 
 ---
 
@@ -399,7 +399,23 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
 ## FASE 4 — Cierre
 
 ### [C-11] `integracion-y-verificacion-final`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` verificación técnica completa el 2026-11-24. Los entregables de la cátedra siguen abiertos (ver abajo).
+  - `./mvnw test` en `main` (`ccf8b12`): 368 tests en verde. `openspec validate --specs`: 9 de 9 capabilities válidas.
+  - App con perfil `dev`: `/actuator/health` responde `UP`.
+  - Recorrido con los usuarios de ejemplo:
+    - crear turno (201);
+    - choque de sillón y de profesional (409);
+    - margen de 5 min: 10:30 rechazado y 10:35 aceptado;
+    - sobreturno (201);
+    - cancelar (200) y segunda cancelación (`TURNO_YA_CANCELADO`, 422);
+    - la agenda deja de mostrar el turno cancelado;
+    - link de WhatsApp (200).
+  - Roles: el odontólogo ve su agenda (200) y recibe 403 `ACCESO_DENEGADO` al ver la de otro, crear turnos, pedir el link de WhatsApp o ver pacientes; crear un sillón es solo de ADMIN.
+  - README actualizado con el login, las pantallas, el uso de la API con sesión, las specs vigentes y las limitaciones conocidas.
+  - Repo revisado: sin secretos ni datos reales.
+  - KB al día: IN-01, IN-02 y PA-09 resueltas.
+  - Las 17 tareas de C-05, ya implementadas, quedan marcadas en su `tasks.md` archivado.
+  - Pendiente del equipo: verificación de fuentes del Discovery, video y reflexión escrita.
 - **Owner / rama**: Santiago / `feat/integracion-final`
 - **Capability**: ninguna (checklist de cierre, sin propose OPSX)
 - **Scope**:
@@ -435,7 +451,7 @@ Hoy es viernes 2026-11-20. La entrega es el miércoles 25. Hay 5 días hábiles 
 - **Verificación manual de fuentes** (la consigna exige que una persona abra y compruebe al menos 5 fuentes; ver tabla en `docs/discovery/informe-discovery.md` §Verificación de fuentes): se reparte entre domingo y lunes, una fuente por integrante (fuente 1: Joaquin; 2: Romero; 3: Castillo; 4: Adriano; 5: Guiretti), anotando qué encontraron y la corrección aplicada. Santiago consolida el informe el martes.
 - **Video**: se graba el martes 24 con C-02 ya archivado y la app corriendo; guion el mismo martes por Joaquin.
 - **Reflexión escrita**: aportes individuales martes 24; Santiago consolida el mismo día. El miércoles queda como colchón.
-- **Pregunta pendiente con la cátedra (IN-02)**: la consigna admite hasta 3 integrantes y el equipo es de 6. Confirmarla esta semana, antes de la entrega.
+- **Pregunta con la cátedra (IN-02), resuelta**: la consigna admitía hasta 3 integrantes y el equipo es de 6. La cátedra confirmó el 2026-11-23 que el grupo de 6 está aceptado.
 
 ---
 

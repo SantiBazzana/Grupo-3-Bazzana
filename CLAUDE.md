@@ -54,7 +54,7 @@ La fuente de verdad del dominio vive en `knowledge-base/`. **Leé el archivo rel
 | **Testing** | Un test por escenario del spec, `Clock` fijo, casos borde | `java-junit`, `tdd` |
 | **Seguridad** | Spring Security, RBAC, CSRF / sesión vs JWT (C-05) | `springboot-security` |
 | **Orquestación SDD** | Ciclo OPSX por change | `openspec-explore`, `openspec-propose`, `openspec-apply-change`, `openspec-update-change`, `openspec-sync-specs`, `openspec-archive-change` |
-| **UI (solo desde C-09)** | Vistas Thymeleaf; antes se resuelve la política visual (`deferred`) | `design-system`, `emil-design-eng` |
+| **UI (solo desde C-09)** | Vistas Thymeleaf; política visual `system-and-mockups` (mockup aprobado por cada cambio visual) | `design-system`, `emil-design-eng` |
 
 Cargá la skill correspondiente al contexto ANTES de escribir código. **No usar** `fastify-best-practices` ni `vitest`, que son de otro stack.
 
@@ -115,7 +115,7 @@ Son contrato: romperlas es un defecto.
 - **G1.** El estado de los artefactos lo da **siempre** el CLI de OpenSpec (`openspec status`, `openspec list`); nunca se adivina ni se crea `openspec/` a mano.
 - **G2.** Governance por dominio: **autenticación y seguridad (C-05)** = el agente analiza y propone, y **no escribe código sin aprobación humana explícita**. Configuración y datos = propone y espera revisión. Lógica de negocio = implementa con checkpoints. CRUD simples = autonomía si los tests pasan.
 - **G3.** Si el agente tiene Engram disponible, guarda las decisiones, los bugs resueltos y los hallazgos no obvios (proyecto `grupo-3-bazzana`).
-- **G4.** Visual: la política está en `deferred` (`design-system/README.md`). El primer change con pantallas (C-09) resuelve la política **una sola vez** antes de proponer.
+- **G4.** Visual: la política es `system-and-mockups` (`design-system/README.md`, revisión 1, aprobada en C-09 el 2026-11-23). Cada change con pantallas necesita mockups aprobados por el líder antes del apply.
 
 ---
 

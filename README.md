@@ -51,6 +51,38 @@ Con el perfil `dev`:
   $env:SEED_ADMIN_PASSWORD="elegí-una"; $env:SEED_SECRETARIA_PASSWORD="elegí-otra"; $env:SEED_ODONTOLOGO_PASSWORD="y-otra"
   ```
 
+  Las variables valen solo para esa terminal: si abrís otra, hay que definirlas de nuevo.
+
+## Usar la aplicación
+
+### Desde el navegador
+
+Entrá a `http://localhost:8080` (te redirige a `/login`) con alguno de los usuarios de ejemplo y la contraseña que definiste.
+
+| Usuario | Rol | Qué puede hacer |
+|---|---|---|
+| `admin` | ADMIN | Todo, incluida la configuración (profesionales, sillones, prestaciones, horario) |
+| `secretaria` | SECRETARIA | Pacientes, crear y cancelar turnos, agenda de cualquier profesional, link de WhatsApp |
+| `ana` | ODONTOLOGO | Solo su agenda (está vinculada a la profesional Ana Ejemplo) y la consulta de la configuración |
+
+Pantallas: **Panel**, **Agenda** (`/agenda`), **Nuevo turno** (`/turnos/nuevo`), el detalle de cada turno con la cancelación y el botón de WhatsApp, y la gestión de **Pacientes**, **Profesionales**, **Sillones**, **Prestaciones** y **Horario**. Si una regla rechaza la operación, la pantalla muestra el código (por ejemplo `CHOQUE_SILLON`) sin perder lo cargado.
+
+### Desde la API
+
+La API usa la misma sesión que las vistas. Primero hay que loguearse y guardar la cookie; después se manda esa cookie en cada pedido (en PowerShell, `curl.exe`):
+
+```powershell
+'{"username":"secretaria","password":"la-que-definiste"}' | Out-File -Encoding ascii login.json
+```
+```powershell
+curl.exe -c sesion.txt -H "Content-Type: application/json" -X POST http://localhost:8080/api/auth/login --data "@login.json"
+```
+```powershell
+curl.exe -b sesion.txt "http://localhost:8080/api/agenda?profesionalId=1&fecha=2026-11-26"
+```
+
+Sin sesión la API responde `401` con `codigo` `NO_AUTENTICADO`, y con un rol sin permiso responde `403` con `ACCESO_DENEGADO`. Borrá `login.json` al terminar.
+
 ### Parámetros de negocio
 
 Se pueden cambiar por variable de entorno sin tocar el código:
@@ -65,7 +97,34 @@ Se pueden cambiar por variable de entorno sin tocar el código:
 
 Java 17, **Spring Boot 4.2** (WebMVC, Validation, Data JPA, Security, Thymeleaf, Actuator), H2 y JUnit 5 + AssertJ. La API devuelve los errores como *Problem Details* (RFC 7807) con el campo `codigo` (por ejemplo `CHOQUE_SILLON` → 409). El detalle está en [`knowledge-base/02_descripcion_general.md`](knowledge-base/02_descripcion_general.md).
 
-> Mientras no se integre el change de autenticación (C-05), la seguridad es **permisiva**: todas las rutas responden sin login. C-05 la reemplaza sin editar el código base.
+La seguridad usa sesión de Spring Security con contraseñas en BCrypt (C-05). Los formularios de las vistas llevan token CSRF.
+
+## Specs vigentes
+
+Las reglas que el sistema cumple están en [`openspec/specs/`](openspec/specs/), una carpeta por capability:
+
+| Capability | Qué cubre | Change |
+|---|---|---|
+| `base-del-sistema` | Esqueleto, reloj inyectable, formato de errores | C-01 |
+| `turnos` | Crear turno sin choques (profesional, sillón, paciente, margen, sobreturno) y cancelar | C-02, C-08 |
+| `configuracion-consultorio` | Profesionales, sillones, prestaciones y horario | C-03 |
+| `pacientes` | Alta, búsqueda y edición de pacientes | C-04 |
+| `acceso` | Login y permisos por rol | C-05 |
+| `aviso-whatsapp` | Link click-to-chat `wa.me` del turno | C-06 |
+| `agenda` | Agenda del día por profesional | C-07 |
+| `interfaz-gestion` | Login, panel y pantallas de gestión | C-09 |
+| `interfaz-turnos` | Pantallas de turnos y agenda | C-10 |
+
+Los 10 changes que las generaron están archivados en [`openspec/changes/archive/`](openspec/changes/archive/). El change evaluado con el ciclo OPSX completo es `crear-turno-sin-solapamientos` (C-02).
+
+## Limitaciones conocidas
+
+Quedan anotadas para una próxima etapa; ninguna rompe una regla de las specs.
+
+- Un odontólogo puede abrir el detalle de cualquier turno (en la vista y en `GET /api/turnos/{id}`); la agenda sí está limitada a la suya.
+- Si se abre en el navegador un turno que no existe (`/turnos/999`), la respuesta es el error JSON de la API en lugar de una pantalla.
+- `/api/**` no exige token CSRF aunque la sesión viaja en una cookie. El riesgo es bajo porque la API recibe solo JSON, pero si se expone a otros clientes conviene pasar a token o exigir CSRF.
+- Sin recordatorios automáticos, ficha clínica ni cobros: están en el backlog de [`CHANGES.md`](CHANGES.md).
 
 ## Mapa del repositorio
 
@@ -76,6 +135,7 @@ Java 17, **Spring Boot 4.2** (WebMVC, Validation, Data JPA, Security, Thymeleaf,
 | [`knowledge-base/`](knowledge-base/) | Base de conocimiento: visión, actores, modelo de datos, **reglas de negocio**, arquitectura, decisiones, preguntas abiertas |
 | [`CHANGES.md`](CHANGES.md) | Roadmap: 11 changes, dependencias, asignación por integrante, reglas anti-colisión |
 | [`openspec/`](openspec/) | Specs vigentes (`specs/`) y changes en curso o archivados (`changes/`) |
+| [`design-system/`](design-system/) | Sistema de diseño aprobado: tokens, componentes y logo (los mockups de cada change están en su carpeta archivada) |
 | `src/main/java/ar/odonto/turnos/` | Código: `domain` (modelo, puertos, errores, reglas), `application` (casos de uso), `infrastructure`, `web` |
 | `src/test/java/ar/odonto/turnos/` | Tests; `support/` tiene `RelojDePrueba` y `DatosDePrueba` (datos ficticios) |
 
