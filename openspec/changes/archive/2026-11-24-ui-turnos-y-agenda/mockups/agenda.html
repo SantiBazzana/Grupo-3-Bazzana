@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi agenda · Mockup C-10</title>
+  <link rel="stylesheet" href="../../../../design-system/tokens.css">
+  <link rel="stylesheet" href="mockups.css">
+  <script type="module" src="brand-name.js"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#"><span class="marca__icono" aria-hidden="true">+</span><span data-brand-name>Turnos Odontología</span></a>
+  <nav class="navegacion" aria-label="Secciones">
+    <a href="agenda.html" aria-current="page">Agenda</a>
+    <a href="crear-turno.html">Turnos</a>
+    <a href="#">Pacientes</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">SECRETARIA</span><span>secretaria</span></div>
+</header>
+<main class="contenedor">
+  <h1>Agenda del día</h1>
+  <p class="sub">Turnos RESERVADOS del profesional y la fecha elegidos. No se muestran DNI ni teléfono de pacientes.</p>
+
+  <section class="tarjeta" aria-labelledby="filtros-agenda">
+    <h2 id="filtros-agenda">Filtrar agenda</h2>
+    <form class="form-grid">
+      <div class="campo">
+        <label for="fecha">Fecha</label>
+        <input id="fecha" type="date" value="2026-11-24">
+      </div>
+      <div class="campo">
+        <label for="profesional">Profesional</label>
+        <select id="profesional"><option>Ana Ejemplo</option><option>Bruno Prueba</option></select>
+      </div>
+      <button class="boton" type="submit">Ver agenda</button>
+    </form>
+  </section>
+
+  <section class="tarjeta" aria-labelledby="lista-agenda" style="margin-top: var(--espacio-4);">
+    <h2 id="lista-agenda">24/11/2026 · Ana Ejemplo</h2>
+    <div class="tabla-scroll">
+      <table>
+        <caption>3 turnos activos, ordenados por hora</caption>
+        <thead>
+        <tr><th scope="col">Hora</th><th scope="col">Paciente</th><th scope="col">Prestación</th><th scope="col">Sillón</th><th scope="col">Detalle</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>09:00 – 09:30</td>
+          <td>Paciente Uno</td>
+          <td>Control</td>
+          <td>Sillón 1</td>
+          <td><a href="detalle-turno.html">Ver turno #104</a></td>
+        </tr>
+        <tr>
+          <td>09:45 – 10:15</td>
+          <td>Paciente Dos</td>
+          <td>Limpieza</td>
+          <td>Sillón 2</td>
+          <td><a href="detalle-turno.html">Ver turno #105</a></td>
+        </tr>
+        <tr>
+          <td>10:00 – 10:30 <span class="chip">SOBRETURNO</span></td>
+          <td>Paciente Tres</td>
+          <td>Control</td>
+          <td>Sillón 3</td>
+          <td><a href="detalle-turno.html">Ver turno #106</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="acciones" style="margin-top: var(--espacio-4);">
+      <a class="boton" href="crear-turno.html">Nuevo turno</a>
+      <a class="boton boton--sec" href="agenda-vacia.html">Ver día sin turnos</a>
+    </div>
+  </section>
+</main>
+<p class="pie">Mockup de C-10 · datos ficticios · revisión 1 del sistema de diseño</p>
+</body>
+</html>

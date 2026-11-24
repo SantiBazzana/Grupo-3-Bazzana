@@ -377,7 +377,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
   - `design-system/README.md` (se crea en este change: invocar antes la skill `design-system`)
 
 ### [C-10] `ui-turnos-y-agenda`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado y archivado el 2026-11-24 (`openspec/changes/archive/2026-11-24-ui-turnos-y-agenda`, delta aplicado a la nueva spec `interfaz-turnos`, 5 requisitos). Sin commit, push ni PR: Joaquin los ejecuta manualmente.
 - **Owner / rama**: Joaquin / `feat/ui-turnos-y-agenda`
 - **Capability**: `interfaz-turnos`
 - **Scope**:

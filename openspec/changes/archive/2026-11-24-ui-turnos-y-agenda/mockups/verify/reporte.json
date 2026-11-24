@@ -1,0 +1,13 @@
+{
+  "fecha": "2026-11-24T14:13:12.873Z",
+  "vista": "app dev (perfil dev, datos ficticios, reloj real del servidor)",
+  "eventos": {
+    "consola": [
+      "secretaria: Failed to load resource: the server responded with a status of 403 ()"
+    ],
+    "fallidos": [],
+    "http": [
+      "secretaria: 403 http://localhost:8081/agenda?fecha=2026-11-24&profesionalId=2"
+    ]
+  }
+}

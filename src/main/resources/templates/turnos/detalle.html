@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Detalle de turno', ~{::main})}">
+<body>
+<main class="contenedor">
+    <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
+
+    <h1>Detalle del turno</h1>
+    <p class="sub" th:text="'Turno #' + ${turno.id} + ' · datos de ejemplo ficticios.'">Turno · datos ficticios.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <div class="layout-dos-columnas">
+        <section class="tarjeta" aria-labelledby="datos-turno">
+            <h2 id="datos-turno">Datos del turno</h2>
+            <dl class="detalle-lista">
+                <div><dt>Paciente</dt><dd th:text="${turno.pacienteNombre}">Paciente</dd></div>
+                <div><dt>Profesional</dt><dd th:text="${turno.profesionalNombre}">Profesional</dd></div>
+                <div><dt>Sillón</dt><dd th:text="${turno.sillonNombre}">Sillón</dd></div>
+                <div><dt>Prestación</dt><dd th:text="${turno.prestacionNombre}">Prestación</dd></div>
+                <div><dt>Inicio y fin</dt><dd th:text="${turno.inicio + ' a ' + turno.fin}">Inicio y fin</dd></div>
+                <div>
+                    <dt>Estado</dt>
+                    <dd>
+                        <span class="chip" th:classappend="${turno.estado == 'CANCELADO'} ? 'chip--inactivo' : 'chip--activo'"
+                              th:text="${turno.estado}">RESERVADO</span>
+                        <span class="chip chip--sobreturno" th:if="${turno.sobreturno}">SOBRETURNO</span>
+                    </dd>
+                </div>
+                <div><dt>Creado por</dt><dd th:text="${turno.creadoPor}">usuario</dd></div>
+            </dl>
+
+            <div class="acciones">
+                <th:block sec:authorize="hasAnyRole('ADMIN','SECRETARIA')">
+                    <form th:if="${turno.estado == 'RESERVADO'}"
+                          th:action="@{/turnos/{id}/cancelar(id=${turno.id})}" method="post">
+                        <button class="boton boton--sec" type="submit">Cancelar turno</button>
+                    </form>
+                    <a class="boton" th:if="${whatsappUrl != null}" th:href="${whatsappUrl}">Abrir WhatsApp</a>
+                    <button class="boton" type="button" disabled th:if="${sinTelefono}"
+                            aria-describedby="sin-telefono">Abrir WhatsApp</button>
+                </th:block>
+            </div>
+            <p id="sin-telefono" class="vacio vacio--compacto" th:if="${sinTelefono}"
+               sec:authorize="hasAnyRole('ADMIN','SECRETARIA')">
+                El paciente no tiene teléfono cargado. Cargalo desde Pacientes para habilitar el enlace.
+            </p>
+        </section>
+
+        <aside class="tarjeta" aria-labelledby="notas">
+            <h2 id="notas">Acciones disponibles</h2>
+            <p class="vacio vacio--compacto">La cancelación requiere al menos 6 horas de anticipación. El enlace de WhatsApp abre el chat; el sistema no envía mensajes automáticos.</p>
+            <p class="vacio vacio--compacto">Este detalle no incluye DNI ni teléfono del paciente.</p>
+            <a class="boton boton--sec" th:href="@{/agenda}">Volver a la agenda</a>
+        </aside>
+    </div>
+</main>
+</body>
+</html>

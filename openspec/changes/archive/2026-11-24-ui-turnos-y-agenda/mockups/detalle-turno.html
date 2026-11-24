@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalle de turno · Mockup C-10</title>
+  <link rel="stylesheet" href="../../../../design-system/tokens.css">
+  <link rel="stylesheet" href="mockups.css">
+  <script type="module" src="brand-name.js"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#"><span class="marca__icono" aria-hidden="true">+</span><span data-brand-name>Turnos Odontología</span></a>
+  <nav class="navegacion" aria-label="Secciones">
+    <a href="agenda.html">Agenda</a>
+    <a href="crear-turno.html">Turnos</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">SECRETARIA</span><span>secretaria</span></div>
+</header>
+<main class="contenedor">
+  <h1>Detalle del turno</h1>
+  <p class="sub">Turno #104 · datos de ejemplo ficticios.</p>
+
+  <div class="layout-dos-columnas">
+    <section class="tarjeta" aria-labelledby="datos-turno">
+      <h2 id="datos-turno">Datos del turno</h2>
+      <dl class="detalle-lista">
+        <div><dt>Paciente</dt><dd>Paciente Uno</dd></div>
+        <div><dt>Profesional</dt><dd>Ana Ejemplo</dd></div>
+        <div><dt>Sillón</dt><dd>Sillón 1</dd></div>
+        <div><dt>Prestación</dt><dd>Control · 30 min</dd></div>
+        <div><dt>Inicio y fin</dt><dd>24/11/2026 · 10:00 a 10:30</dd></div>
+        <div><dt>Estado</dt><dd><span class="chip chip--activo">RESERVADO</span></dd></div>
+        <div><dt>Creado por</dt><dd>secretaria</dd></div>
+      </dl>
+      <div class="acciones">
+        <button class="boton boton--sec" type="button">Cancelar turno</button>
+        <a class="boton" href="https://wa.me/5491100000001?text=Hola%2C%20le%20recordamos%20su%20turno">Abrir WhatsApp</a>
+      </div>
+    </section>
+
+    <aside class="tarjeta" aria-labelledby="notas">
+      <h2 id="notas">Acciones disponibles</h2>
+      <p class="vacio">La cancelación requiere al menos 6 horas de anticipación. El enlace de WhatsApp abre el chat; el sistema no envía mensajes automáticos.</p>
+      <p class="vacio">Este detalle no incluye DNI ni teléfono del paciente.</p>
+      <a class="boton boton--sec" href="agenda.html">Volver a la agenda</a>
+    </aside>
+  </div>
+</main>
+<p class="pie">Mockup de C-10 · datos ficticios · revisión 1 del sistema de diseño</p>
+</body>
+</html>

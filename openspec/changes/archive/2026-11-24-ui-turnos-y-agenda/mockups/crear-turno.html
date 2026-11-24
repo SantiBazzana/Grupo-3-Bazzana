@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear turno · Mockup C-10</title>
+  <link rel="stylesheet" href="../../../../design-system/tokens.css">
+  <link rel="stylesheet" href="mockups.css">
+  <script type="module" src="brand-name.js"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#"><span class="marca__icono" aria-hidden="true">+</span><span data-brand-name>Turnos Odontología</span></a>
+  <nav class="navegacion" aria-label="Secciones">
+    <a href="agenda.html">Agenda</a>
+    <a href="crear-turno.html" aria-current="page">Turnos</a>
+    <a href="#">Pacientes</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">SECRETARIA</span><span>secretaria</span></div>
+</header>
+<main class="contenedor">
+  <h1>Nuevo turno</h1>
+  <p class="sub">Completá los datos. El fin se calcula con la duración de la prestación; el margen entre turnos es de 5 minutos.</p>
+
+  <div class="alerta" role="alert">
+    <code>CHOQUE_SILLON</code> · El sillón ya está ocupado en ese horario. Elegí otro sillón u otro inicio.
+  </div>
+
+  <div class="layout-dos-columnas">
+    <section class="tarjeta" aria-labelledby="form-turno">
+      <h2 id="form-turno">Datos del turno</h2>
+      <form>
+        <div class="form-grid">
+          <div class="campo">
+            <label for="paciente">Paciente</label>
+            <select id="paciente"><option>Paciente Uno</option><option>Paciente Dos</option></select>
+          </div>
+          <div class="campo">
+            <label for="profesional">Profesional</label>
+            <select id="profesional"><option>Ana Ejemplo</option><option>Bruno Prueba</option></select>
+          </div>
+          <div class="campo">
+            <label for="sillon">Sillón</label>
+            <select id="sillon"><option>Sillón 1 (ocupado)</option><option>Sillón 2</option></select>
+          </div>
+          <div class="campo">
+            <label for="prestacion">Prestación</label>
+            <select id="prestacion"><option>Control · 30 min</option><option>Limpieza · 45 min</option></select>
+          </div>
+          <div class="campo campo--completo">
+            <label for="inicio">Fecha y hora de inicio</label>
+            <input id="inicio" type="datetime-local" value="2026-11-24T09:45">
+          </div>
+          <div class="campo campo--completo campo--check">
+            <input id="sobreturno" type="checkbox">
+            <label for="sobreturno">Es sobreturno (permite compartir profesional, nunca el sillón)</label>
+          </div>
+        </div>
+        <button class="boton boton--bloque" type="submit">Guardar turno</button>
+      </form>
+    </section>
+
+    <aside class="tarjeta" aria-labelledby="ayuda">
+      <h2 id="ayuda">Antes de guardar</h2>
+      <p class="vacio">Los datos de pacientes son ficticios. No se muestran DNI ni teléfono en esta pantalla.</p>
+      <p class="vacio">Si el sillón está ocupado, el sistema guarda el código de la regla para que puedas corregirlo sin perder los datos cargados.</p>
+      <a class="boton boton--sec" href="agenda.html">Ver agenda del día</a>
+    </aside>
+  </div>
+</main>
+<p class="pie">Mockup de C-10 · datos ficticios · revisión 1 del sistema de diseño</p>
+</body>
+</html>

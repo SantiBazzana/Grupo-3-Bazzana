@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout('Nuevo turno', ~{::main})}">
+<body>
+<main class="contenedor">
+    <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
+
+    <h1>Nuevo turno</h1>
+    <p class="sub">Completá los datos. El fin se calcula con la duración de la prestación; el margen entre turnos es de 5 minutos.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <div class="layout-dos-columnas">
+        <section class="tarjeta" aria-labelledby="form-turno">
+            <h2 id="form-turno">Datos del turno</h2>
+            <form th:action="@{/turnos/nuevo}" method="post">
+                <div class="form-grid">
+                    <div class="campo">
+                        <label for="pacienteId">Paciente</label>
+                        <select id="pacienteId" name="pacienteId" required>
+                            <option value="">Elegir paciente</option>
+                            <option th:each="p : ${pacientes}" th:value="${p.id}"
+                                    th:text="${p.nombre + ' ' + p.apellido}"
+                                    th:selected="${form['pacienteId'] != null and form['pacienteId'] == p.id.toString()}">Paciente</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="profesionalId">Profesional</label>
+                        <select id="profesionalId" name="profesionalId" required>
+                            <option value="">Elegir profesional</option>
+                            <option th:each="p : ${profesionales}" th:value="${p.id}"
+                                    th:text="${p.nombre + ' ' + p.apellido}"
+                                    th:selected="${form['profesionalId'] != null and form['profesionalId'] == p.id.toString()}">Profesional</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="sillonId">Sillón</label>
+                        <select id="sillonId" name="sillonId" required>
+                            <option value="">Elegir sillón</option>
+                            <option th:each="s : ${sillones}" th:value="${s.id}" th:text="${s.nombre}"
+                                    th:selected="${form['sillonId'] != null and form['sillonId'] == s.id.toString()}">Sillón</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="prestacionId">Prestación</label>
+                        <select id="prestacionId" name="prestacionId" required>
+                            <option value="">Elegir prestación</option>
+                            <option th:each="p : ${prestaciones}" th:value="${p.id}"
+                                    th:text="${p.nombre + ' · ' + p.duracionMinutos + ' min'}"
+                                    th:selected="${form['prestacionId'] != null and form['prestacionId'] == p.id.toString()}">Prestación</option>
+                        </select>
+                    </div>
+                    <div class="campo campo--completo">
+                        <label for="inicio">Fecha y hora de inicio</label>
+                        <input id="inicio" name="inicio" type="datetime-local" th:value="${form['inicio']}" required>
+                    </div>
+                    <div class="campo campo--completo campo--check">
+                        <input id="sobreturno" name="sobreturno" type="checkbox" value="true"
+                               th:checked="${form['sobreturno'] == 'true'}">
+                        <label for="sobreturno">Es sobreturno (permite compartir profesional, nunca el sillón)</label>
+                    </div>
+                </div>
+                <button class="boton boton--bloque" type="submit" style="margin-top: 16px;">Guardar turno</button>
+            </form>
+        </section>
+
+        <aside class="tarjeta" aria-labelledby="ayuda">
+            <h2 id="ayuda">Antes de guardar</h2>
+            <p class="vacio vacio--compacto">Los datos de pacientes son ficticios. No se muestran DNI ni teléfono en esta pantalla.</p>
+            <p class="vacio vacio--compacto">Si el sillón está ocupado, el sistema guarda el código de la regla para que puedas corregirlo sin perder los datos cargados.</p>
+            <a class="boton boton--sec" th:href="@{/agenda}">Ver agenda del día</a>
+        </aside>
+    </div>
+</main>
+</body>
+</html>

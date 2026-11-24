@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi agenda · Odontólogo · Mockup C-10</title>
+  <link rel="stylesheet" href="../../../../design-system/tokens.css">
+  <link rel="stylesheet" href="mockups.css">
+  <script type="module" src="brand-name.js"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#"><span class="marca__icono" aria-hidden="true">+</span><span data-brand-name>Turnos Odontología</span></a>
+  <nav class="navegacion" aria-label="Secciones">
+    <a href="agenda-odontologo.html" aria-current="page">Mi agenda</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">ODONTOLOGO</span><span>odontologo1</span></div>
+</header>
+<main class="contenedor">
+  <h1>Mi agenda</h1>
+  <p class="sub">Como odontólogo solo ves tu propia agenda; el profesional queda fijo según tu usuario (RN-AG-02).</p>
+
+  <section class="tarjeta" aria-labelledby="filtro-odontologo">
+    <h2 id="filtro-odontologo">Filtrar por fecha</h2>
+    <form class="form-grid">
+      <div class="campo">
+        <label for="fecha">Fecha</label>
+        <input id="fecha" type="date" value="2026-11-24">
+      </div>
+      <div class="campo">
+        <label for="profesional">Profesional</label>
+        <select id="profesional" disabled><option>Ana Ejemplo</option></select>
+      </div>
+      <button class="boton" type="submit">Ver mi agenda</button>
+    </form>
+    <div class="aviso">No podés elegir otro profesional. Si intentás abrir una agenda ajena, el sistema responde <code>ACCESO_DENEGADO</code>.</div>
+  </section>
+
+  <section class="tarjeta" aria-labelledby="lista-propia" style="margin-top: var(--espacio-4);">
+    <h2 id="lista-propia">24/11/2026 · Ana Ejemplo</h2>
+    <div class="tabla-scroll">
+      <table>
+        <caption>2 turnos activos</caption>
+        <thead>
+        <tr><th scope="col">Hora</th><th scope="col">Paciente</th><th scope="col">Prestación</th><th scope="col">Sillón</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>09:00 – 09:30</td><td>Paciente Uno</td><td>Control</td><td>Sillón 1</td></tr>
+        <tr><td>09:45 – 10:15</td><td>Paciente Dos</td><td>Limpieza</td><td>Sillón 2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<p class="pie">Mockup de C-10 · datos ficticios · revisión 1 del sistema de diseño</p>
+</body>
+</html>

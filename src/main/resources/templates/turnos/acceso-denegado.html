@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout('Acceso denegado', ~{::main})}">
+<body>
+<main class="contenedor">
+    <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
+
+    <h1>Acceso denegado</h1>
+    <p class="sub">No podés realizar esta operación con el rol de tu usuario.</p>
+
+    <div class="alerta" role="alert">
+        <strong th:text="${errorCodigo}">ACCESO_DENEGADO</strong> ·
+        <span th:text="${errorMensaje}">No tiene permiso para esta operación.</span>
+    </div>
+
+    <div class="acciones">
+        <a class="boton boton--sec" th:href="@{/agenda}">Volver a la agenda</a>
+        <a class="boton boton--sec" th:href="@{/panel}">Volver al panel</a>
+    </div>
+</main>
+</body>
+</html>

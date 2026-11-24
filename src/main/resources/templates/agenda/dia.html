@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/base :: layout('Agenda del día', ~{::main})}">
+<body>
+<main class="contenedor">
+    <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
+
+    <h1 th:text="${esOdontologo} ? 'Mi agenda' : 'Agenda del día'">Agenda del día</h1>
+    <p class="sub">Turnos RESERVADOS del profesional y la fecha elegidos. No se muestran DNI ni teléfono de pacientes.</p>
+
+    <div class="alerta" role="alert" th:if="${errorCodigo}">
+        <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
+    </div>
+
+    <section class="tarjeta" aria-labelledby="filtros-agenda">
+        <h2 id="filtros-agenda" th:text="${esOdontologo} ? 'Filtrar por fecha' : 'Filtrar agenda'">Filtrar agenda</h2>
+        <form class="form-grid" th:action="@{/agenda}" method="get">
+            <div class="campo">
+                <label for="fecha">Fecha</label>
+                <input id="fecha" name="fecha" type="date" th:value="${fecha}" required>
+            </div>
+            <div class="campo">
+                <label for="profesionalId">Profesional</label>
+                <select id="profesionalId" name="profesionalId" th:disabled="${esOdontologo}">
+                    <option th:each="p : ${profesionales}" th:value="${p.id}"
+                            th:text="${p.nombre + ' ' + p.apellido}"
+                            th:selected="${profesionalId != null and profesionalId == p.id}">Profesional</option>
+                </select>
+            </div>
+            <div class="campo">
+                <button class="boton" type="submit" th:text="${esOdontologo} ? 'Ver mi agenda' : 'Ver agenda'">Ver agenda</button>
+            </div>
+        </form>
+        <div class="aviso" th:if="${esOdontologo}">
+            No podés elegir otro profesional. Si intentás abrir una agenda ajena, el sistema responde
+            <code>ACCESO_DENEGADO</code> (RN-AG-02).
+        </div>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="lista-agenda" style="margin-top: 20px;">
+        <h2 id="lista-agenda" th:text="${fecha + ' · ' + profesionalNombre}">Fecha · Profesional</h2>
+        <div class="tabla-scroll" th:if="${!filas.isEmpty()}">
+            <table>
+                <caption th:text="${filas.size()} + ' turnos activos, ordenados por hora'">Turnos activos</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Prestación</th>
+                    <th scope="col">Sillón</th>
+                    <th scope="col">Detalle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fila : ${filas}">
+                    <td>
+                        <span th:text="${fila.hora}">09:00 – 09:30</span>
+                        <span class="chip chip--sobreturno" th:if="${fila.sobreturno}">SOBRETURNO</span>
+                    </td>
+                    <td th:text="${fila.pacienteNombre}">Paciente</td>
+                    <td th:text="${fila.prestacionNombre}">Prestación</td>
+                    <td th:text="${fila.sillonNombre}">Sillón</td>
+                    <td>
+                        <a th:href="@{/turnos/{id}(id=${fila.id})}" th:text="'Ver turno #' + ${fila.id}">Ver turno</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="vacio" th:if="${filas.isEmpty()}">No hay turnos RESERVADOS para la fecha elegida.</p>
+
+        <div class="acciones" style="margin-top: 20px;" sec:authorize="hasAnyRole('ADMIN','SECRETARIA')">
+            <a class="boton" th:href="@{/turnos/nuevo}">Nuevo turno</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

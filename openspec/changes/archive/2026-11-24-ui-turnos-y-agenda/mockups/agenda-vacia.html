@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda sin turnos · Mockup C-10</title>
+  <link rel="stylesheet" href="../../../../design-system/tokens.css">
+  <link rel="stylesheet" href="mockups.css">
+  <script type="module" src="brand-name.js"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#"><span class="marca__icono" aria-hidden="true">+</span><span data-brand-name>Turnos Odontología</span></a>
+  <nav class="navegacion" aria-label="Secciones">
+    <a href="agenda.html" aria-current="page">Agenda</a>
+    <a href="crear-turno.html">Turnos</a>
+  </nav>
+  <div class="sesion"><span class="chip chip--rol">SECRETARIA</span><span>secretaria</span></div>
+</header>
+<main class="contenedor">
+  <h1>Agenda del día</h1>
+  <p class="sub">Estado vacío cuando la fecha consultada no tiene turnos RESERVADOS.</p>
+
+  <section class="tarjeta" aria-labelledby="filtros">
+    <h2 id="filtros">Filtrar agenda</h2>
+    <form class="form-grid">
+      <div class="campo">
+        <label for="fecha">Fecha</label>
+        <input id="fecha" type="date" value="2026-11-25">
+      </div>
+      <div class="campo">
+        <label for="profesional">Profesional</label>
+        <select id="profesional"><option>Ana Ejemplo</option><option>Bruno Prueba</option></select>
+      </div>
+      <button class="boton" type="submit">Ver agenda</button>
+    </form>
+  </section>
+
+  <section class="tarjeta" aria-labelledby="sin-turnos" style="margin-top: var(--espacio-4);">
+    <h2 id="sin-turnos">25/11/2026 · Ana Ejemplo</h2>
+    <p class="vacio">No hay turnos para la fecha seleccionada. Los turnos cancelados no se muestran en la agenda.</p>
+    <div class="acciones" style="margin-top: var(--espacio-4);">
+      <a class="boton" href="crear-turno.html">Nuevo turno</a>
+      <a class="boton boton--sec" href="agenda.html">Ver otra fecha</a>
+    </div>
+  </section>
+</main>
+<p class="pie">Mockup de C-10 · datos ficticios · revisión 1 del sistema de diseño</p>
+</body>
+</html>
