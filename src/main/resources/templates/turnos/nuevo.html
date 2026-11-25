@@ -5,8 +5,13 @@
 <main class="contenedor">
     <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
 
-    <h1>Nuevo turno</h1>
-    <p class="sub">Completá los datos. El fin se calcula con la duración de la prestación; el margen entre turnos es de 5 minutos.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Nuevo turno</h1>
+            <p class="sub">Elegí profesional, paciente, sillón, prestación y seleccioná un botón de horario disponible. El margen obligatorio entre turnos es de 5 minutos.</p>
+        </div>
+        <a class="boton boton--sec" th:href="@{/agenda}">Ver agenda del día</a>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
@@ -14,7 +19,10 @@
 
     <div class="layout-dos-columnas">
         <section class="tarjeta" aria-labelledby="form-turno">
-            <h2 id="form-turno">Datos del turno</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="form-turno">Datos del turno y selección de horario</h2>
+                <span class="chip chip--rol">Paso 1 y 2</span>
+            </div>
             <form th:action="@{/turnos/nuevo}" method="post">
                 <div class="form-grid">
                     <div class="campo">
@@ -36,7 +44,7 @@
                         </select>
                     </div>
                     <div class="campo">
-                        <label for="sillonId">Sillón</label>
+                        <label for="sillonId">Sillón (Box)</label>
                         <select id="sillonId" name="sillonId" required>
                             <option value="">Elegir sillón</option>
                             <option th:each="s : ${sillones}" th:value="${s.id}" th:text="${s.nombre}"
@@ -46,33 +54,385 @@
                     <div class="campo">
                         <label for="prestacionId">Prestación</label>
                         <select id="prestacionId" name="prestacionId" required>
-                            <option value="">Elegir prestación</option>
+                            <option value="" data-duracion="30">Elegir prestación</option>
                             <option th:each="p : ${prestaciones}" th:value="${p.id}"
+                                    th:attr="data-duracion=${p.duracionMinutos}"
                                     th:text="${p.nombre + ' · ' + p.duracionMinutos + ' min'}"
                                     th:selected="${form['prestacionId'] != null and form['prestacionId'] == p.id.toString()}">Prestación</option>
                         </select>
                     </div>
-                    <div class="campo campo--completo">
-                        <label for="inicio">Fecha y hora de inicio</label>
-                        <input id="inicio" name="inicio" type="datetime-local" th:value="${form['inicio']}" required>
+
+                    <!-- Selector visual de fecha + grilla interactiva de botones de horarios -->
+                    <div class="selector-horario" aria-label="Selector de fecha y botones de horarios">
+                        <div class="selector-horario__cabecera">
+                            <div class="selector-horario__fecha-grupo">
+                                <label for="fechaSelector">Fecha del turno</label>
+                                <input id="fechaSelector" type="date" class="selector-horario__fecha-input" aria-label="Elegir fecha del turno">
+                                <div class="atajos-fecha">
+                                    <button type="button" class="atajo-btn" data-offset="0">Hoy</button>
+                                    <button type="button" class="atajo-btn" data-offset="1">Mañana</button>
+                                    <button type="button" class="atajo-btn" data-offset="lunes">Próx. lunes</button>
+                                </div>
+                            </div>
+                            <div class="leyenda-slots" aria-hidden="true">
+                                <span class="leyenda-item"><span class="leyenda-dot leyenda-dot--libre"></span>Disponible</span>
+                                <span class="leyenda-item"><span class="leyenda-dot leyenda-dot--activo"></span>Seleccionado</span>
+                                <span class="leyenda-item"><span class="leyenda-dot leyenda-dot--ocupado"></span>Ocupado</span>
+                                <span class="leyenda-item"><span class="leyenda-dot leyenda-dot--sobreturno"></span>Sobreturno</span>
+                            </div>
+                        </div>
+
+                        <div class="estado-disponibilidad" id="estadoDisponibilidad" aria-live="polite">
+                            <span>Seleccioná un profesional y una fecha para verificar horarios ocupados en tiempo real.</span>
+                            <span class="chip" id="contadorDisponibles">24 horarios en grilla</span>
+                        </div>
+
+                        <div class="franja-bloque">
+                            <span class="franja-titulo">Turno Mañana · 08:00 a 13:30 hs</span>
+                            <div class="slots-grid" id="grillaManana">
+                                <button type="button" class="slot-btn" data-hora="08:00"><span class="slot-btn__hora">08:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="08:30"><span class="slot-btn__hora">08:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="09:00"><span class="slot-btn__hora">09:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="09:30"><span class="slot-btn__hora">09:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="10:00"><span class="slot-btn__hora">10:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="10:30"><span class="slot-btn__hora">10:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="11:00"><span class="slot-btn__hora">11:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="11:30"><span class="slot-btn__hora">11:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="12:00"><span class="slot-btn__hora">12:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="12:30"><span class="slot-btn__hora">12:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="13:00"><span class="slot-btn__hora">13:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="13:30"><span class="slot-btn__hora">13:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                            </div>
+                        </div>
+
+                        <div class="franja-bloque">
+                            <span class="franja-titulo">Turno Tarde · 14:00 a 19:30 hs</span>
+                            <div class="slots-grid" id="grillaTarde">
+                                <button type="button" class="slot-btn" data-hora="14:00"><span class="slot-btn__hora">14:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="14:30"><span class="slot-btn__hora">14:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="15:00"><span class="slot-btn__hora">15:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="15:30"><span class="slot-btn__hora">15:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="16:00"><span class="slot-btn__hora">16:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="16:30"><span class="slot-btn__hora">16:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="17:00"><span class="slot-btn__hora">17:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="17:30"><span class="slot-btn__hora">17:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="18:00"><span class="slot-btn__hora">18:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="18:30"><span class="slot-btn__hora">18:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="19:00"><span class="slot-btn__hora">19:00 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                                <button type="button" class="slot-btn" data-hora="19:30"><span class="slot-btn__hora">19:30 hs</span><span class="slot-btn__estado">Disponible</span></button>
+                            </div>
+                        </div>
+
+                        <div class="resumen-horario">
+                            <div class="resumen-horario__texto" id="resumenSeleccion">
+                                <strong>Horario elegido:</strong> seleccioná un botón de la grilla o ajustá el campo de inicio.
+                            </div>
+                            <div class="inicio-manual">
+                                <label for="inicio">Fecha y hora de inicio</label>
+                                <input id="inicio" name="inicio" type="datetime-local" th:value="${form['inicio']}" required>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="campo campo--completo campo--check">
                         <input id="sobreturno" name="sobreturno" type="checkbox" value="true"
                                th:checked="${form['sobreturno'] == 'true'}">
-                        <label for="sobreturno">Es sobreturno (permite compartir profesional, nunca el sillón)</label>
+                        <label for="sobreturno">Es sobreturno (permite compartir horario del profesional en otro sillón, nunca el mismo sillón)</label>
                     </div>
                 </div>
-                <button class="boton boton--bloque" type="submit" style="margin-top: 16px;">Guardar turno</button>
+                <button class="boton boton--bloque" type="submit" style="margin-top: 18px;">Guardar turno</button>
             </form>
         </section>
 
         <aside class="tarjeta" aria-labelledby="ayuda">
-            <h2 id="ayuda">Antes de guardar</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="ayuda">Ocupación del día</h2>
+                <span class="chip" id="badgeTurnosDia">Agenda</span>
+            </div>
+            <div id="panelTurnosDia">
+                <p class="vacio vacio--compacto" style="margin-top: 0;">Elegí un profesional para visualizar los turnos ya reservados en la fecha seleccionada.</p>
+            </div>
+
+            <h2 style="margin-top: 22px; font-size: 15px;">Antes de guardar</h2>
             <p class="vacio vacio--compacto">Los datos de pacientes son ficticios. No se muestran DNI ni teléfono en esta pantalla.</p>
             <p class="vacio vacio--compacto">Si el sillón está ocupado, el sistema guarda el código de la regla para que puedas corregirlo sin perder los datos cargados.</p>
-            <a class="boton boton--sec" th:href="@{/agenda}">Ver agenda del día</a>
         </aside>
     </div>
+
+    <script>
+    (function () {
+        var inicioInput = document.getElementById('inicio');
+        var fechaSelector = document.getElementById('fechaSelector');
+        var profSelect = document.getElementById('profesionalId');
+        var sillonSelect = document.getElementById('sillonId');
+        var prestSelect = document.getElementById('prestacionId');
+        var sobreturnoCheck = document.getElementById('sobreturno');
+        var resumenEl = document.getElementById('resumenSeleccion');
+        var estadoEl = document.getElementById('estadoDisponibilidad');
+        var contadorEl = document.getElementById('contadorDisponibles');
+        var panelTurnosDia = document.getElementById('panelTurnosDia');
+        var badgeTurnosDia = document.getElementById('badgeTurnosDia');
+        var slotBtns = Array.prototype.slice.call(document.querySelectorAll('.slot-btn'));
+        var turnosCargados = [];
+
+        function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+        function aMinutos(hhmm) {
+            if (!hhmm || hhmm.length < 5) return 0;
+            var partes = hhmm.split(':');
+            return parseInt(partes[0], 10) * 60 + parseInt(partes[1], 10);
+        }
+
+        function deMinutos(total) {
+            var h = Math.floor(total / 60);
+            var m = total % 60;
+            return pad2(h) + ':' + pad2(m);
+        }
+
+        function duracionSeleccionada() {
+            if (!prestSelect || prestSelect.selectedIndex < 0) return 30;
+            var opt = prestSelect.options[prestSelect.selectedIndex];
+            var d = opt ? parseInt(opt.getAttribute('data-duracion') || '30', 10) : 30;
+            return isNaN(d) || d <= 0 ? 30 : d;
+        }
+
+        function inicializarDesdeInicio() {
+            var val = (inicioInput && inicioInput.value) ? inicioInput.value.trim() : '';
+            if (val.indexOf('T') !== -1) {
+                var partes = val.split('T');
+                if (fechaSelector) fechaSelector.value = partes[0];
+                return partes[1].substring(0, 5);
+            }
+            var hoy = new Date();
+            var yyyy = hoy.getFullYear();
+            var mm = pad2(hoy.getMonth() + 1);
+            var dd = pad2(hoy.getDate());
+            if (fechaSelector && !fechaSelector.value) {
+                fechaSelector.value = yyyy + '-' + mm + '-' + dd;
+            }
+            return '09:00';
+        }
+
+        function actualizarResumen() {
+            if (!inicioInput || !resumenEl) return;
+            var val = inicioInput.value;
+            if (!val || val.indexOf('T') === -1) {
+                resumenEl.innerHTML = '<strong>Horario elegido:</strong> seleccioná un botón de la grilla.';
+                return;
+            }
+            var partes = val.split('T');
+            var fecha = partes[0];
+            var hora = partes[1].substring(0, 5);
+            var dur = duracionSeleccionada();
+            var finHora = deMinutos(aMinutos(hora) + dur);
+            var fParts = fecha.split('-');
+            var fechaFmt = fParts.length === 3 ? (fParts[2] + '/' + fParts[1] + '/' + fParts[0]) : fecha;
+            resumenEl.innerHTML = '<strong>Horario elegido:</strong> ' + fechaFmt + ' · <strong>' + hora + ' a ' + finHora + ' hs</strong> (' + dur + ' min + 5 min margen)';
+        }
+
+        function pintarGrilla() {
+            var val = (inicioInput && inicioInput.value) ? inicioInput.value : '';
+            var horaActual = val.indexOf('T') !== -1 ? val.split('T')[1].substring(0, 5) : '';
+            var dur = duracionSeleccionada();
+            var esSobre = sobreturnoCheck && sobreturnoCheck.checked;
+            var sillonElegido = sillonSelect && sillonSelect.value ? parseInt(sillonSelect.value, 10) : null;
+            var libres = 0;
+            var ocupados = 0;
+
+            slotBtns.forEach(function (btn) {
+                var hora = btn.getAttribute('data-hora');
+                var candIni = aMinutos(hora);
+                var candFin = candIni + dur;
+                var estadoSpan = btn.querySelector('.slot-btn__estado');
+
+                var chocaProfesional = false;
+                var chocaSillon = false;
+                var detalleChoque = '';
+
+                turnosCargados.forEach(function (t) {
+                    var tIniStr = (t.inicio && t.inicio.indexOf('T') !== -1) ? t.inicio.split('T')[1].substring(0, 5) : '00:00';
+                    var tFinStr = (t.fin && t.fin.indexOf('T') !== -1) ? t.fin.split('T')[1].substring(0, 5) : '00:00';
+                    var tIni = aMinutos(tIniStr);
+                    var tFin = aMinutos(tFinStr);
+                    // Regla RN-TU-02: margen obligatorio de 5 minutos entre turnos
+                    if (candIni < (tFin + 5) && tIni < (candFin + 5)) {
+                        chocaProfesional = true;
+                        detalleChoque = tIniStr + '–' + tFinStr + ' (' + (t.sillonNombre || 'Sillón') + ')';
+                        if (sillonElegido !== null && t.sillonId === sillonElegido) {
+                            chocaSillon = true;
+                        }
+                    }
+                });
+
+                btn.classList.remove('slot-btn--activo', 'slot-btn--ocupado', 'slot-btn--sobreturno');
+                btn.disabled = false;
+                btn.removeAttribute('title');
+
+                if (chocaSillon) {
+                    btn.classList.add('slot-btn--ocupado');
+                    btn.disabled = true;
+                    btn.title = 'Sillón ocupado: ' + detalleChoque;
+                    if (estadoSpan) estadoSpan.textContent = 'Sillón ocupado';
+                    ocupados++;
+                } else if (chocaProfesional && !esSobre) {
+                    btn.classList.add('slot-btn--ocupado');
+                    btn.disabled = true;
+                    btn.title = 'Ocupado: ' + detalleChoque;
+                    if (estadoSpan) estadoSpan.textContent = 'Ocupado';
+                    ocupados++;
+                } else if (chocaProfesional && esSobre) {
+                    btn.classList.add('slot-btn--sobreturno');
+                    btn.title = 'Disponible como sobreturno en otro sillón (' + detalleChoque + ')';
+                    if (estadoSpan) estadoSpan.textContent = 'Sobreturno';
+                    libres++;
+                } else {
+                    if (estadoSpan) estadoSpan.textContent = 'Disponible';
+                    libres++;
+                }
+
+                if (hora === horaActual && !btn.disabled) {
+                    btn.classList.add('slot-btn--activo');
+                    if (estadoSpan) estadoSpan.textContent = chocaProfesional && esSobre ? 'Sobreturno elegido' : 'Seleccionado';
+                }
+            });
+
+            if (contadorEl) {
+                contadorEl.textContent = libres + ' disponibles · ' + ocupados + ' ocupados';
+            }
+            actualizarResumen();
+        }
+
+        function renderPanelLateral() {
+            if (!panelTurnosDia || !badgeTurnosDia) return;
+            if (!profSelect || !profSelect.value) {
+                badgeTurnosDia.textContent = 'Sin filtro';
+                panelTurnosDia.innerHTML = '<p class="vacio vacio--compacto" style="margin-top:0;">Elegí un profesional para ver los horarios ya tomados en esa fecha.</p>';
+                return;
+            }
+            badgeTurnosDia.textContent = turnosCargados.length + (turnosCargados.length === 1 ? ' turno' : ' turnos');
+            if (turnosCargados.length === 0) {
+                panelTurnosDia.innerHTML = '<p class="vacio vacio--compacto" style="margin-top:0;">Agenda libre: no hay turnos reservados para el profesional en esta fecha.</p>';
+                return;
+            }
+            var html = '<ul class="mini-agenda-lista">';
+            turnosCargados.forEach(function (t) {
+                var ini = (t.inicio && t.inicio.indexOf('T') !== -1) ? t.inicio.split('T')[1].substring(0, 5) : '';
+                var fin = (t.fin && t.fin.indexOf('T') !== -1) ? t.fin.split('T')[1].substring(0, 5) : '';
+                html += '<li class="mini-agenda-item">'
+                    + '<strong>' + ini + ' – ' + fin + '</strong>'
+                    + '<span>' + (t.prestacionNombre || 'Turno') + '</span>'
+                    + '<span class="chip">' + (t.sillonNombre || 'Sillón') + '</span>'
+                    + '</li>';
+            });
+            html += '</ul>';
+            panelTurnosDia.innerHTML = html;
+        }
+
+        function consultarDisponibilidad() {
+            var profId = profSelect ? profSelect.value : '';
+            var fecha = fechaSelector ? fechaSelector.value : '';
+            if (!profId || !fecha) {
+                turnosCargados = [];
+                renderPanelLateral();
+                pintarGrilla();
+                return;
+            }
+            if (estadoEl) {
+                estadoEl.querySelector('span').textContent = 'Verificando disponibilidad del profesional en la agenda...';
+            }
+            fetch('/api/agenda?profesionalId=' + encodeURIComponent(profId) + '&fecha=' + encodeURIComponent(fecha), {
+                credentials: 'same-origin',
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(function (resp) {
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                return resp.json();
+            })
+            .then(function (data) {
+                turnosCargados = (data && Array.isArray(data.turnos)) ? data.turnos : [];
+                if (estadoEl) {
+                    var profText = profSelect.options[profSelect.selectedIndex] ? profSelect.options[profSelect.selectedIndex].text : 'el profesional';
+                    estadoEl.querySelector('span').textContent = 'Agenda verificada para ' + profText + ' (' + turnosCargados.length + ' turnos activos en el día).';
+                }
+                renderPanelLateral();
+                pintarGrilla();
+            })
+            .catch(function () {
+                turnosCargados = [];
+                renderPanelLateral();
+                pintarGrilla();
+            });
+        }
+
+        var horaInicial = inicializarDesdeInicio();
+        if (inicioInput && fechaSelector && fechaSelector.value && (!inicioInput.value || inicioInput.value.indexOf('T') === -1)) {
+            inicioInput.value = fechaSelector.value + 'T' + horaInicial;
+        }
+
+        slotBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                if (btn.disabled) return;
+                var hora = btn.getAttribute('data-hora');
+                var fecha = (fechaSelector && fechaSelector.value) ? fechaSelector.value : inicializarDesdeInicio();
+                if (inicioInput) {
+                    inicioInput.value = fecha + 'T' + hora;
+                }
+                pintarGrilla();
+            });
+        });
+
+        if (fechaSelector) {
+            fechaSelector.addEventListener('change', function () {
+                var val = (inicioInput && inicioInput.value) ? inicioInput.value : '';
+                var hora = val.indexOf('T') !== -1 ? val.split('T')[1].substring(0, 5) : '09:00';
+                if (inicioInput && fechaSelector.value) {
+                    inicioInput.value = fechaSelector.value + 'T' + hora;
+                }
+                consultarDisponibilidad();
+            });
+        }
+
+        document.querySelectorAll('.atajo-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var offset = btn.getAttribute('data-offset');
+                var d = new Date();
+                if (offset === 'lunes') {
+                    var day = d.getDay();
+                    var diff = (8 - day) % 7 || 7;
+                    d.setDate(d.getDate() + diff);
+                } else {
+                    d.setDate(d.getDate() + parseInt(offset || '0', 10));
+                }
+                var f = d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+                if (fechaSelector) {
+                    fechaSelector.value = f;
+                    fechaSelector.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        if (inicioInput) {
+            inicioInput.addEventListener('change', function () {
+                if (inicioInput.value && inicioInput.value.indexOf('T') !== -1) {
+                    var p = inicioInput.value.split('T');
+                    if (fechaSelector && fechaSelector.value !== p[0]) {
+                        fechaSelector.value = p[0];
+                        consultarDisponibilidad();
+                        return;
+                    }
+                }
+                pintarGrilla();
+            });
+        }
+
+        if (profSelect) profSelect.addEventListener('change', consultarDisponibilidad);
+        if (sillonSelect) sillonSelect.addEventListener('change', pintarGrilla);
+        if (prestSelect) prestSelect.addEventListener('change', pintarGrilla);
+        if (sobreturnoCheck) sobreturnoCheck.addEventListener('change', pintarGrilla);
+
+        consultarDisponibilidad();
+    })();
+    </script>
 </main>
 </body>
 </html>

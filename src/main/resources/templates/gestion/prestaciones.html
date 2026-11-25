@@ -4,8 +4,13 @@
       th:replace="~{layout/base :: layout('Prestaciones', ~{::main})}">
 <body>
 <main class="contenedor">
-    <h1>Prestaciones</h1>
-    <p class="sub">La duración define el fin del turno y debe ser múltiplo de 5 minutos.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Prestaciones</h1>
+            <p class="sub">La duración define el fin automático del turno y debe ser múltiplo de 5 minutos.</p>
+        </div>
+        <span class="chip chip--rol">Catálogo Clínico</span>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
@@ -13,7 +18,10 @@
 
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-prestaciones">
-            <h2 id="lista-prestaciones">Listado</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="lista-prestaciones">Listado</h2>
+                <span class="chip" th:text="${#lists.size(prestaciones)} + ' prácticas'">0 prácticas</span>
+            </div>
             <div class="tabla-scroll">
                 <table>
                     <caption>Prestaciones cargadas</caption>
@@ -26,8 +34,8 @@
                     </thead>
                     <tbody>
                     <tr th:each="prestacion : ${prestaciones}">
-                        <td th:text="${prestacion.nombre}">Control</td>
-                        <td th:text="${prestacion.duracionMinutos} + ' min'">30 min</td>
+                        <td style="font-weight: 600;" th:text="${prestacion.nombre}">Control</td>
+                        <td><span class="chip chip--rol" th:text="${prestacion.duracionMinutos} + ' min'">30 min</span></td>
                         <td>
                             <span class="chip" th:classappend="${prestacion.activa} ? 'chip--activo' : 'chip--inactivo'"
                                   th:text="${prestacion.activa} ? 'Activa' : 'Inactiva'">Activa</span>
@@ -41,15 +49,17 @@
 
         <aside class="tarjeta" id="form-alta-prestacion" sec:authorize="hasRole('ADMIN')"
                aria-labelledby="alta-prestacion">
-            <h2 id="alta-prestacion">Nueva prestación</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="alta-prestacion">Nueva prestación</h2>
+            </div>
             <form th:action="@{/gestion/prestaciones}" method="post">
                 <div class="campo">
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" name="nombre" required>
+                    <input id="nombre" name="nombre" placeholder="Ej. Control odontológico" required>
                 </div>
                 <div class="campo">
                     <label for="duracion">Duración (minutos)</label>
-                    <input id="duracion" name="duracionMinutos" type="number" min="5" step="5" required>
+                    <input id="duracion" name="duracionMinutos" type="number" min="5" step="5" placeholder="Ej. 30" required>
                 </div>
                 <button class="boton boton--bloque" type="submit">Dar de alta</button>
             </form>

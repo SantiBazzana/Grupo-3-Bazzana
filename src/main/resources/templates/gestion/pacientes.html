@@ -4,8 +4,13 @@
       th:replace="~{layout/base :: layout('Pacientes', ~{::main})}">
 <body>
 <main class="contenedor">
-    <h1>Pacientes</h1>
-    <p class="sub">Buscá por apellido, nombre o DNI. Todos los datos de ejemplo son ficticios.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Pacientes</h1>
+            <p class="sub">Buscá por apellido, nombre o DNI. Todos los datos de ejemplo son ficticios (D1).</p>
+        </div>
+        <span class="chip chip--rol">ADMIN · SECRETARIA</span>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
@@ -13,11 +18,14 @@
 
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-pacientes">
-            <h2 id="lista-pacientes">Listado</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="lista-pacientes">Listado de pacientes</h2>
+                <span class="chip" th:text="${#lists.size(pacientes)} + ' registrados'">0 registrados</span>
+            </div>
             <form class="buscador" th:action="@{/gestion/pacientes}" method="get" role="search">
                 <div class="campo">
                     <label for="q" class="sr-only">Buscar paciente</label>
-                    <input id="q" name="q" th:value="${q}" placeholder="Buscar por apellido, nombre o DNI">
+                    <input id="q" name="q" th:value="${q}" placeholder="Buscar por apellido, nombre o DNI...">
                 </div>
                 <button class="boton boton--sec" type="submit">Buscar</button>
             </form>
@@ -34,10 +42,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="paciente : ${pacientes}">
-                        <td th:text="${paciente.apellido}">Uno</td>
+                        <td style="font-weight: 600;" th:text="${paciente.apellido}">Uno</td>
                         <td th:text="${paciente.nombre}">Paciente</td>
-                        <td th:text="${paciente.dni}">00000001</td>
-                        <td th:text="${paciente.telefono}">5491100000001</td>
+                        <td><span class="chip" th:text="${paciente.dni}">00000001</span></td>
+                        <td th:text="${paciente.telefono != null and !#strings.isEmpty(paciente.telefono) ? paciente.telefono : '—'}">5491100000001</td>
                     </tr>
                     </tbody>
                 </table>
@@ -47,20 +55,22 @@
 
         <aside class="tarjeta" id="form-alta-paciente" sec:authorize="hasAnyRole('ADMIN','SECRETARIA')"
                aria-labelledby="alta-paciente">
-            <h2 id="alta-paciente">Nuevo paciente</h2>
-            <p>El DNI es único; el teléfono va en formato internacional sin “+”.</p>
+            <div class="tarjeta__cabecera">
+                <h2 id="alta-paciente">Nuevo paciente</h2>
+            </div>
+            <p>El DNI es único; el teléfono va en formato internacional sin “+” para habilitar recordatorios por WhatsApp.</p>
             <form th:action="@{/gestion/pacientes}" method="post">
                 <div class="campo">
                     <label for="apellido">Apellido</label>
-                    <input id="apellido" name="apellido" required>
+                    <input id="apellido" name="apellido" placeholder="Ej. Uno" required>
                 </div>
                 <div class="campo">
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" name="nombre" required>
+                    <input id="nombre" name="nombre" placeholder="Ej. Paciente" required>
                 </div>
                 <div class="campo">
                     <label for="dni">DNI</label>
-                    <input id="dni" name="dni" inputmode="numeric" required>
+                    <input id="dni" name="dni" inputmode="numeric" placeholder="Ej. 00000009" required>
                 </div>
                 <div class="campo">
                     <label for="telefono">Teléfono</label>
@@ -68,7 +78,7 @@
                 </div>
                 <div class="campo">
                     <label for="email">Email</label>
-                    <input id="email" name="email" type="email">
+                    <input id="email" name="email" type="email" placeholder="paciente@ejemplo.test">
                 </div>
                 <button class="boton boton--bloque" type="submit">Dar de alta</button>
             </form>

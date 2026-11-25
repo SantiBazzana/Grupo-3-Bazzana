@@ -4,8 +4,13 @@
       th:replace="~{layout/base :: layout('Profesionales', ~{::main})}">
 <body>
 <main class="contenedor">
-    <h1>Profesionales</h1>
-    <p class="sub">Solo ADMIN da de alta; SECRETARIA y ODONTOLOGO ven el listado en modo lectura.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Profesionales</h1>
+            <p class="sub">Solo ADMIN da de alta; SECRETARIA y ODONTOLOGO ven el listado en modo lectura.</p>
+        </div>
+        <span class="chip chip--rol">Equipo Odontológico</span>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
@@ -13,7 +18,10 @@
 
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-profesionales">
-            <h2 id="lista-profesionales">Listado</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="lista-profesionales">Listado</h2>
+                <span class="chip" th:text="${#lists.size(profesionales)} + ' profesionales'">0 profesionales</span>
+            </div>
             <div class="tabla-scroll">
                 <table>
                     <caption>Profesionales del consultorio</caption>
@@ -28,10 +36,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="profesional : ${profesionales}">
-                        <td th:text="${profesional.apellido}">Ejemplo</td>
+                        <td style="font-weight: 600;" th:text="${profesional.apellido}">Ejemplo</td>
                         <td th:text="${profesional.nombre}">Ana</td>
-                        <td th:text="${profesional.matricula}">MP-0001</td>
-                        <td th:text="${profesional.telefono}">5491100000101</td>
+                        <td><span class="chip chip--rol" th:text="${profesional.matricula}">MP-0001</span></td>
+                        <td th:text="${profesional.telefono != null and !#strings.isEmpty(profesional.telefono) ? profesional.telefono : '—'}">5491100000101</td>
                         <td>
                             <span class="chip" th:classappend="${profesional.activo} ? 'chip--activo' : 'chip--inactivo'"
                                   th:text="${profesional.activo} ? 'Activo' : 'Inactivo'">Activo</span>
@@ -45,19 +53,21 @@
 
         <aside class="tarjeta" id="form-alta-profesional" sec:authorize="hasRole('ADMIN')"
                aria-labelledby="alta-profesional">
-            <h2 id="alta-profesional">Nuevo profesional</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="alta-profesional">Nuevo profesional</h2>
+            </div>
             <form th:action="@{/gestion/profesionales}" method="post">
                 <div class="campo">
                     <label for="apellido">Apellido</label>
-                    <input id="apellido" name="apellido" required>
+                    <input id="apellido" name="apellido" placeholder="Ej. Ejemplo" required>
                 </div>
                 <div class="campo">
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" name="nombre" required>
+                    <input id="nombre" name="nombre" placeholder="Ej. Ana" required>
                 </div>
                 <div class="campo">
                     <label for="matricula">Matrícula</label>
-                    <input id="matricula" name="matricula" required>
+                    <input id="matricula" name="matricula" placeholder="Ej. MP-0001" required>
                 </div>
                 <div class="campo">
                     <label for="telefono">Teléfono</label>

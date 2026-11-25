@@ -9,37 +9,99 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-<header class="barra">
-    <a class="marca" th:href="@{/panel}">
-        <span class="marca__icono" aria-hidden="true">+</span>
-        Turnos Odontología
-    </a>
-    <nav class="navegacion" aria-label="Secciones de gestión">
-        <a th:href="@{/panel}">Panel</a>
-        <a th:href="@{/agenda}">Agenda</a>
-        <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/turnos/nuevo}">Nuevo turno</a>
-        <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/gestion/pacientes}">Pacientes</a>
-        <span class="navegacion__grupo">Configuración</span>
-        <a th:href="@{/gestion/profesionales}">Profesionales</a>
-        <a th:href="@{/gestion/sillones}">Sillones</a>
-        <a th:href="@{/gestion/prestaciones}">Prestaciones</a>
-        <a th:href="@{/gestion/horario}">Horario</a>
-    </nav>
-    <div class="sesion">
-        <span class="chip chip--rol" sec:authorize="hasRole('ADMIN')">ADMIN</span>
-        <span class="chip chip--rol" sec:authorize="hasRole('SECRETARIA')">SECRETARIA</span>
-        <span class="chip chip--rol" sec:authorize="hasRole('ODONTOLOGO')">ODONTOLOGO</span>
-        <span sec:authentication="name">usuario</span>
-        <form th:action="@{/logout}" method="post" class="sesion__salir">
-            <button type="submit" class="boton boton--sec">Salir</button>
-        </form>
+<div class="app-shell">
+    <aside class="barra" aria-label="Menú lateral principal">
+        <div class="barra__top">
+            <a class="marca" th:href="@{/panel}">
+                <span class="marca__icono" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3c-3.2 0-6 2.2-6 5.5 0 2.1.8 3.9 1.4 5.7.6 1.8 1.1 4.8 2.3 4.8 1.1 0 1.4-2.5 2.3-2.5s1.2 2.5 2.3 2.5c1.2 0 1.7-3 2.3-4.8.6-1.8 1.4-3.6 1.4-5.7C18 5.2 15.2 3 12 3z"/>
+                    </svg>
+                </span>
+                <span class="marca__texto">
+                    <span class="marca__titulo">Turnos Odontología</span>
+                    <span class="marca__subtitulo">Gestión de Consultorio</span>
+                </span>
+            </a>
+
+            <nav class="navegacion" aria-label="Secciones de gestión">
+                <span class="navegacion__grupo navegacion__grupo--primero">Operación diaria</span>
+                <a th:href="@{/panel}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Panel</a>
+                <a th:href="@{/agenda}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Agenda</a>
+                <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/turnos/nuevo}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Nuevo turno</a>
+                <a sec:authorize="hasAnyRole('ADMIN','SECRETARIA')" th:href="@{/gestion/pacientes}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Pacientes</a>
+
+                <span class="navegacion__grupo">Configuración</span>
+                <a th:href="@{/gestion/profesionales}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profesionales</a>
+                <a th:href="@{/gestion/sillones}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6"/><path d="M5 18h14"/><path d="M6 21h12"/><path d="M9 18v3"/><path d="M15 18v3"/></svg>Sillones</a>
+                <a th:href="@{/gestion/prestaciones}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>Prestaciones</a>
+                <a th:href="@{/gestion/horario}"><svg class="nav-icono" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>Horario</a>
+            </nav>
+        </div>
+
+        <div class="sesion">
+            <div class="sesion__info">
+                <span class="sesion__avatar" id="sesionAvatar" aria-hidden="true">U</span>
+                <div class="sesion__datos">
+                    <span class="sesion__usuario" id="sesionUsuario" sec:authentication="name">usuario</span>
+                    <div class="sesion__roles">
+                        <span class="chip chip--rol" sec:authorize="hasRole('ADMIN')">ADMIN</span>
+                        <span class="chip chip--rol" sec:authorize="hasRole('SECRETARIA')">SECRETARIA</span>
+                        <span class="chip chip--rol" sec:authorize="hasRole('ODONTOLOGO')">ODONTOLOGO</span>
+                    </div>
+                </div>
+            </div>
+            <form th:action="@{/logout}" method="post" class="sesion__salir">
+                <button type="submit" class="boton boton--sec boton--salir">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>Salir</span>
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="app-main">
+        <header class="topbar">
+            <div class="topbar__migas">
+                <span>Consultorio Odontológico</span>
+                <span aria-hidden="true">/</span>
+                <strong class="topbar__titulo" th:text="${titulo}">Sección</strong>
+            </div>
+            <div class="topbar__meta">
+                <span class="badge-estado">
+                    <span class="badge-estado__punto" aria-hidden="true"></span>
+                    Agenda controlada · Margen 5 min
+                </span>
+            </div>
+        </header>
+
+        <main th:replace="${contenido}">
+            <p>Contenido de la pantalla.</p>
+        </main>
+
+        <footer class="pie">
+            <p>Datos de ejemplo ficticios. No se registran datos personales de pacientes en logs.</p>
+        </footer>
     </div>
-</header>
-<main th:replace="${contenido}">
-    <p>Contenido de la pantalla.</p>
-</main>
-<footer class="pie">
-    <p>Datos de ejemplo ficticios. No se registran datos personales de pacientes en logs.</p>
-</footer>
+</div>
+<script>
+(function () {
+    var path = window.location.pathname || '';
+    var links = document.querySelectorAll('.navegacion a');
+    links.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (!href) return;
+        if (path === href || (href === '/agenda' && path.indexOf('/turnos/') === 0 && path !== '/turnos/nuevo')) {
+            link.classList.add('activo');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
+    var userEl = document.getElementById('sesionUsuario');
+    var avatarEl = document.getElementById('sesionAvatar');
+    if (userEl && avatarEl && userEl.textContent) {
+        avatarEl.textContent = userEl.textContent.trim().charAt(0).toUpperCase();
+    }
+})();
+</script>
 </body>
 </html>

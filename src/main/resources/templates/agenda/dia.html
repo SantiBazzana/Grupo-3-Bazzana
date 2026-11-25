@@ -6,16 +6,26 @@
 <main class="contenedor">
     <th:block th:replace="~{turnos/fragments/estilos :: estilos}"></th:block>
 
-    <h1 th:text="${esOdontologo} ? 'Mi agenda' : 'Agenda del día'">Agenda del día</h1>
-    <p class="sub">Turnos RESERVADOS del profesional y la fecha elegidos. No se muestran DNI ni teléfono de pacientes.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1 th:text="${esOdontologo} ? 'Mi agenda' : 'Agenda del día'">Agenda del día</h1>
+            <p class="sub">Turnos RESERVADOS del profesional y la fecha elegidos. No se muestran DNI ni teléfono de pacientes.</p>
+        </div>
+        <div sec:authorize="hasAnyRole('ADMIN','SECRETARIA')">
+            <a class="boton" th:href="@{/turnos/nuevo}">Nuevo turno</a>
+        </div>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
     </div>
 
     <section class="tarjeta" aria-labelledby="filtros-agenda">
-        <h2 id="filtros-agenda" th:text="${esOdontologo} ? 'Filtrar por fecha' : 'Filtrar agenda'">Filtrar agenda</h2>
-        <form class="form-grid" th:action="@{/agenda}" method="get">
+        <div class="tarjeta__cabecera">
+            <h2 id="filtros-agenda" th:text="${esOdontologo} ? 'Filtrar por fecha' : 'Filtrar agenda'">Filtrar agenda</h2>
+            <span class="chip chip--rol">Consulta Diaria</span>
+        </div>
+        <form class="form-grid form-grid--agenda" th:action="@{/agenda}" method="get">
             <div class="campo">
                 <label for="fecha">Fecha</label>
                 <input id="fecha" name="fecha" type="date" th:value="${fecha}" required>
@@ -38,8 +48,11 @@
         </div>
     </section>
 
-    <section class="tarjeta" aria-labelledby="lista-agenda" style="margin-top: 20px;">
-        <h2 id="lista-agenda" th:text="${fechaTitulo + ' · ' + profesionalNombre}">Fecha · Profesional</h2>
+    <section class="tarjeta" aria-labelledby="lista-agenda" style="margin-top: 22px;">
+        <div class="tarjeta__cabecera">
+            <h2 id="lista-agenda" th:text="${fechaTitulo + ' · ' + profesionalNombre}">Fecha · Profesional</h2>
+            <span class="chip chip--activo" th:text="${filas.size()} + ' turnos activos'">0 turnos activos</span>
+        </div>
         <div class="tabla-scroll" th:if="${!filas.isEmpty()}">
             <table>
                 <caption th:text="${filas.size()} + ' turnos activos, ordenados por hora'">Turnos activos</caption>
@@ -54,14 +67,16 @@
                 <tbody>
                 <tr th:each="fila : ${filas}">
                     <td>
-                        <span th:text="${fila.hora}">09:00 – 09:30</span>
-                        <span class="chip chip--sobreturno" th:if="${fila.sobreturno}">SOBRETURNO</span>
+                        <div class="hora-bloque">
+                            <span class="hora-badge" th:text="${fila.hora}">09:00 – 09:30</span>
+                            <span class="chip chip--sobreturno" th:if="${fila.sobreturno}">SOBRETURNO</span>
+                        </div>
                         <a class="enlace-detalle" th:href="@{/turnos/{id}(id=${fila.id})}"
                            th:text="'Ver turno #' + ${fila.id}">Ver turno</a>
                     </td>
-                    <td th:text="${fila.pacienteNombre}">Paciente</td>
+                    <td style="font-weight: 600;" th:text="${fila.pacienteNombre}">Paciente</td>
                     <td th:text="${fila.prestacionNombre}">Prestación</td>
-                    <td th:text="${fila.sillonNombre}">Sillón</td>
+                    <td><span class="chip" th:text="${fila.sillonNombre}">Sillón</span></td>
                 </tr>
                 </tbody>
             </table>

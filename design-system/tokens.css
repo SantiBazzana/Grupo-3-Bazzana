@@ -1,32 +1,39 @@
 /*
  * Tokens del sistema de diseño de Turnos Odontología.
- * Política visual: system-and-mockups (design-system/README.md).
+ * Política visual: system-and-mockups (design-system/README.md, Revisión 2).
  * Estos valores son la fuente de verdad; static/css/estilos.css los replica para la app.
  */
 
 :root {
-  /* Color: base clínica, sobria y de alto contraste */
-  --color-fondo: #f5f7f7;
+  /* Paleta clínica odontológica de alto contraste */
+  --color-fondo: #f1f5f9;
   --color-superficie: #ffffff;
-  --color-superficie-alt: #eef3f2;
-  --color-tinta: #16232b;
-  --color-tinta-suave: #4d5f68;
-  --color-borde: #d7e0df;
+  --color-superficie-alt: #f8fafc;
+  --color-tinta: #0f172a;
+  --color-tinta-suave: #475569;
+  --color-tinta-tenue: #64748b;
+  --color-borde: #e2e8f0;
+  --color-borde-fuerte: #cbd5e1;
   --color-primario: #0f766e;
-  --color-primario-oscuro: #0b5b55;
-  --color-primario-suave: #e3f2ef;
-  --color-acento: #a15c07;
-  --color-peligro: #b42318;
-  --color-peligro-suave: #fdecea;
-  --color-exito: #18794e;
-  --color-exito-suave: #e7f6ee;
+  --color-primario-oscuro: #115e59;
+  --color-primario-suave: #f0fdfa;
+  --color-primario-borde: #99f6e4;
+  --color-acento: #b45309;
+  --color-acento-suave: #fffbeb;
+  --color-acento-borde: #fde68a;
+  --color-peligro: #be123c;
+  --color-peligro-suave: #fff1f2;
+  --color-peligro-borde: #fecdd3;
+  --color-exito: #15803d;
+  --color-exito-suave: #f0fdf4;
+  --color-exito-borde: #bbf7d0;
 
   /* Tipografía */
-  --fuente-base: "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --fuente-titulos: "Segoe UI Semibold", "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --fuente-base: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --fuente-titulos: "Inter", "Segoe UI Semibold", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   --texto-xs: 0.75rem;
   --texto-sm: 0.875rem;
-  --texto-base: 1rem;
+  --texto-base: 0.9375rem;
   --texto-lg: 1.125rem;
   --texto-xl: 1.375rem;
   --texto-2xl: 1.75rem;
@@ -41,14 +48,17 @@
   --espacio-6: 2rem;
   --espacio-7: 3rem;
 
-  /* Forma */
-  --radio-sm: 6px;
-  --radio: 12px;
+  /* Forma y elevación */
+  --radio-sm: 8px;
+  --radio: 14px;
+  --radio-lg: 18px;
   --radio-pill: 999px;
-  --sombra: 0 1px 2px rgba(22, 35, 43, 0.08), 0 8px 24px rgba(22, 35, 43, 0.06);
-  --sombra-foco: 0 0 0 3px rgba(15, 118, 110, 0.25);
+  --sombra: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 18px rgba(15, 23, 42, 0.04);
+  --sombra-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 16px 32px rgba(15, 23, 42, 0.06);
+  --sombra-foco: 0 0 0 3px rgba(15, 118, 110, 0.22);
 
-  /* Medidas */
-  --ancho-contenido: 1120px;
-  --alto-control: 2.5rem;
+  /* Medidas de layout */
+  --ancho-sidebar: 260px;
+  --ancho-contenido: 1180px;
+  --alto-control: 2.625rem;
 }

@@ -4,8 +4,13 @@
       th:replace="~{layout/base :: layout('Sillones', ~{::main})}">
 <body>
 <main class="contenedor">
-    <h1>Sillones</h1>
-    <p class="sub">Boxes del consultorio. Un turno siempre ocupa un sillón.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Sillones</h1>
+            <p class="sub">Boxes del consultorio. Un turno siempre ocupa un sillón y nunca puede superponerse (RN-TU-04).</p>
+        </div>
+        <span class="chip chip--rol">Recursos Físicos</span>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
@@ -13,7 +18,10 @@
 
     <div class="layout-gestion">
         <section class="tarjeta" aria-labelledby="lista-sillones">
-            <h2 id="lista-sillones">Listado</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="lista-sillones">Listado</h2>
+                <span class="chip" th:text="${#lists.size(sillones)} + ' boxes'">0 boxes</span>
+            </div>
             <div class="tabla-scroll">
                 <table>
                     <caption>Sillones cargados</caption>
@@ -25,7 +33,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="sillon : ${sillones}">
-                        <td th:text="${sillon.nombre}">Sillón 1</td>
+                        <td style="font-weight: 600;" th:text="${sillon.nombre}">Sillón 1</td>
                         <td>
                             <span class="chip" th:classappend="${sillon.activo} ? 'chip--activo' : 'chip--inactivo'"
                                   th:text="${sillon.activo} ? 'Activo' : 'Inactivo'">Activo</span>
@@ -39,11 +47,13 @@
 
         <aside class="tarjeta" id="form-alta-sillon" sec:authorize="hasRole('ADMIN')"
                aria-labelledby="alta-sillon">
-            <h2 id="alta-sillon">Nuevo sillón</h2>
+            <div class="tarjeta__cabecera">
+                <h2 id="alta-sillon">Nuevo sillón</h2>
+            </div>
             <form th:action="@{/gestion/sillones}" method="post">
                 <div class="campo">
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" name="nombre" required>
+                    <input id="nombre" name="nombre" placeholder="Ej. Sillón 1" required>
                 </div>
                 <button class="boton boton--bloque" type="submit">Dar de alta</button>
             </form>

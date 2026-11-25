@@ -4,15 +4,23 @@
       th:replace="~{layout/base :: layout('Horario', ~{::main})}">
 <body>
 <main class="contenedor">
-    <h1>Horario de atención</h1>
-    <p class="sub">Una franja por día. Si dejás apertura y cierre vacíos, el día queda cerrado.</p>
+    <div class="encabezado-pagina">
+        <div>
+            <h1>Horario de atención</h1>
+            <p class="sub">Una franja por día. Si dejás apertura y cierre vacíos, el día queda cerrado.</p>
+        </div>
+        <span class="chip chip--rol">Franjas del Consultorio</span>
+    </div>
 
     <div class="alerta" role="alert" th:if="${errorCodigo}">
         <strong th:text="${errorCodigo}">CODIGO</strong> · <span th:text="${errorMensaje}">mensaje</span>
     </div>
 
     <section class="tarjeta" aria-labelledby="franjas">
-        <h2 id="franjas">Franjas semanales</h2>
+        <div class="tarjeta__cabecera">
+            <h2 id="franjas">Franjas semanales</h2>
+            <span class="chip">Zona America/Argentina/Buenos_Aires</span>
+        </div>
 
         <div class="tabla-scroll">
             <div th:each="franja : ${franjas}">
