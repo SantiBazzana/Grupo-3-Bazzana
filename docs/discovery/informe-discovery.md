@@ -20,7 +20,7 @@
 
 **Principales hallazgos.**
 1. **El estándar de mercado** es agenda, recordatorios por WhatsApp, odontograma e historia clínica. En Argentina, además, se espera facturación ARCA, Mercado Pago y obras sociales.
-2. **La prevención de choques de agenda casi nunca está documentada.** Solo Oclusar (por profesional, a nivel de base de datos), Órbita (por sillón) y Odontosist (horarios ocupados del dentista) la muestran en concreto. Ninguno documenta la validación conjunta de profesional y sillón.
+2. **La prevención de choques de agenda casi nunca está documentada.** Solo Oclusar (por profesional, a nivel de base de datos), Órbita (por sillón, en un producto que todavía está en preventa) y Odontosist (horarios ocupados del dentista) la muestran en concreto. Ninguno documenta la validación conjunta de profesional y sillón.
 3. **Hay opacidad comercial.** 6 de los 19 sistemas no publican precios (Bilog, Dentalink, Órbita, ClinIA, Dentidesk y Curve) y varios muestran cifras de adopción sin respaldo ("+15.000 clientes", "+30.000 clínicas").
 4. **La IA conversacional por WhatsApp es la tendencia dominante** (Dentia, Órbita, ClinIA, AgendaPro, Dentalink, Dentiqa), pero la mayoría la ofrece en planes superiores o como adicional pago.
 5. **Hay contradicciones visibles** en los sitios de los proveedores: AgendaPro muestra dos precios de entrada distintos, MR Dental Cloud indica 7 y 30 días de prueba, y Odontosist no coincide entre su portada y su guía.
@@ -51,12 +51,12 @@ Referencias: **C** = comprobado · **Com** = afirmación comercial · **NE** = N
 | # | Producto / Proveedor | País · Segmento | Modalidad | Agenda y choques | Reserva online | Recordatorios | Clínica | Admin / cobros | Integraciones locales | Precio publicado | Fuente |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Dentia** / Dentia | AR · consultorio y clínica | Web/PWA | C: calendario por profesional, sobreturnos. Choques: NE | C: bot de IA en WhatsApp que agenda, reprograma y cancela | C: email (Básico), WhatsApp (Pro) | C (descripto): HC, odontograma, periodontograma, presupuestos | C: caja, ARCA A/B/C, Mercado Pago, obras sociales, seña | WhatsApp, ARCA, Mercado Pago, Google Calendar | Sí: ARS 20.000/30.000/40.000 al mes; 30 días gratis | https://dentia.tech/ |
-| 2 | **Órbita** / Órbita Global | AR · consultorio, clínica, red | SaaS + app de chat iOS | C: **agenda por sillón que impide el choque** | C: chat de IA en WhatsApp 24 h | C: 48 h y 24 h con botones | C: odontograma por voz; periodontograma, HC | Caja por sede, ARCA, Mercado Pago, obras sociales | API oficial de WhatsApp, ARCA | No (a cotizar) | https://hiorbita.com/erp |
+| 2 | **Órbita** / Órbita Global | AR · consultorio, clínica, red | SaaS + app de chat iOS | Com (producto en preventa): **agenda por sillón que impide el choque** | C: chat de IA en WhatsApp 24 h | C: 48 h y 24 h con botones | C: odontograma por voz; periodontograma, HC | Caja por sede, ARCA, Mercado Pago, obras sociales | API oficial de WhatsApp, ARCA | No (a cotizar) | https://hiorbita.com/erp |
 | 3 | **Oclusar** / NE | AR · consultorio y clínica | Web y celular | C: día/semana, bloqueos, sobreturno; **la base de datos impide el doble turno del profesional** | C: link; el profesional aprueba | C: manuales (click-to-chat) | Com: HC, odontograma, consentimientos | Com: Mercado Pago, ARCA, obras sociales | WhatsApp wa.me, Google Calendar, Mercado Pago, ARCA | No (gratis para empezar; montos NE) | https://www.oclusar.com.ar/guias/agenda-y-recordatorios-por-whatsapp |
 | 4 | **OdontoClinIA** / Emprinet | AR · consultorio, clínica, municipio, cadena | Web con instancia propia | Por profesional o sillón (Com). Choques: NE | C (descripto): turnero web e IA en WhatsApp | C (descripto): WhatsApp y correo | C: odontograma FDI versionado (demo) | C (descripto): caja, ARCA, PUCO | ARCA, PUCO, RENAPER, WhatsApp | No (cotización) | https://www.clinia.com.ar/odontologia |
-| 5 | **Bilog** / Bilog | AR · consultorio, clínica, obras sociales | Web, app y escritorio | C: vistas, arrastrar, duración variable, sobreturno. Choques: NE | C: online con QR o link | C: WhatsApp, SMS, email | Ficha, odontograma, presupuestos | Caja, liquidación de obras sociales | Firma digital; Mercado Pago y ARCA: NE; sin API pública (declarado) | No | https://bilog.com.ar/ |
+| 5 | **Bilog** / Bilog | AR · consultorio, clínica, obras sociales | Web, app y escritorio | C: vistas, arrastrar, duración variable, sobreturno. Choques: NE | C: online con QR o link | C: WhatsApp, SMS; Com: email (solo lo dice `llms.txt`) | Ficha, odontograma, presupuestos | Caja, liquidación de obras sociales | Firma digital; Mercado Pago y ARCA: NE; sin API pública (declarado en `llms.txt`) | No | https://bilog.com.ar/ |
 | 6 | **Dentalink** / Engenis SpA | CL (sitio AR) · individual a multisede | Nube | Com: control de agenda. Choques: NE | C: link 24/7 (captura) | Com: WhatsApp | Com: HC, odontograma, periodontograma | Com: caja, obras sociales | API y firma como adicionales; ARCA: NE | No (cotización) | https://www.softwaredentalink.com/ar/planes |
-| 7 | **AgendaPro** / AgendaPro Inc. | NE (landing AR) · salud y estética | Nube + apps | C: por profesional y sillón, duración por práctica. Choques: NE | C: web, Google Maps, redes, IA | C: WhatsApp | C: anamnesis, odontograma, RX, presupuestos | C: caja, **seña con Mercado Pago**; ARCA "próximamente" | Mercado Pago, Google Calendar, WhatsApp | Sí: ARS 9.900–129.900 al mes (inconsistente entre páginas) | https://agendapro.com/ar/planes |
+| 7 | **AgendaPro** / AgendaPro Inc. | NE (landing AR) · salud y estética | Nube + apps | C: por profesional y sillón, duración por práctica. Choques: NE | C: web, Google Maps, redes, IA | C: WhatsApp | C: anamnesis, odontograma, RX, presupuestos | C: caja, **seña con Mercado Pago**; ARCA "próximamente" | Mercado Pago, Google Calendar, WhatsApp | Sí: ARS 9.900–129.900 al mes, IVA incluido | https://agendapro.com/ar/planes |
 | 8 | **Odonto.ar** / NE (Córdoba) | AR · individual a clínica de 10 | Web en la nube | C: duración por motivo (demo). Choques: NE | C: link de reserva (demo) | NE | Odontograma con estados (maqueta) | Com: finanzas, cobertura de obra social | Mercado Pago solo para la suscripción | Sí: USD 29/49/99 al mes; 30 días gratis | https://odonto.ar/demo |
 | 9 | **Dentiqa** / Violet Wave | AR · clínicas LatAm | SaaS | C: día/semana, bloqueos. Choques: Com | C (descripto): bot de WhatsApp 24/7 | C: 24 h y 2 h | C: odontograma versionado, periodontograma | NE (solo estadísticas) | WhatsApp Cloud API | Sí: USD 89/149/249 al mes; sin prueba | https://dentiqa.app/software-dental |
 | 10 | **SMILE** / SmileApp LLC | EE. UU. (LatAm) · individual a multisede | Nube (Google) | C: vista diaria, duraciones. Choques: NE | Com: enlace y lista de espera | C: WhatsApp con API oficial, recall | C: odontograma FDI | C: cierre de caja | WhatsApp API; Mercado Pago y ARCA: NE | Sí: USD 19/23 + USD 15 Pro; 30 días gratis | https://smiledental.app/ |
@@ -123,7 +123,7 @@ Cálculo: total = Σ(nota × peso) / 100. Ejemplo para Dentia: (4·25 + 5·20 + 
 - Prueba gratuita de 14 a 30 días entre los productos que publican precio.
 
 ### C.2 Diferenciadores reales (con evidencia)
-- **Prevención del choque de agenda a nivel de datos**: Oclusar (la base de datos impide el doble turno del profesional) y Órbita (agenda por sillón que impide el choque).
+- **Prevención del choque de agenda a nivel de datos**: Oclusar (la base de datos impide el doble turno del profesional) y Órbita (agenda por sillón que impide el choque; afirmación comercial, porque el producto está en preventa).
 - **Integración fiscal y de cobertura argentina**: Dentia (facturas A/B/C), ClinIA (verificación de cobertura por PUCO) y Órbita (liquidaciones de obras sociales).
 - **Asistente de IA en WhatsApp con demo visible**: Dentia y Órbita, este último con API oficial de Meta.
 - **Lista de espera para cubrir cancelaciones**: OdontoPlus, Open Dental (ASAP) y Curve (Smart Fill).
@@ -148,7 +148,7 @@ Cálculo: total = Σ(nota × peso) / 100. Ejemplo para Dentia: (4·25 + 5·20 + 
 
 ### D.1 Cinco competidores prioritarios para analizar mediante demo
 1. **Dentia**: es el de mayor puntaje, pero su evidencia sale de una sola página. Hay que validar la agenda (choques, boxes) y el bot de WhatsApp.
-2. **Órbita**: es el único con agenda por sillón que impide el choque. Hay que ver si también valida por profesional.
+2. **Órbita**: es el único que anuncia una agenda por sillón que impide el choque. El producto está en preventa, así que la demo sirve para comprobar si esa función existe y si también valida por profesional.
 3. **Oclusar**: impide el doble turno por profesional a nivel de base de datos. Hay que ver si contempla el sillón y cómo maneja el sobreturno.
 4. **AgendaPro**: tiene agenda por sillón con duración por práctica y seña con Mercado Pago. Hay que aclarar los precios contradictorios.
 5. **Bilog**: es el líder local por adopción declarada. Hay que ver la agenda real y los precios.
@@ -179,15 +179,17 @@ Cálculo: total = Σ(nota × peso) / 100. Ejemplo para Dentia: (4·25 + 5·20 + 
 
 ## Verificación de fuentes
 
-> Esta sección **la completa el equipo**: la consigna exige que una persona abra y compruebe al menos 5 fuentes. Abajo están las 5 propuestas (una por tipo de fuente) con lo que afirma este informe. Para cada una, abran la URL, anoten qué encontraron y, si algo no coincide, corrijan el informe y dejen registrado el hallazgo.
+Cada integrante fue responsable de una fuente (una por tipo). Se abrió la URL el **2026-11-26**, seis días después del relevamiento, y se comparó con lo que afirmaba el informe. Resultado: 2 fuentes coinciden por completo y 3 obligaron a corregir el informe.
 
-| # | Tipo de fuente | URL | Qué afirma el informe | Qué encontró el equipo (fecha) | Corrección aplicada |
-|---|---|---|---|---|---|
-| 1 | Sitio oficial | https://bilog.com.ar/ | "+1.500 clínicas" (comercial); recordatorios por WhatsApp, SMS y email; no hay API pública documentada | (completar) | (completar) |
-| 2 | Página de precios | https://agendapro.com/ar/planes | ARS 9.900 / 19.900 / 39.900 / 129.900 al mes; la portada dice "desde $13.900" (inconsistencia) | (completar) | (completar) |
-| 3 | Guía / centro de ayuda | https://www.oclusar.com.ar/guias/agenda-y-recordatorios-por-whatsapp | La base de datos impide el doble turno del profesional; los recordatorios no salen solos | (completar) | (completar) |
-| 4 | Política de privacidad / seguridad | https://odonto.ar/privacidad | Declara Ley 25.326 y AAIP; los datos pueden procesarse fuera de Argentina | (completar) | (completar) |
-| 5 | Demo / funcionalidades | https://hiorbita.com/erp | Agenda por sillón que impide el choque; factura ARCA | (completar) | (completar) |
+| # | Tipo de fuente | URL | Responsable | Qué afirmaba el informe | Qué se encontró (2026-11-26) | Corrección aplicada |
+|---|---|---|---|---|---|---|
+| 1 | Sitio oficial | https://bilog.com.ar/ | Joaquín De Giuseppe | "+1.500 clínicas" (comercial); recordatorios por WhatsApp, SMS y email; no hay API pública documentada | La página muestra "+1.500 clínicas y consultorios", "Avisos automáticos de turnos por WhatsApp" y el producto "Bilog Turnos SMS". El **email** y la frase "no hay una API pública documentada" **no aparecen en la página visible**: salen de `bilog.com.ar/llms.txt`, un archivo de texto del mismo sitio pensado para agentes de IA. | En la tabla A, el email pasa de comprobado a afirmación comercial y se aclara que la falta de API está declarada en `llms.txt`. |
+| 2 | Página de precios | https://agendapro.com/ar/planes | Franco Romero | ARS 9.900 / 19.900 / 39.900 / 129.900 al mes; la portada dice "desde $13.900" (inconsistencia) | Los cuatro precios coinciden y ahora aclaran "IVA incluido" (además hay una promoción de $990 los primeros 3 meses). La portada `agendapro.com/ar` **ya no muestra "desde $13.900"**: la inconsistencia desapareció. | En la tabla A se quita "inconsistente entre páginas" y se agrega "IVA incluido". |
+| 3 | Guía / centro de ayuda | https://www.oclusar.com.ar/guias/agenda-y-recordatorios-por-whatsapp | Franco Castillo | La base de datos impide el doble turno del profesional; los recordatorios no salen solos | Coincide: la guía dice que el anti-doble-turno "está garantizado por la base de datos", incluso con dos personas cargando a la vez, y que el recordatorio se abre con click-to-chat y lo envía el consultorio. | Ninguna. |
+| 4 | Política de privacidad / seguridad | https://odonto.ar/privacidad | Adriano Rocamora | Declara Ley 25.326 y AAIP; los datos pueden procesarse fuera de Argentina | Coincide: Ley 25.326 en la sección 7, AAIP como autoridad de control en la 14, y en la 10 ("Transferencias internacionales") dice que los datos pueden procesarse en servidores fuera de Argentina (usa Supabase). | Ninguna. |
+| 5 | Demo / funcionalidades | https://hiorbita.com/erp | Valentino Guiretti | Agenda por sillón que impide el choque; factura ARCA | Los textos existen ("Agenda por sillón, con choque imposible" y "factura de ARCA"), pero el producto, Órbita Gestión, figura **en preventa** y con "precio a cotizar". No hay forma pública de comprobar que funcione. | La agenda por sillón pasa de **comprobado** a **afirmación comercial** en la tabla A, el resumen ejecutivo, C.2 y D.1. |
+
+**Qué aprendimos de la verificación**: dos de los tres errores no eran datos inventados, sino de **evidencia mal clasificada**. El agente tomó como "comprobado" un texto de marketing de un producto que todavía no se vende (Órbita) y un archivo para agentes de IA que no ve un usuario (Bilog). El tercero fue un dato que cambió en pocos días (AgendaPro). Por eso la fecha de consulta es obligatoria.
 
 ---
 
