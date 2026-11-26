@@ -9,7 +9,7 @@ Cada regla tiene un código único `RN-{DOMINIO}-{NN}`. Los errores de la API de
 - **Turno activo**: turno en estado `RESERVADO`. Los `CANCELADO` no cuentan para ninguna regla de choque.
 - **Choque con margen** entre un turno nuevo `N` y uno existente `E` sobre el mismo recurso:
   `N.inicio < E.fin + M` **y** `E.inicio < N.fin + M`.
-  Ejemplo: si `E` termina a las 10:00, un `N` que empieza a las 10:05 es válido y uno que empieza a las 10:04 choca.
+  Ejemplo: si `E` termina a las 10:00, un `N` que empieza a las 10:05 es válido y uno que empieza a las 10:00 choca. Un inicio a las 10:04 no llega a esta regla: RN-TU-11 (múltiplos de 5) lo rechaza antes con `ENTRADA_INVALIDA`.
 - **Superposición simple** (sin margen), usada para el paciente: `N.inicio < E.fin` **y** `E.inicio < N.fin`.
 - **"Ahora"**: el instante del `Clock` del sistema, en la zona horaria del consultorio.
 

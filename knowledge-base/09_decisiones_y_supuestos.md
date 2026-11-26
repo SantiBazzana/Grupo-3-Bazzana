@@ -45,7 +45,7 @@
 
 ### DD-08: Margen con intervalo semiabierto
 **Decisión**: hay choque si `N.inicio < E.fin + M` y `E.inicio < N.fin + M`, con `M = 5 min`.
-**Justificación**: traduce R2 de forma testeable: 10:05 es válido y 10:04 choca después de un turno que termina a las 10:00.
+**Justificación**: traduce R2 de forma testeable: 10:05 es válido y 10:00 choca después de un turno que termina a las 10:00. El ejemplo original era 10:04, pero en el explore de C-02 se agregó RN-TU-11 (inicio en múltiplos de 5), que rechaza 10:04 antes de mirar el margen; por eso la spec de `turnos` usa 10:00 contra 10:05.
 
 ### DD-09: WhatsApp por click-to-chat
 **Decisión**: el MVP solo genera links `wa.me`; el envío lo hace la secretaria.
