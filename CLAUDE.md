@@ -36,7 +36,7 @@ La fuente de verdad del dominio vive en `knowledge-base/`. **Leé el archivo rel
 | [04_modelo_de_datos.md](knowledge-base/04_modelo_de_datos.md) | Entidades, ERD, seed ficticio |
 | [05_reglas_de_negocio.md](knowledge-base/05_reglas_de_negocio.md) | **Reglas RN-TU / RN-CA / RN-AG / RN-WA / RN-AU / RN-DP con sus códigos de error** |
 | [06_funcionalidades.md](knowledge-base/06_funcionalidades.md) | Historias US-NNN y criterios de aceptación |
-| [07_flujos_principales.md](knowledge-base/07_flujos_principales.md) | Flujos de punta a punta y ejemplos de borde (10:04 vs 10:05) |
+| [07_flujos_principales.md](knowledge-base/07_flujos_principales.md) | Flujos de punta a punta y ejemplos de borde (10:00 vs 10:05) |
 | [08_arquitectura_propuesta.md](knowledge-base/08_arquitectura_propuesta.md) | Capas, paquetes, seguridad, variables de entorno, testing |
 | [09_decisiones_y_supuestos.md](knowledge-base/09_decisiones_y_supuestos.md) | Decisiones DD-01 a DD-09 y supuestos SU-01 a SU-06 |
 | [10_preguntas_abiertas.md](knowledge-base/10_preguntas_abiertas.md) | ⚠️ Inconsistencias y preguntas a resolver ANTES de codear |

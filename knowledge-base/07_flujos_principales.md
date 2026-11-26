@@ -43,7 +43,8 @@ Secretaria → Controller → CrearTurno → Repositorios (JPA/H2)
 
 **Ejemplos de borde** (con margen de 5 minutos y un turno existente de 09:30 a 10:00 en el Sillón 1 con Ana):
 - Nuevo turno 10:05 a 10:35, Sillón 1, Ana → **aceptado**.
-- Nuevo turno 10:04 a 10:34, Sillón 1 → **rechazado** `CHOQUE_SILLON`.
+- Nuevo turno 10:00 a 10:30, Sillón 1 → **rechazado** `CHOQUE_SILLON` (empieza justo cuando termina el otro, sin los 5 minutos de margen).
+- Nuevo turno 10:04 a 10:34 → **rechazado** `ENTRADA_INVALIDA` (RN-TU-11: el inicio no es múltiplo de 5, y esa regla se valida antes que el sillón).
 - Nuevo turno 09:45 a 10:15, Sillón 2, Ana, sobreturno → **aceptado** (choca solo el profesional).
 - Nuevo turno 09:45 a 10:15, Sillón 1, Bruno, sobreturno → **rechazado** `CHOQUE_SILLON`.
 

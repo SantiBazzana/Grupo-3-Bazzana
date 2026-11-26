@@ -217,7 +217,7 @@ Objetivo: que los 6 changes de la ola 1 se puedan desarrollar y mergear en cualq
   - **Escenarios verificables (mínimo 3, un test por escenario)**:
     - Feliz: turno de 30 min (Control) en sillón y profesional libres, se persiste `RESERVADO` con `fin = inicio + 30`.
     - Error de negocio: turno que choca con el sillón ocupado → `CHOQUE_SILLON` 409; mismo profesional ocupado → `CHOQUE_PROFESIONAL` 409; paciente superpuesto → `CHOQUE_PACIENTE`.
-    - Borde: existente 09:30-10:00; nuevo a las 10:05 se acepta y a las 10:04 se rechaza (margen de 5 min).
+    - Borde: existente 09:30-10:00; nuevo a las 10:05 se acepta y a las 10:00 se rechaza (margen de 5 min). El plan original decía 10:04; se ajustó en el explore porque RN-TU-11 (múltiplos de 5) lo rechaza antes.
     - Otros escenarios del spec: sobreturno con profesional ocupado y otro sillón se acepta; sobreturno con el sillón ocupado se rechaza; turno en el pasado → `TURNO_EN_PASADO` 422; fuera de horario (empieza antes de abrir o termina después de cerrar) → `FUERA_DE_HORARIO` 422; un turno `CANCELADO` (estado fijado desde el fixture) no bloquea el horario; recurso inactivo → `RECURSO_INACTIVO`; orden de validación RN-TU-09.
   - Decisiones previas en `explore`: PA-03 (¿el margen aplica entre turno y su sobreturno con el mismo profesional? supuesto SU-04: no), PA-04 (quién marca sobreturno), PA-07 (múltiplos de 5 o cualquier minuto), PA-06 (concurrencia).
   - Tests: unitarios de dominio con `Clock.fixed`, de caso de uso y de API (`@SpringBootTest` + MockMvc sobre H2).
