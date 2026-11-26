@@ -22,7 +22,7 @@
 - **Modalidad**: web (app.bilog.com.ar), app iOS/Android y escritorio.
 - **Agenda**: [COMPROBADO] vista diaria, semanal o por profesional; mover turnos arrastrándolos y estirarlos para cambiar la duración; sobreturno desde la app; múltiples profesionales y consultorios. Sillones/boxes, bloqueos y prevención de solapamientos: No evidenciado.
 - **Turnos digitales**: [COMPROBADO] agenda online para reservar, cancelar y consultar, con acceso por QR o link. Chatbot "iAngela" para sacar turno [COMERCIAL]. Lista de espera: No evidenciado.
-- **Automatización**: [COMPROBADO] recordatorios por WhatsApp, SMS y email; estado de presentismo y "ausente con aviso". Campañas y recuperación de pacientes: No evidenciado.
+- **Automatización**: [COMPROBADO] recordatorios por WhatsApp y SMS; email [COMERCIAL, solo en llms.txt]; estado de presentismo y "ausente con aviso". Campañas y recuperación de pacientes: No evidenciado.
 - **Clínica**: ficha, odontograma, tratamientos, adjuntos, presupuestos y consentimientos con firma por QR. Anamnesis y periodontograma: No evidenciado.
 - **Administración**: caja, liquidación de obras sociales, pagos y reportes. Mercado Pago y ARCA: No evidenciado.
 - **Integraciones**: firma electrónica (Ley 25.506). El propio sitio declara "No hay una API pública documentada".
@@ -109,7 +109,7 @@
 - **Empresa / país**: Órbita Global, La Plata, Argentina · https://hiorbita.com/
 - **Segmento**: consultorios y clínicas odontológicas; plan Red para 4 o más sedes.
 - **Modalidad**: SaaS en navegador; app de chat en iOS; AWS.
-- **Agenda**: [COMPROBADO] **agenda por sillón que impide el choque y ofrece horarios libres**; tutorial de bloqueo de horarios (solo título). Vistas y duración: No evidenciado.
+- **Agenda**: [COMERCIAL, producto en preventa al 2026-11-26] **agenda por sillón que impide el choque y ofrece horarios libres**; tutorial de bloqueo de horarios (solo título). Vistas y duración: No evidenciado.
 - **Turnos digitales**: [COMPROBADO] chat de IA en WhatsApp (API oficial de Meta) que atiende 24 h, da, reagenda y cancela turnos, con confirmación por botones.
 - **Automatización**: recordatorios a 48 y 24 h; recontacto de quien consultó y no volvió; pedido de reseña.
 - **Clínica**: odontograma por voz [COMPROBADO], periodontograma, historia clínica con registro de correcciones, presupuestos.
@@ -151,7 +151,7 @@
 - **Administración**: [COMPROBADO] caja, **seña o pago con Mercado Pago**, cuotas, QR y link de pago. Obras sociales: No evidenciado. Factura electrónica "Próximamente".
 - **Integraciones**: Mercado Pago, Google Calendar, WhatsApp; API pública a USD 200/mes.
 - **Seguridad**: cita las Leyes 25.326 y 26.529, cifrado, AWS (texto leído de forma parcial).
-- **Comercial**: prueba de 14 días; ARS 9.900 / 19.900 / 39.900 / 129.900 por mes; extras por profesional. La portada dice "desde $13.900", lo que no coincide con la página de planes.
+- **Comercial**: prueba de 14 días; ARS 9.900 / 19.900 / 39.900 / 129.900 por mes; extras por profesional. Al 2026-11-26 los precios aclaran "IVA incluido" y la portada ya no dice "desde $13.900" (la inconsistencia del 2026-11-20 desapareció).
 - **Adopción**: "+30.000 clínicas en LATAM", 4,8 con "+1.200 reseñas" [COMERCIAL].
 - **Fuentes**: https://agendapro.com/ar · /ar/planes · /ar/dental/software-odontologico
 
